@@ -6,9 +6,11 @@
 
 | 项目 | 当前历史起点 | 说明 |
 |---|---|---|
-| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.1.1` | 帝国行省自由军兵种拓展 MOD |
+| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.2.0` | 帝国行省自由军兵种拓展 MOD；已完成 T2–T5 原型兵种线与简体中文本地化 |
 
 游戏安装目录只用于部署和实机测试；本仓库保存正式源代码与开发历史。
+
+版本历史从已经通过实机测试的 `v0.1.1` 起步，并保留对应 Git 标签；当前开发快照为 `v0.2.0`。
 
 ## 许可
 

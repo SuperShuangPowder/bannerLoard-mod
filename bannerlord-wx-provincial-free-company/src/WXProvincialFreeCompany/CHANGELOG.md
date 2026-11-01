@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.2.0-full-line-prototype — 2026-11-01
+
+- 新增 T3 `wx_provincial_auxiliary`（Provincial Auxiliary／行省辅兵）。
+- 新增 T4 `wx_free_company_warrior`（Free Company Warrior／自由军团战士）。
+- 新增 T5 `wx_free_company_veteran`（Free Company Veteran／自由军团老兵）。
+- 将 T2 至 T5 串联为完整单线升级路线。
+- 为四个新增兵种加入简体中文本地化。
+- 全线使用 SandBoxCore 原版装备，不依赖 War Sails 专属资产。
+- 高阶兵种强化长杆、投掷与跑动，降低单手与护甲预算，避免成为帝国军团步兵的完全上位替代。
+
 ## v0.1.1-t2-prototype — 2026-11-01
 
 - 新增 T2 `wx_provincial_levy`（Provincial Levy／行省征召兵）原型。

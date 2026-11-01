@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      type="string">
+  <tags>
+    <tag language="简体中文" />
+  </tags>
+  <strings>
+    <string id="wx_provincial_levy_name" text="行省征召兵" />
+    <string id="wx_provincial_auxiliary_name" text="行省辅兵" />
+    <string id="wx_free_company_warrior_name" text="自由军团战士" />
+    <string id="wx_free_company_veteran_name" text="自由军团老兵" />
+  </strings>
+</base>
