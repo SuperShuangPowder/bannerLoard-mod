@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Module>
+  <Name value="WX Provincial Free Company" />
+  <Id value="WXProvincialFreeCompany" />
+  <Version value="v0.1.1" />
+  <DefaultModule value="false" />
+  <ModuleCategory value="Singleplayer" />
+  <DependedModules>
+    <DependedModule Id="Native" DependentVersion="v1.4.8" Optional="false" />
+    <DependedModule Id="SandBoxCore" DependentVersion="v1.4.8" Optional="false" />
+  </DependedModules>
+  <SubModules />
+  <Xmls>
+    <XmlNode>
+      <XmlName id="NPCCharacters" path="spnpccharacters" />
+      <IncludedGameTypes>
+        <GameType value="Campaign" />
+        <GameType value="CampaignStoryMode" />
+        <GameType value="CustomGame" />
+        <GameType value="EditorGame" />
+      </IncludedGameTypes>
+    </XmlNode>
+  </Xmls>
+</Module>
