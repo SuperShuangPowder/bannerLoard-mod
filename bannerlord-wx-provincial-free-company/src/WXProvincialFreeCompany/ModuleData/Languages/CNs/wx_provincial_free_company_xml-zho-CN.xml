@@ -7,8 +7,17 @@
   </tags>
   <strings>
     <string id="wx_provincial_levy_name" text="行省征召兵" />
-    <string id="wx_provincial_auxiliary_name" text="行省辅兵" />
-    <string id="wx_free_company_warrior_name" text="自由军团战士" />
-    <string id="wx_free_company_veteran_name" text="自由军团老兵" />
+    <string id="wx_northern_provincial_auxiliary_name" text="北境行省辅兵" />
+    <string id="wx_northern_free_company_warrior_name" text="北境自由军战士" />
+    <string id="wx_northern_free_company_veteran_name" text="北境自由军老兵" />
+    <string id="wx_southern_provincial_auxiliary_name" text="南境行省辅兵" />
+    <string id="wx_southern_free_company_warrior_name" text="南境自由军战士" />
+    <string id="wx_southern_free_company_veteran_name" text="南境自由军老兵" />
+    <string id="wx_eastern_provincial_auxiliary_name" text="东境行省辅兵" />
+    <string id="wx_eastern_free_company_warrior_name" text="东境自由军战士" />
+    <string id="wx_eastern_free_company_veteran_name" text="东境自由军老兵" />
+    <string id="wx_western_provincial_auxiliary_name" text="西境行省辅兵" />
+    <string id="wx_western_free_company_warrior_name" text="西境自由军战士" />
+    <string id="wx_western_free_company_veteran_name" text="西境自由军老兵" />
   </strings>
 </base>
