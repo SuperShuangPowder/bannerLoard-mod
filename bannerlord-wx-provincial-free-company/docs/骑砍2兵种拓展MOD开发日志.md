@@ -1545,6 +1545,14 @@ Tier = ceil((Level - 5) / 5)
 - [ ] 战役百科中两种兵稳定显示金色头盔。
 - [ ] 已有测试存档能够正常加载，两种兵的技能、升级关系和其他装备没有异常。
 
+### 7. Git 发布与合并
+
+- 开发分支：`fix/v0.3.4-xslt-ranged-helmets`。
+- 核心修复提交：`47111a5`（`fix: replace Imperial ranged helmets via XSLT in v0.3.4`）。
+- Pull Request：[PR #4：v0.3.4 使用 XSLT 稳定替换帝国远程兵头盔](https://github.com/SuperShuangPowder/bannerLoard-mod/pull/4)。
+- PR 初始差异：7 个文件、107 行新增、92 行删除；GitHub 判定可合并，仓库未配置 CI 检查。
+- 合并方式：完成差异检查后，以 squash merge 合并到 `main`。
+
 阶段说明：本轮只完成源码修改、XSLT 内存转换、Schema 校验和模块部署，没有启动 Steam、Modding Kit、Launcher 或游戏；实机验收继续由用户手动完成。
 
 ---
@@ -1585,7 +1593,7 @@ Tier = ceil((Level - 5) / 5)
 - [x] 根据用户实机反馈确认 v0.3.3 的原版远程兵装备节点被合并器追加，而不是替换。
 - [x] 完成 v0.3.4 XSLT 精确头盔替换、Schema 校验与安装目录部署。
 - [ ] 由用户手动完成 v0.3.4 两种帝国 T5 远程兵的稳定金盔与装备池验收。
-- [ ] 将 v0.3.4 修复分支推送至 GitHub，创建 PR 并合并到 `main`。
+- [x] 将 v0.3.4 修复分支推送至 GitHub，通过 PR #4 以 squash 方式合并到 `main`。
 - [ ] 在 1.4.8 的 `SandBoxCore` 与 `NavalDLC` 数据中重新生成帝国平民兵种的最终合并树。
 - [ ] 重新核对 T2、T3、T4、T5 技能模板和装备 ID。
 - [ ] 研究并验证 1.4.8 的 Schema/XML 合并机制。
