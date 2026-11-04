@@ -10,9 +10,9 @@
     <string id="wx_northern_provincial_auxiliary_name" text="北境行省辅兵" />
     <string id="wx_northern_free_company_warrior_name" text="北境自由军盾斧兵" />
     <string id="wx_northern_free_company_veteran_name" text="北境自由军盾卫" />
-    <string id="wx_southern_provincial_auxiliary_name" text="南境行省辅兵" />
-    <string id="wx_southern_free_company_warrior_name" text="南境自由军战士" />
-    <string id="wx_southern_free_company_veteran_name" text="南境自由军老兵" />
+    <string id="wx_southern_provincial_auxiliary_name" text="南境行省掷矛兵" />
+    <string id="wx_southern_free_company_warrior_name" text="南境自由军突击兵" />
+    <string id="wx_southern_free_company_veteran_name" text="南境自由军破阵卫" />
     <string id="wx_eastern_provincial_auxiliary_name" text="东境行省辅兵" />
     <string id="wx_eastern_free_company_warrior_name" text="东境自由军战士" />
     <string id="wx_eastern_free_company_veteran_name" text="东境自由军老兵" />
