@@ -722,7 +722,7 @@ ModuleData\Languages\CNs\wx_provincial_free_company_xml-zho-CN.xml
 ### 1. 仓库位置
 
 - GitHub：<https://github.com/SuperShuangPowder/bannerLoard-mod>
-- 本地仓库：`D:\CodexProject\独立游戏开发之梦与计划\一阶段-MOD制作\bannerLoard-mod`
+- 本地仓库目录：`bannerLoard-mod`
 - 项目目录：`bannerlord-wx-provincial-free-company`
 - 正式模块源码：`bannerlord-wx-provincial-free-company\src\WXProvincialFreeCompany`
 
@@ -1476,11 +1476,76 @@ Tier = ceil((Level - 5) / 5)
 - [ ] 北境 T4 两套装备均出现长亚麻毛皮披肩。
 - [ ] 北境 T5 两套长毛皮方案与一套狼皮方案均能随机出现。
 - [ ] 毛皮肩甲与帝国头盔、军团甲、札甲之间没有明显穿模、悬空或领口遮挡。
-- [ ] 帝国禁卫射手和帝国军士弩手在自定义战斗、战役百科与实战中均显示金色禁卫射手盔。
+- [x] 帝国禁卫射手和帝国军士弩手的头盔随机方案已检查；验收失败：v0.3.3 将金色头盔套装追加到原版装备池，原版头盔仍会随机出现，问题转入 v0.3.4 修复。
 - [ ] 两种帝国 T5 远程兵的武器、弹药、副武器和盾牌仍与原版一致。
 - [ ] 禁用 NavalDLC 时模块被正确阻止加载或给出依赖提示，而不是进入战斗后崩溃。
 
 阶段说明：本轮不启动 Steam、Modding Kit、Launcher 或游戏；实机验收继续由用户手动完成。
+
+---
+
+## 记录 015：v0.3.4 帝国远程兵头盔 XSLT 修复
+
+**日期：** 2026-11-04
+**目标：** 修复 v0.3.3 仅向帝国禁卫射手和帝国军士弩手追加金色头盔套装、未真正取代原版头盔的问题。
+**环境：** Bannerlord `v1.4.8`、War Sails / NavalDLC `v1.2.8`、模块 `WXProvincialFreeCompany v0.3.4`
+
+### 1. 用户验收发现
+
+- v0.3.3 的北境毛皮肩甲等内容大体正常。
+- 帝国禁卫射手与帝国军士弩手能够随机出现金色禁卫射手盔，但原版圆顶锅盔仍然存在。
+- 这说明 v0.3.3 写入的三套装备并未覆盖原版三套方案，而是被游戏追加到了原版装备池。
+
+### 2. 根因
+
+- Bannerlord `v1.3+` 的托管 XML 合并会根据唯一属性识别同一个元素。
+- `EquipmentRoster` 没有可供合并器逐套匹配的唯一 ID，因此局部 XML 中的三个装备套装被视为新元素。
+- v0.3.3 的静态检查只能证明新增的六个 `Head` 槽写成了金色头盔，不能证明运行时合并后原版套装已被删除；实机验收暴露了这一检查盲区。
+- 对原版兵种内部无唯一 ID 的嵌套列表进行精确修改，应使用 TaleWorlds 官方支持的 XSLT 转换，而不是继续追加同 ID 的局部兵种节点。
+
+### 3. v0.3.4 实现
+
+- 从 `spnpccharacters.xml` 删除 `imperial_palatine_guard` 与 `imperial_sergeant_crossbowman` 两个局部覆盖节点，避免继续追加六套金盔装备方案。
+- 新增 `ModuleData/spnpccharacters.xslt`。
+- XSLT 先以恒等规则原样复制全部原版 NPC 数据，再精确匹配以下节点：
+  - `imperial_palatine_guard` 的所有战斗 `EquipmentRoster/equipment[@slot='Head']`；
+  - `imperial_sergeant_crossbowman` 的所有战斗 `EquipmentRoster/equipment[@slot='Head']`。
+- 六个目标头盔槽统一替换为 `Item.empire_lord_helmet`，即官方简中“禁卫射手盔”。
+- 不修改原版模块文件，不增加 DLL 或 Harmony，不触碰两种兵的武器、弹药、盾牌、其他甲胄、技能、等级和升级关系。
+
+### 4. 静态验证
+
+| 项目 | 结果 |
+|---|---|
+| 模组 `spnpccharacters.xml` 解析 | 通过 |
+| `spnpccharacters.xslt` 编译 | 通过 |
+| 模组 XML 中两种原版兵的重复节点 | 0 个 |
+| 帝国禁卫射手战斗装备数量 | 转换前 3 套，转换后仍为 3 套 |
+| 帝国军士弩手战斗装备数量 | 转换前 3 套，转换后仍为 3 套 |
+| 转换后头盔 | 6/6 均为 `Item.empire_lord_helmet` |
+| 非头盔装备 | 转换前后逐槽完全一致 |
+| 模组 XML 的 `NPCCharacters.xsd` | 通过 |
+| 转换后原版 XML 的 `NPCCharacters.xsd` | 通过 |
+| 仓库源码与安装副本 | 7 个文件哈希全部一致 |
+| 已安装模块版本 | `v0.3.4` |
+
+### 5. 分支与回滚
+
+- 开发分支：`fix/v0.3.4-xslt-ranged-helmets`。
+- v0.3.3 回滚基线：本地与远端 `main` 提交 `9f310e8`。
+- v0.3.3 的全部源码与文档已经由 Git 提交和 GitHub 远端双重保存。
+- 回滚时可恢复 v0.3.3 的 `spnpccharacters.xml` 和 `SubModule.xml`，并删除 `spnpccharacters.xslt`。
+
+### 6. v0.3.4 手动验收项目
+
+- [ ] Launcher 显示模块版本 `v0.3.4`，并在 NavalDLC 之后加载，无 XML/XSLT 错误。
+- [ ] 自定义战斗中多次刷新帝国禁卫射手，始终显示金色禁卫射手盔。
+- [ ] 自定义战斗中多次刷新帝国军士弩手，始终显示金色禁卫射手盔。
+- [ ] 两种兵仍只随机使用原版三套武器和防具组合，没有出现重复套装、裸体或缺失装备。
+- [ ] 战役百科中两种兵稳定显示金色头盔。
+- [ ] 已有测试存档能够正常加载，两种兵的技能、升级关系和其他装备没有异常。
+
+阶段说明：本轮只完成源码修改、XSLT 内存转换、Schema 校验和模块部署，没有启动 Steam、Modding Kit、Launcher 或游戏；实机验收继续由用户手动完成。
 
 ---
 
@@ -1517,6 +1582,10 @@ Tier = ceil((Level - 5) / 5)
 - [ ] 由用户手动完成 `v0.3.3` 毛皮肩甲穿模、随机方案与帝国 T5 远程军容测试。
 - [ ] 验证 T2 同时拥有四个 T3 升级目标时，玩家界面和 NPC 自动升级的表现。
 - [ ] 在下一个 Git 里程碑中同步本开发日志的最新公开快照。
+- [x] 根据用户实机反馈确认 v0.3.3 的原版远程兵装备节点被合并器追加，而不是替换。
+- [x] 完成 v0.3.4 XSLT 精确头盔替换、Schema 校验与安装目录部署。
+- [ ] 由用户手动完成 v0.3.4 两种帝国 T5 远程兵的稳定金盔与装备池验收。
+- [ ] 将 v0.3.4 修复分支推送至 GitHub，创建 PR 并合并到 `main`。
 - [ ] 在 1.4.8 的 `SandBoxCore` 与 `NavalDLC` 数据中重新生成帝国平民兵种的最终合并树。
 - [ ] 重新核对 T2、T3、T4、T5 技能模板和装备 ID。
 - [ ] 研究并验证 1.4.8 的 Schema/XML 合并机制。
