@@ -1627,6 +1627,14 @@ Tier = ceil((Level - 5) / 5)
 - [ ] 共同 T2 仍可正常升级至南境 T3，南境 T3、T4 后续升级关系正常。
 - [ ] 北境、东境、西境以及帝国禁卫射手/军士弩手没有出现回归问题。
 
+### 7. Git 发布与合并
+
+- 开发分支：`feature/v0.3.5-southern-line`。
+- 核心功能提交：`f95e817`（`feat: implement v0.3.5 southern javelin line`）。
+- Pull Request：[PR #5：v0.3.5 南境标枪突击步兵线](https://github.com/SuperShuangPowder/bannerLoard-mod/pull/5)。
+- PR 初始差异：7 个文件、148 行新增、57 行删除；GitHub 判定可合并，仓库未配置 CI 检查。
+- 合并方式：完成差异检查后，以 squash merge 合并到 `main`。
+
 阶段说明：本轮不启动 Steam、Modding Kit、Launcher 或游戏；实机验收继续由用户手动完成。
 
 ---
@@ -1670,7 +1678,7 @@ Tier = ceil((Level - 5) / 5)
 - [x] 将 v0.3.4 修复分支推送至 GitHub，通过 PR #4 以 squash 方式合并到 `main`。
 - [x] 完成 v0.3.5 南境 T3–T5 名称、双手武器、单组标枪、帝国/阿塞莱混合甲胄与技能重构。
 - [ ] 由用户手动完成 v0.3.5 南境线外观、投掷切换、同阶战斗力与升级关系验收。
-- [ ] 将 v0.3.5 功能分支推送至 GitHub，创建 PR 并合并到 `main`。
+- [x] 将 v0.3.5 功能分支推送至 GitHub，通过 PR #5 以 squash 方式合并到 `main`。
 - [ ] 在 1.4.8 的 `SandBoxCore` 与 `NavalDLC` 数据中重新生成帝国平民兵种的最终合并树。
 - [ ] 重新核对 T2、T3、T4、T5 技能模板和装备 ID。
 - [ ] 研究并验证 1.4.8 的 Schema/XML 合并机制。
