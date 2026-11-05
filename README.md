@@ -6,11 +6,11 @@
 
 | 项目 | 当前历史起点 | 说明 |
 |---|---|---|
-| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.3.7` 开发中 | 帝国行省自由军兵种拓展 MOD；北、南、东、西四条地域路线均已完成第一版深化 |
+| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.3.8` 开发中 | 帝国行省自由军兵种拓展 MOD；四条地域路线完成第一版深化与首轮实测平衡修复 |
 
 游戏安装目录只用于部署和实机测试；本仓库保存正式源代码与开发历史。
 
-版本历史从已经通过实机测试的 `v0.1.1` 起步；`v0.2.0` 已通过战役与自定义战斗功能验收，当前开发快照为 `v0.3.7-eastern-horse-archer-line`。
+版本历史从已经通过实机测试的 `v0.1.1` 起步；`v0.2.0` 已通过战役与自定义战斗功能验收，当前开发快照为 `v0.3.8-western-eastern-balance`。
 
 ## 许可
 
