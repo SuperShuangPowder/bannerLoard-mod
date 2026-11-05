@@ -6,6 +6,14 @@
     <tag language="简体中文" />
   </tags>
   <strings>
+    <string id="wx_northern_borderlander_name" text="北境边民" />
+    <string id="wx_northern_provincial_levy_name" text="北境行省征召兵" />
+    <string id="wx_southern_borderlander_name" text="南境边民" />
+    <string id="wx_southern_provincial_levy_name" text="南境行省征召兵" />
+    <string id="wx_western_borderlander_name" text="西境边民" />
+    <string id="wx_western_provincial_levy_name" text="西境行省征召兵" />
+    <string id="wx_eastern_borderlander_name" text="东境边民" />
+    <string id="wx_eastern_provincial_levy_name" text="东境行省征召兵" />
     <string id="wx_provincial_levy_name" text="行省征召兵" />
     <string id="wx_northern_provincial_auxiliary_name" text="北境行省辅兵" />
     <string id="wx_northern_free_company_warrior_name" text="北境自由军盾斧兵" />
