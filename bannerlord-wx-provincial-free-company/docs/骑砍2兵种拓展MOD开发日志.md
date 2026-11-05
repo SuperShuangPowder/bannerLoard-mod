@@ -2439,7 +2439,9 @@ return original;
 ### 8. Git 发布
 
 - 功能分支：`feature/v0.4.1-regional-visual-identity`。
-- 功能提交、Pull Request 与合并提交将在完成远端发布后补记。
+- 核心功能提交：`296ab8cc409640f07c2c265e3ae15cf8545de107`（`feat: strengthen regional low-tier visual identity in v0.4.1`）。
+- Pull Request：[PR #10：v0.4.1 重构地域低阶兵视觉身份](https://github.com/SuperShuangPowder/bannerLoard-mod/pull/10)。
+- 完成发布记录同步后计划以 squash merge 合并到 `main`。
 
 ---
 
