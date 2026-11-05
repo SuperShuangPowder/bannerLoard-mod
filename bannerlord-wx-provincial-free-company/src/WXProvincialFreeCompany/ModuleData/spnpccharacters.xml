@@ -26,17 +26,19 @@
     </upgrade_targets>
     <Equipments>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.peasant_maul_t1_2" />
+        <equipment slot="Item0" id="Item.peasant_hatchet_1_t1" />
         <equipment slot="Head" id="Item.fur_hood" />
-        <equipment slot="Body" id="Item.footmans_tunic" />
-        <equipment slot="Leg" id="Item.empire_horseman_boots" />
+        <equipment slot="Body" id="Item.tundra_tunic" />
+        <equipment slot="Leg" id="Item.highland_leg_wrappings" />
+        <equipment slot="Gloves" id="Item.ragged_armwraps" />
       </EquipmentRoster>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.peasant_pitchfork_2_t1" />
-        <equipment slot="Head" id="Item.leather_cap" />
-        <equipment slot="Body" id="Item.tunic_with_shoulder_pads" />
+        <equipment slot="Item0" id="Item.peasant_hammer_1_t1" />
+        <equipment slot="Head" id="Item.fur_hood" />
+        <equipment slot="Body" id="Item.tundra_tunic" />
         <equipment slot="Cape" id="Item.scarf" />
-        <equipment slot="Leg" id="Item.empire_horseman_boots" />
+        <equipment slot="Leg" id="Item.highland_leg_wrappings" />
+        <equipment slot="Gloves" id="Item.ragged_armwraps" />
       </EquipmentRoster>
       <EquipmentSet
         id="empire_troop_civilian_template_t1"
@@ -73,7 +75,7 @@
         <equipment slot="Item1" id="Item.strapped_round_shield" />
         <equipment slot="Head" id="Item.arming_coif" />
         <equipment slot="Body" id="Item.empire_warrior_padded_armor_a" />
-        <equipment slot="Cape" id="Item.scarf" />
+        <equipment slot="Cape" id="Item.fur_cloak_b" />
         <equipment slot="Leg" id="Item.empire_horseman_boots" />
         <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
       </EquipmentRoster>
@@ -82,6 +84,7 @@
         <equipment slot="Item1" id="Item.strapped_round_shield" />
         <equipment slot="Head" id="Item.imperial_cloth_coif" />
         <equipment slot="Body" id="Item.empire_warrior_padded_armor_b" />
+        <equipment slot="Cape" id="Item.fur_cloak_b" />
         <equipment slot="Leg" id="Item.empire_horseman_boots" />
         <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
       </EquipmentRoster>
@@ -117,19 +120,20 @@
     </upgrade_targets>
     <Equipments>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.peasant_sickle_1_t1" />
+        <equipment slot="Item0" id="Item.peasant_2haxe_1_t1" />
         <equipment slot="Item1" id="Item.throwing_stone" />
-        <equipment slot="Head" id="Item.merchants_hat" />
-        <equipment slot="Body" id="Item.tied_cloth_tunic" />
+        <equipment slot="Head" id="Item.aserai_civil_c_head" />
         <equipment slot="Cape" id="Item.wrapped_scarf" />
-        <equipment slot="Leg" id="Item.leather_cavalier_boots" />
+        <equipment slot="Leg" id="Item.wrapped_shoes" />
+        <equipment slot="Gloves" id="Item.ragged_armwraps" />
       </EquipmentRoster>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.peasant_maul_t1_2" />
-        <equipment slot="Head" id="Item.imperial_cloth_coif" />
-        <equipment slot="Body" id="Item.footmans_tunic" />
-        <equipment slot="Cape" id="Item.wrapped_scarf" />
-        <equipment slot="Leg" id="Item.leather_cavalier_boots" />
+        <equipment slot="Item0" id="Item.peasant_sickle_1_t1" />
+        <equipment slot="Item1" id="Item.throwing_stone" />
+        <equipment slot="Head" id="Item.aserai_civil_e_hscarf" />
+        <equipment slot="Body" id="Item.aserai_civil_e" />
+        <equipment slot="Leg" id="Item.eastern_leather_boots" />
+        <equipment slot="Gloves" id="Item.ragged_armwraps" />
       </EquipmentRoster>
       <EquipmentSet
         id="empire_troop_civilian_template_t1"
@@ -211,16 +215,16 @@
     </upgrade_targets>
     <Equipments>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.peasant_maul_t1_2" />
-        <equipment slot="Head" id="Item.leather_cap" />
-        <equipment slot="Body" id="Item.footmans_tunic" />
+        <equipment slot="Item0" id="Item.peasant_pickaxe_1_t1" />
+        <equipment slot="Head" id="Item.padded_cap" />
+        <equipment slot="Body" id="Item.sackcloth_tunic" />
         <equipment slot="Cape" id="Item.hood" />
         <equipment slot="Leg" id="Item.strapped_shoes" />
       </EquipmentRoster>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.peasant_pitchfork_2_t1" />
-        <equipment slot="Head" id="Item.merchants_hat" />
-        <equipment slot="Body" id="Item.tunic_with_shoulder_pads" />
+        <equipment slot="Item0" id="Item.peasant_hammer_1_t1" />
+        <equipment slot="Head" id="Item.leather_cap" />
+        <equipment slot="Body" id="Item.bandit_leather_water_flask" />
         <equipment slot="Cape" id="Item.hood" />
         <equipment slot="Leg" id="Item.strapped_shoes" />
       </EquipmentRoster>
@@ -270,7 +274,7 @@
         <equipment slot="Item2" id="Item.vlandia_sword_1_t2" />
         <equipment slot="Head" id="Item.arming_coif" />
         <equipment slot="Body" id="Item.empire_warrior_padded_armor_b" />
-        <equipment slot="Cape" id="Item.scarf" />
+        <equipment slot="Cape" id="Item.hood" />
         <equipment slot="Leg" id="Item.leather_cavalier_boots" />
         <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
       </EquipmentRoster>
@@ -309,8 +313,8 @@
         <equipment slot="Item0" id="Item.hunting_bow" />
         <equipment slot="Item1" id="Item.range_arrows" />
         <equipment slot="Item2" id="Item.peasant_polearm_1_t1" />
-        <equipment slot="Head" id="Item.roughhide_cap" />
-        <equipment slot="Body" id="Item.tied_cloth_tunic" />
+        <equipment slot="Head" id="Item.nomad_padded_hood" />
+        <equipment slot="Body" id="Item.khuzait_civil_coat_b" />
         <equipment slot="Cape" id="Item.wrapped_scarf" />
         <equipment slot="Leg" id="Item.eastern_leather_boots" />
       </EquipmentRoster>
@@ -318,8 +322,8 @@
         <equipment slot="Item0" id="Item.hunting_bow" />
         <equipment slot="Item1" id="Item.range_arrows" />
         <equipment slot="Item2" id="Item.peasant_polearm_1_t1" />
-        <equipment slot="Head" id="Item.fur_hood" />
-        <equipment slot="Body" id="Item.tunic_with_shoulder_pads" />
+        <equipment slot="Head" id="Item.roughhide_cap" />
+        <equipment slot="Body" id="Item.steppe_armor" />
         <equipment slot="Leg" id="Item.eastern_leather_boots" />
       </EquipmentRoster>
       <EquipmentSet
