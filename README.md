@@ -6,11 +6,11 @@
 
 | 项目 | 当前历史起点 | 说明 |
 |---|---|---|
-| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.4.1` 开发中 | 帝国行省自由军兵种拓展 MOD；强化四套地域 T1/T2 的视觉身份与等级成长感 |
+| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.4.2` 开发中 | 帝国行省自由军兵种拓展 MOD；四条独立地域树与低阶兵种实测修正 |
 
 游戏安装目录只用于部署和实机测试；本仓库保存正式源代码与开发历史。
 
-版本历史从已经通过实机测试的 `v0.1.1` 起步；`v0.2.0` 已通过战役与自定义战斗功能验收，当前开发快照为 `v0.4.1-regional-visual-identity`。
+版本历史从已经通过实机测试的 `v0.1.1` 起步；`v0.2.0` 已通过战役与自定义战斗功能验收，当前开发快照为 `v0.4.2-isolated-regional-trees`。
 
 ## 许可
 

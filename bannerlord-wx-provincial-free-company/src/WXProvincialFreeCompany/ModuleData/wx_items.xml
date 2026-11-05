@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Items>
+  <Item
+    id="wx_crude_hunting_arrows"
+    name="{=wx_crude_hunting_arrows_name}Crude Hunting Arrows"
+    is_merchandise="false"
+    body_name="bo_capsule_arrow"
+    holster_body_name="bo_arrow_bl_i_quiver"
+    mesh="arrow_bl_i"
+    weight="0.043"
+    appearance="1"
+    flying_mesh="arrow_bl_flying"
+    holster_mesh="arrow_bl_i_quiver"
+    holster_mesh_with_weapon="arrow_bl_i_quiver"
+    Type="Arrows"
+    item_holsters="quiver_back_middle:quiver_bolts_2:quiver_bolts"
+    holster_position_shift="0.0,0.0,0.15">
+    <ItemComponent>
+      <Weapon
+        weapon_class="Arrow"
+        stack_amount="9"
+        thrust_speed="0"
+        speed_rating="0"
+        physics_material="missile"
+        missile_speed="10"
+        weapon_length="97"
+        thrust_damage="0"
+        thrust_damage_type="Pierce"
+        item_usage="arrow_right"
+        passby_sound_code="event:/mission/combat/missile/passby"
+        rotation="0, -80, 25"
+        sticking_position="0,-0.97,0"
+        sticking_rotation="90,0,0"
+        center_of_mass="0,0,-0.13"
+        modifier_group="arrow">
+        <WeaponFlags
+          Consumable="true"
+          AmmoSticksWhenShot="true"
+          AmmoBreaksOnBounceBack="true" />
+      </Weapon>
+    </ItemComponent>
+    <Flags />
+  </Item>
+</Items>

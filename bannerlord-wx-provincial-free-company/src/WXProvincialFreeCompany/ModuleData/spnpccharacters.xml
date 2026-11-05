@@ -168,19 +168,19 @@
       <EquipmentRoster>
         <equipment slot="Item0" id="Item.simple_sparth_axe_t2" />
         <equipment slot="Item1" id="Item.western_javelin_1_t2" />
-        <equipment slot="Head" id="Item.arming_coif" />
+        <equipment slot="Head" id="Item.aserai_civil_e_hscarf" />
         <equipment slot="Body" id="Item.empire_warrior_padded_armor_a" />
         <equipment slot="Cape" id="Item.wrapped_scarf" />
-        <equipment slot="Leg" id="Item.leather_cavalier_boots" />
+        <equipment slot="Leg" id="Item.eastern_leather_boots" />
         <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
       </EquipmentRoster>
       <EquipmentRoster>
         <equipment slot="Item0" id="Item.simple_sparth_axe_t2" />
         <equipment slot="Item1" id="Item.western_javelin_1_t2" />
-        <equipment slot="Head" id="Item.imperial_cloth_coif" />
-        <equipment slot="Body" id="Item.empire_warrior_padded_armor_b" />
+        <equipment slot="Head" id="Item.desert_cap" />
+        <equipment slot="Body" id="Item.desert_padded_cloth" />
         <equipment slot="Cape" id="Item.desert_leather_shoulderpad" />
-        <equipment slot="Leg" id="Item.leather_cavalier_boots" />
+        <equipment slot="Leg" id="Item.eastern_leather_boots" />
         <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
       </EquipmentRoster>
       <EquipmentSet
@@ -301,7 +301,7 @@
       <skill id="OneHanded" value="10" />
       <skill id="TwoHanded" value="10" />
       <skill id="Polearm" value="20" />
-      <skill id="Bow" value="20" />
+      <skill id="Bow" value="15" />
       <skill id="Crossbow" value="5" />
       <skill id="Throwing" value="10" />
     </skills>
@@ -311,8 +311,8 @@
     <Equipments>
       <EquipmentRoster>
         <equipment slot="Item0" id="Item.hunting_bow" />
-        <equipment slot="Item1" id="Item.range_arrows" />
-        <equipment slot="Item2" id="Item.peasant_polearm_1_t1" />
+        <equipment slot="Item1" id="Item.wx_crude_hunting_arrows" />
+        <equipment slot="Item2" id="Item.peasant_sickle_1_t1" />
         <equipment slot="Head" id="Item.nomad_padded_hood" />
         <equipment slot="Body" id="Item.khuzait_civil_coat_b" />
         <equipment slot="Cape" id="Item.wrapped_scarf" />
@@ -320,8 +320,8 @@
       </EquipmentRoster>
       <EquipmentRoster>
         <equipment slot="Item0" id="Item.hunting_bow" />
-        <equipment slot="Item1" id="Item.range_arrows" />
-        <equipment slot="Item2" id="Item.peasant_polearm_1_t1" />
+        <equipment slot="Item1" id="Item.wx_crude_hunting_arrows" />
+        <equipment slot="Item2" id="Item.peasant_sickle_1_t1" />
         <equipment slot="Head" id="Item.roughhide_cap" />
         <equipment slot="Body" id="Item.steppe_armor" />
         <equipment slot="Leg" id="Item.eastern_leather_boots" />
@@ -374,62 +374,6 @@
         <equipment slot="Body" id="Item.empire_warrior_padded_armor_b" />
         <equipment slot="Cape" id="Item.steppe_leather_shoulders" />
         <equipment slot="Leg" id="Item.eastern_leather_boots" />
-        <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
-      </EquipmentRoster>
-      <EquipmentSet
-        id="empire_troop_civilian_template_t1"
-        equipmentType="Civilian" />
-    </Equipments>
-  </NPCCharacter>
-
-  <NPCCharacter
-    id="wx_provincial_levy"
-    default_group="Infantry"
-    level="11"
-    name="{=wx_provincial_levy_name}Provincial Levy"
-    occupation="Soldier"
-    culture="Culture.empire">
-    <face>
-      <face_key_template value="BodyProperty.fighter_empire" />
-    </face>
-    <skills>
-      <skill id="Athletics" value="50" />
-      <skill id="Riding" value="5" />
-      <skill id="OneHanded" value="10" />
-      <skill id="TwoHanded" value="50" />
-      <skill id="Polearm" value="45" />
-      <skill id="Bow" value="5" />
-      <skill id="Crossbow" value="5" />
-      <skill id="Throwing" value="35" />
-    </skills>
-    <upgrade_targets>
-      <upgrade_target id="NPCCharacter.wx_northern_provincial_auxiliary" />
-      <upgrade_target id="NPCCharacter.wx_southern_provincial_auxiliary" />
-      <upgrade_target id="NPCCharacter.wx_eastern_provincial_auxiliary" />
-      <upgrade_target id="NPCCharacter.wx_western_provincial_auxiliary" />
-    </upgrade_targets>
-    <Equipments>
-      <EquipmentRoster>
-        <equipment slot="Item0" id="Item.simple_sparth_axe_t2" />
-        <equipment slot="Item1" id="Item.western_javelin_1_t2" />
-        <equipment slot="Head" id="Item.arming_coif" />
-        <equipment slot="Body" id="Item.empire_warrior_padded_armor_a" />
-        <equipment slot="Leg" id="Item.empire_horseman_boots" />
-        <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
-      </EquipmentRoster>
-      <EquipmentRoster>
-        <equipment slot="Item0" id="Item.peasant_maul_t1_2" />
-        <equipment slot="Item1" id="Item.throwing_stone" />
-        <equipment slot="Head" id="Item.imperial_cloth_coif" />
-        <equipment slot="Body" id="Item.tunic_with_shoulder_pads" />
-        <equipment slot="Leg" id="Item.empire_horseman_boots" />
-        <equipment slot="Cape" id="Item.scarf" />
-      </EquipmentRoster>
-      <EquipmentRoster>
-        <equipment slot="Item0" id="Item.billhook_polearm_t2" />
-        <equipment slot="Head" id="Item.laced_cloth_coif" />
-        <equipment slot="Body" id="Item.empire_warrior_padded_armor_b" />
-        <equipment slot="Leg" id="Item.empire_horseman_boots" />
         <equipment slot="Gloves" id="Item.buttoned_leather_bracers" />
       </EquipmentRoster>
       <EquipmentSet
@@ -1039,7 +983,7 @@
         <equipment slot="Item1" id="Item.bolt_c" />
         <equipment slot="Item2" id="Item.bolt_c" />
         <equipment slot="Item3" id="Item.vlandia_sword_4_t4" />
-        <equipment slot="Head" id="Item.heavy_nasalhelm_over_imperial_mail" />
+        <equipment slot="Head" id="Item.kettle_hat_over_mail_coif" />
         <equipment slot="Body" id="Item.empire_legion_b" />
         <equipment slot="Cape" id="Item.padded_leather_shoulders" />
         <equipment slot="Leg" id="Item.mail_cavalier_boots" />
@@ -1062,11 +1006,4 @@
     </Equipments>
   </NPCCharacter>
 
-  <NPCCharacter
-    id="imperial_recruit"
-    culture="Culture.empire">
-    <upgrade_targets>
-      <upgrade_target id="NPCCharacter.wx_provincial_levy" />
-    </upgrade_targets>
-  </NPCCharacter>
 </NPCCharacters>
