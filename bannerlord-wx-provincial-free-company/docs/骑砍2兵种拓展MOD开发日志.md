@@ -2335,7 +2335,11 @@ return original;
 ### 9. Git 发布与合并
 
 - 开发分支：`feature/v0.4.0-regional-recruit-tiers`。
-- 提交、PR 与合并信息待本轮发布完成后补充。
+- 核心功能提交：`5a84fa2154f176ce6f9a4d0381c9b961f877c529`（`feat: add regional borderlander and levy tiers for v0.4.0`）。
+- Pull Request：[PR #9：v0.4.0 新增四套地域边民与行省征召兵](https://github.com/SuperShuangPowder/bannerLoard-mod/pull/9)。
+- PR 初始差异：8 个文件、902 行新增、15 行删除。
+- GitHub 判定：`CLEAN / MERGEABLE`；仓库未配置 CI 检查。
+- 计划完成发布记录同步后以 squash merge 合并到 `main`。
 
 ---
 
