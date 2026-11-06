@@ -11,6 +11,9 @@
     <face>
       <face_key_template value="BodyProperty.fighter_empire" />
     </face>
+    <Traits>
+      <Trait id="NavalSoldier" value="1" />
+    </Traits>
     <skills>
       <skill id="Athletics" value="25" />
       <skill id="Riding" value="5" />
@@ -20,6 +23,7 @@
       <skill id="Bow" value="5" />
       <skill id="Crossbow" value="5" />
       <skill id="Throwing" value="10" />
+      <skill id="Mariner" value="50" />
     </skills>
     <upgrade_targets>
       <upgrade_target id="NPCCharacter.wx_northern_provincial_levy" />
@@ -56,6 +60,9 @@
     <face>
       <face_key_template value="BodyProperty.fighter_empire" />
     </face>
+    <Traits>
+      <Trait id="NavalSoldier" value="1" />
+    </Traits>
     <skills>
       <skill id="Athletics" value="45" />
       <skill id="Riding" value="5" />
@@ -65,6 +72,7 @@
       <skill id="Bow" value="10" />
       <skill id="Crossbow" value="10" />
       <skill id="Throwing" value="25" />
+      <skill id="Mariner" value="60" />
     </skills>
     <upgrade_targets>
       <upgrade_target id="NPCCharacter.wx_northern_provincial_auxiliary" />
@@ -310,7 +318,7 @@
     </upgrade_targets>
     <Equipments>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.hunting_bow" />
+        <equipment slot="Item0" id="Item.wx_crude_hunting_bow" />
         <equipment slot="Item1" id="Item.wx_crude_hunting_arrows" />
         <equipment slot="Item2" id="Item.peasant_sickle_1_t1" />
         <equipment slot="Head" id="Item.nomad_padded_hood" />
@@ -319,7 +327,7 @@
         <equipment slot="Leg" id="Item.eastern_leather_boots" />
       </EquipmentRoster>
       <EquipmentRoster>
-        <equipment slot="Item0" id="Item.hunting_bow" />
+        <equipment slot="Item0" id="Item.wx_crude_hunting_bow" />
         <equipment slot="Item1" id="Item.wx_crude_hunting_arrows" />
         <equipment slot="Item2" id="Item.peasant_sickle_1_t1" />
         <equipment slot="Head" id="Item.roughhide_cap" />
@@ -392,6 +400,9 @@
     <face>
       <face_key_template value="BodyProperty.fighter_empire" />
     </face>
+    <Traits>
+      <Trait id="NavalSoldier" value="1" />
+    </Traits>
     <skills>
       <skill id="Athletics" value="70" />
       <skill id="Riding" value="10" />
@@ -401,6 +412,7 @@
       <skill id="Bow" value="25" />
       <skill id="Crossbow" value="25" />
       <skill id="Throwing" value="50" />
+      <skill id="Mariner" value="70" />
     </skills>
     <upgrade_targets>
       <upgrade_target id="NPCCharacter.wx_northern_free_company_warrior" />
@@ -442,6 +454,9 @@
     <face>
       <face_key_template value="BodyProperty.fighter_empire_veteran" />
     </face>
+    <Traits>
+      <Trait id="NavalSoldier" value="1" />
+    </Traits>
     <skills>
       <skill id="Athletics" value="105" />
       <skill id="Riding" value="15" />
@@ -451,6 +466,7 @@
       <skill id="Bow" value="40" />
       <skill id="Crossbow" value="40" />
       <skill id="Throwing" value="70" />
+      <skill id="Mariner" value="80" />
     </skills>
     <upgrade_targets>
       <upgrade_target id="NPCCharacter.wx_northern_free_company_veteran" />
@@ -492,6 +508,9 @@
     <face>
       <face_key_template value="BodyProperty.fighter_empire_veteran" />
     </face>
+    <Traits>
+      <Trait id="NavalSoldier" value="1" />
+    </Traits>
     <skills>
       <skill id="Athletics" value="135" />
       <skill id="Riding" value="20" />
@@ -501,6 +520,7 @@
       <skill id="Bow" value="55" />
       <skill id="Crossbow" value="55" />
       <skill id="Throwing" value="90" />
+      <skill id="Mariner" value="90" />
     </skills>
     <upgrade_targets />
     <Equipments>
