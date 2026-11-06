@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.4.5-custom-battle-mariner — 2026-11-07
+
+- 修复北境 T4“北境自由军盾斧兵”与 T5“北境自由军盾卫”在战役中拥有水兵特性、却在 War Sails 自定义战斗界面被标为普通步兵的显示问题。
+- 根据 `NavalDLC.CustomBattle.dll` 的实际判定，自定义战斗水兵标识不读取 `NavalSoldier` 或 `Mariner`，而是检查兵种 ID 是否包含小写 `marine`，或其文化 ID 是否包含 `nord`。
+- 将两个内部 ID 调整为 `wx_northern_free_company_marine_warrior` 与 `wx_northern_free_company_marine_veteran`，并同步升级目标引用；中英文名称、装备、技能、等级和战斗分组不变。
+- T4/T5 继续保留 `NavalSoldier=1` 与 `Mariner=80/90`；T1–T3 仍为普通陆军，不因本次显示修复获得水兵特性。
+- 由于内部兵种 ID 变更，本版本不保证兼容正在持有旧 T4/T5 的测试存档；建议使用新档或自定义战斗验收。
+
 ## v0.4.4-naval-tier-threshold — 2026-11-06
 
 - 根据设计复核，将北境路线的海军士兵身份从“全线固有属性”收紧为“T4 起获得的职业训练成果”。

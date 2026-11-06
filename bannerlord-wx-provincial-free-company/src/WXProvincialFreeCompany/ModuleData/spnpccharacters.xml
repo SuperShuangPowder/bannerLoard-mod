@@ -403,7 +403,7 @@
       <skill id="Throwing" value="50" />
     </skills>
     <upgrade_targets>
-      <upgrade_target id="NPCCharacter.wx_northern_free_company_warrior" />
+      <upgrade_target id="NPCCharacter.wx_northern_free_company_marine_warrior" />
     </upgrade_targets>
     <Equipments>
       <EquipmentRoster>
@@ -433,7 +433,7 @@
   </NPCCharacter>
 
   <NPCCharacter
-    id="wx_northern_free_company_warrior"
+    id="wx_northern_free_company_marine_warrior"
     default_group="Infantry"
     level="21"
     name="{=wx_northern_free_company_warrior_name}Northern Free Company Shield-Axeman"
@@ -457,7 +457,7 @@
       <skill id="Mariner" value="80" />
     </skills>
     <upgrade_targets>
-      <upgrade_target id="NPCCharacter.wx_northern_free_company_veteran" />
+      <upgrade_target id="NPCCharacter.wx_northern_free_company_marine_veteran" />
     </upgrade_targets>
     <Equipments>
       <EquipmentRoster>
@@ -487,7 +487,7 @@
   </NPCCharacter>
 
   <NPCCharacter
-    id="wx_northern_free_company_veteran"
+    id="wx_northern_free_company_marine_veteran"
     default_group="Infantry"
     level="26"
     name="{=wx_northern_free_company_veteran_name}Northern Free Company Shieldguard"
