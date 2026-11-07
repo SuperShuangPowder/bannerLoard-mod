@@ -33,11 +33,16 @@ namespace WXProvincialFreeCompany
             EnsureConfigLoadedAndLog();
         }
 
-        public override void OnCampaignStart(Game game, object starterObject)
+        /// <summary>
+        /// Official model-registration hook (same one StoryMode uses to add
+        /// its 18 replacement models): called by Campaign.OnInitialize with
+        /// the IGameStarter that carries the CampaignGameStarter.
+        /// </summary>
+        protected override void InitializeGameStarter(Game game, IGameStarter gameStarter)
         {
-            base.OnCampaignStart(game, starterObject);
+            base.InitializeGameStarter(game, gameStarter);
             EnsureConfigLoadedAndLog();
-            WrapVolunteerModel(starterObject);
+            WrapVolunteerModel(gameStarter);
         }
 
         private static void EnsureConfigLoadedAndLog()
@@ -68,17 +73,17 @@ namespace WXProvincialFreeCompany
 
         /// <summary>
         /// Wraps the currently effective VolunteerModel with the regional
-        /// decorator (five-point prototype). Reentrant: each campaign start
-        /// receives a fresh CampaignGameStarter, and a double wrap is guarded.
+        /// decorator (five-point prototype). Reentrant: a double wrap on the
+        /// same starter is guarded; each campaign receives a fresh starter.
         /// </summary>
-        private static void WrapVolunteerModel(object starterObject)
+        private static void WrapVolunteerModel(IGameStarter gameStarter)
         {
             try
             {
-                if (!(starterObject is CampaignGameStarter starter))
+                if (!(gameStarter is CampaignGameStarter starter))
                 {
-                    Log($"[{RegionalRecruitmentRegistry.ModuleId}] OnCampaignStart starterObject is " +
-                        $"{(starterObject == null ? "null" : starterObject.GetType().FullName)}; " +
+                    Log($"[{RegionalRecruitmentRegistry.ModuleId}] InitializeGameStarter received " +
+                        $"{(gameStarter == null ? "null" : gameStarter.GetType().FullName)}; " +
                         "VolunteerModel wrapper skipped.");
                     return;
                 }
