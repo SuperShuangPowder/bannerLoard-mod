@@ -6,7 +6,9 @@
 
 ## 当前版本
 
-`v0.4.5-custom-battle-mariner`：保留四条独立地域 T1–T5 兵种树，并修正北境 T4/T5 在 War Sails 自定义战斗中被误标为普通步兵的问题。
+`v0.5.0-campaign-skeleton`：在完整保留 v0.4.5 兵种数据的基础上，加入可由游戏加载的只读 C# 子模块骨架和正式工程化工具链。
+
+本里程碑只验证 DLL 的编译、注册、打包与加载边界。`SubModule` 不注册战役模型、行为、事件处理器或存档数据，因此尚不会改变地域志愿兵来源；正式的 `VolunteerModel` 包装将在手动加载测试通过后继续开发。
 
 War Sails 的自定义战斗界面不依据 `NavalSoldier` 或 `Mariner` 识别非诺德水兵，而依赖兵种内部 ID 中的小写 `marine`。v0.4.5 因此仅调整北境 T4/T5 内部 ID 及升级引用，不改变中英文显示名、装备或战斗数值。北境 T1–T3 仍为普通陆军，T4/T5 仍分别使用 `NavalSoldier=1` 与 `Mariner=80/90`。
 
@@ -45,19 +47,23 @@ v0.3.8 将东境 T3 换装反曲弓并把弓术提高至 70；T4–T5 改用单�
 
 ```text
 bannerlord-wx-provincial-free-company/
+├─ code/                       # C# 子模块工程
+├─ scripts/                    # 构建、部署与打包脚本
+├─ global.json                 # 锁定 .NET SDK 6.0.428
 ├─ docs/                       # 开发日志与补充教程
 ├─ src/
 │  └─ WXProvincialFreeCompany/   # 可部署的 Bannerlord 模块
+├─ BUILDING.md                 # 工具链与手动验证说明
 └─ README.md
 ```
 
 ## 安装测试
 
-将 `src/WXProvincialFreeCompany` 整个文件夹复制到 Bannerlord 的 `Modules` 目录，在启动器中同时启用 War Sails / NavalDLC 与本模块后进行测试。请先备份存档；开发版本不承诺向前或向后兼容。
+参见 `BUILDING.md`。推荐使用 `scripts/deploy.ps1` 组合 XML 数据与编译后的 DLL，避免手动漏掉 `bin/Win64_Shipping_Client`。在启动器中同时启用 War Sails / NavalDLC 与本模块后进行测试。请先备份存档；开发版本不承诺向前或向后兼容。
 
 ## 安全边界
 
 - 不修改 Native、SandBoxCore、Sandbox、StoryMode、CustomBattle 或 NavalDLC 官方文件。
 - 不收录游戏存档、崩溃日志、账号凭据或官方游戏资产。
-- 当前版本仍不包含 DLL、Harmony 补丁或第三方运行时依赖；地域志愿兵 C# 模型尚未进入本版本。因使用诺德毛皮装备，模块要求 War Sails / NavalDLC `v1.2.8`。
+- 当前版本包含本 MOD 自己的只读 DLL，但不包含 Harmony、第三方运行时或任何官方游戏 DLL；地域志愿兵模型尚未注册。因使用诺德毛皮装备，模块要求 War Sails / NavalDLC `v1.2.8`。
 

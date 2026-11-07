@@ -1,0 +1,80 @@
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+function Get-ProjectRoot {
+    return (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
+}
+
+function Resolve-BannerlordGameDirectory {
+    param(
+        [Parameter(Mandatory = $false)]
+        [string]$BannerlordGameDir
+    )
+
+    if ([string]::IsNullOrWhiteSpace($BannerlordGameDir)) {
+        $BannerlordGameDir = $env:BANNERLORD_GAME_DIR
+    }
+
+    if ([string]::IsNullOrWhiteSpace($BannerlordGameDir)) {
+        throw 'BannerlordGameDir is required. Pass -BannerlordGameDir or set BANNERLORD_GAME_DIR.'
+    }
+
+    $resolved = (Resolve-Path -LiteralPath $BannerlordGameDir).Path
+    $clientBin = Join-Path $resolved 'bin\Win64_Shipping_Client'
+    $requiredAssemblies = @(
+        'TaleWorlds.Library.dll',
+        'TaleWorlds.Core.dll',
+        'TaleWorlds.ObjectSystem.dll',
+        'TaleWorlds.CampaignSystem.dll',
+        'TaleWorlds.MountAndBlade.dll'
+    )
+
+    foreach ($assembly in $requiredAssemblies) {
+        $assemblyPath = Join-Path $clientBin $assembly
+        if (-not (Test-Path -LiteralPath $assemblyPath -PathType Leaf)) {
+            throw "Required Bannerlord assembly not found: $assemblyPath"
+        }
+    }
+
+    return $resolved
+}
+
+function Get-DotNetCommand {
+    $projectRoot = Get-ProjectRoot
+    $cliHome = Join-Path $projectRoot 'artifacts\dotnet-cli-home'
+    New-Item -ItemType Directory -Path $cliHome -Force | Out-Null
+    $env:DOTNET_CLI_HOME = $cliHome
+    $env:DOTNET_NOLOGO = '1'
+    $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
+    $env:DOTNET_SKIP_FIRST_TIME_EXPERIENCE = '1'
+
+    $dotnet = Get-Command dotnet -ErrorAction Stop
+    $version = (& $dotnet.Source --version).Trim()
+    if ($LASTEXITCODE -ne 0) {
+        throw 'dotnet --version failed.'
+    }
+
+    if ($version -ne '6.0.428') {
+        throw "This project requires .NET SDK 6.0.428; resolved SDK is $version."
+    }
+
+    return $dotnet.Source
+}
+
+function Assert-NoOfficialAssemblies {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Directory
+    )
+
+    $forbidden = Get-ChildItem -LiteralPath $Directory -Recurse -File |
+        Where-Object {
+            $_.Name -like 'TaleWorlds*.dll' -or
+            $_.Name -like 'NavalDLC*.dll'
+        }
+
+    if ($forbidden) {
+        $names = ($forbidden.FullName -join [Environment]::NewLine)
+        throw "Official game DLLs must not be copied into project output:`n$names"
+    }
+}

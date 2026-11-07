@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.5.0-campaign-skeleton — 2026-11-07
+
+- 建立正式 `netstandard2.0` / x64 C# 工程，并通过根目录 `global.json` 精确锁定 .NET SDK `6.0.428`。
+- 所有 Bannerlord 官方程序集通过构建参数 `BannerlordGameDir` 或环境变量 `BANNERLORD_GAME_DIR` 定位；仓库不写死本机安装路径。
+- 新增继承 `MBSubModuleBase` 的 `WXProvincialFreeCompany.SubModule`，并在 `SubModule.xml` 中注册 `WXProvincialFreeCompany.dll`。
+- 当前子模块是明确的只读空实现，不注册 `VolunteerModel`、战役行为、事件处理器或存档数据，不改变志愿兵与现有 XML 玩法。
+- 新增 `build.ps1`、`deploy.ps1` 与 `package.ps1`，分别负责 SDK/引用检查与编译、游戏目录部署、发布包生成与结构校验。
+- 所有官方引用均设置 `Private=false`；Release 构建与发布包会主动拒绝 `TaleWorlds*.dll`、`NavalDLC*.dll` 泄漏。
+- DLL 同时支持部署到客户端和 Modding Kit 运行目录；本轮不自动启动 Steam、游戏或编辑器，运行时加载留给手动验收。
+
 ## v0.4.5-custom-battle-mariner — 2026-11-07
 
 - 修复北境 T4“北境自由军盾斧兵”与 T5“北境自由军盾卫”在战役中拥有水兵特性、却在 War Sails 自定义战斗界面被标为普通步兵的显示问题。
