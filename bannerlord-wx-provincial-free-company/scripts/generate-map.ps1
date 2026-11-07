@@ -41,7 +41,7 @@ foreach ($row in $rows) {
 $json = '[' + ($parts -join ',') + ']'
 
 $html = Get-Content -LiteralPath $MapHtmlPath -Raw -Encoding UTF8
-$dataPattern = 'const\s+data\s*=\s*\[.*?\]\s*;'
+$dataPattern = 'const\s+data\s*=\s*(\[.*?\])\s*;'
 if (-not [regex]::IsMatch($html, $dataPattern, [System.Text.RegularExpressions.RegexOptions]::Singleline)) {
     throw '未能在 HTML 中找到可替换的 const data 数组。'
 }
@@ -54,6 +54,17 @@ $newHtml = [regex]::Replace(
     $dataPattern,
     ('const data = ' + $escapedJson + ';'),
     [System.Text.RegularExpressions.RegexOptions]::Singleline)
+
+# 图例与说明文字中的档位是硬编码的，必须与数据同源更新（教训见记录 040 事故记录）。
+$tPct = @{ Transition = $tierChance['Transition']; Border = $tierChance['Border']; Frontier = $tierChance['Frontier'] }
+$newHtml = [regex]::Replace(
+    $newHtml,
+    '过渡圈 \d+% · 边境腹地 \d+% · 外缘前线 \d+%',
+    "过渡圈 $($tPct.Transition)% · 边境腹地 $($tPct.Border)% · 外缘前线 $($tPct.Frontier)%")
+foreach ($label in @('过渡圈', '边境腹地', '外缘前线')) {
+    $value = if ($label -eq '过渡圈') { $tPct.Transition } elseif ($label -eq '边境腹地') { $tPct.Border } else { $tPct.Frontier }
+    $newHtml = [regex]::Replace($newHtml, "$label \d+%&lt;/span&gt;", "$label $value%&lt;/span&gt;")
+}
 if ($newHtml -eq $html) {
     Write-Host '✓ 审阅地图数据已与设计源一致（幂等，无需写入）。'
     Write-Host "  文件:     $MapHtmlPath"
@@ -70,8 +81,14 @@ if (-not $verifyMatch.Success) {
     throw '写后自检失败：无法在生成的 HTML 中找到 const data 数组。'
 }
 $verifyRows = [System.Net.WebUtility]::HtmlDecode($verifyMatch.Groups[1].Value) | ConvertFrom-Json
-if ($null -eq $verifyRows -or $verifyRows.Count -ne 141) {
-    throw "写后自检失败：解码后对象数为 $($verifyRows.Count)，应为 141。"
+$verifyCount = if ($null -eq $verifyRows) { 0 } else { $verifyRows.Count }
+if ($verifyCount -ne 141) {
+    throw "写后自检失败：解码后对象数为 $verifyCount，应为 141。"
+}
+$verifyDecoded = [System.Net.WebUtility]::HtmlDecode($verifyText)
+$verifyLegend = "过渡圈 $($tPct.Transition)% · 边境腹地 $($tPct.Border)% · 外缘前线 $($tPct.Frontier)%"
+if ($verifyDecoded -notmatch [regex]::Escape($verifyLegend)) {
+    throw "写后自检失败：图例文字未同步为最新档位（期望 $verifyLegend）。"
 }
 
 Write-Host ''
