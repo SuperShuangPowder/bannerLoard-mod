@@ -50,10 +50,10 @@ DLL 默认同时部署到 `Win64_Shipping_Client` 与 `Win64_Shipping_wEditor`�
 .\scripts\package.ps1 -BannerlordGameDir $gameDir -Configuration Release
 ```
 
-压缩包位于：
+压缩包位于（文件名版本取自 `SubModule.xml`，随模块版本自动变化）：
 
 ```text
-artifacts/package/WXProvincialFreeCompany-v0.5.0.zip
+artifacts/package/WXProvincialFreeCompany-<版本号>.zip
 ```
 
 脚本会检查压缩包内存在 `SubModule.xml` 与本 MOD 的 DLL，并拒绝包含任何 `TaleWorlds*.dll` 或 `NavalDLC*.dll` 的包。
