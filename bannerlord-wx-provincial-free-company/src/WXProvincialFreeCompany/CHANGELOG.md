@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.5.4-customizable-recruitment — 2026-11-07
+
+- 实机反馈采纳：80/55/30 档位偏高，设计档位整体下调为 **50/30/20**（核心 0%）；设计源 TSV、运行时 XML 与审阅地图数据三处同源更新（新增 `generate-map.ps1` 由设计源重建地图数据，关闭"地图与数据漂移"隐患）。
+- 新增"概率 + 槽位上限"双参数机制：概率为节流阀（渗入速度），上限为安全线（最终构成），解决纯概率下调无法钉死"领主大量地域化"的问题。
+- 新增 `RegionalRecruitmentSettings`：8 项玩家可调参数（四层级概率 0–100% + 四层级槽位上限 0–6，默认 50/30/20 与 3/2/1），持久化到 `Documents\Mount and Blade II Bannerlord\Configs\WXProvincialFreeCompany.xml`；缺失或损坏自动回退默认并钳制越界值。
+- 新增 `WxPfcCampaignOptionsProvider`：官方 `ICampaignOptionProvider` 扩展点（IL 级验证游戏自动扫描发现，零 Harmony），在游戏内战役选项界面提供 6 个滑块（外缘前线/边境腹地/过渡圈 × 概率与上限）；核心区不提供滑块（无核心地域兵种身份，恒为 0）。
+- `RegionalVolunteerDecision` 重构为纯参数判定（roll/chance/maxSlots/地域槽数）；包装器实时统计要人槽内地域兵数（`Hero.VolunteerTypes` 直读）。
+- 新增中文与英文选项标签；编译引用增加官方 `TaleWorlds.CampaignSystem.ViewModelCollection`（Private=false，零泄漏）。
+- 冒烟测试增至 44 项断言：新档位解析、三档一万次模拟、上限边界（达上限/超上限不替换）、设置默认值/XML 往返/钳制/缺失回退。
+- 子模块版本号提升为 `v0.5.4`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
+
 ## v0.5.3-full-map — 2026-11-07
 
 - 五点试点实机验收通过（试点要人槽位按 80/55/30 出现四地域边民、核心区与非试点无地域兵、贵族兵不受影响），进入全图启用。

@@ -18,7 +18,7 @@ namespace WXProvincialFreeCompany
     {
         public const string ModuleId = "WXProvincialFreeCompany";
 
-        private static readonly double[] AllowedChances = { 0.0, 0.30, 0.55, 0.80 };
+        private static readonly double[] AllowedChances = { 0.0, 0.20, 0.30, 0.50 };
 
         private readonly Dictionary<string, RegionalRecruitmentProfile> _profiles;
         private readonly Dictionary<RegionalRegion, string> _troopByRegion;

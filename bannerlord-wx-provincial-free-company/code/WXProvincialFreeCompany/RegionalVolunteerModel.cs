@@ -122,16 +122,47 @@ namespace WXProvincialFreeCompany
                 return original;
             }
 
+            RegionalRecruitmentSettings settings = RegionalRecruitmentSettings.Instance;
+            int regionalSlotsCount = CountRegionalSlots(seller);
+
             // The real campaign roll uses the game RNG (record 033 §5); the
             // fixed-seed simulation stays exclusive to the wx_pfc.sample command.
+            // Chance and slot cap come from the player-adjustable settings
+            // (v0.5.4); the XML chance remains the static design fallback.
             bool replace = RegionalVolunteerDecision.ShouldReplace(
-                original.StringId, profile, troopId, MBRandom.RandomFloat);
+                original.StringId,
+                troopId,
+                MBRandom.RandomFloat,
+                settings.GetChance(profile.Tier),
+                settings.GetMaxSlots(profile.Tier),
+                regionalSlotsCount);
             if (!replace || !RegionalTroops.TryGetValue(profile.Region, out CharacterObject regional))
             {
                 return original;
             }
 
             return regional;
+        }
+
+        private static int CountRegionalSlots(Hero seller)
+        {
+            CharacterObject[]? volunteers = seller.VolunteerTypes;
+            if (volunteers == null)
+            {
+                return 0;
+            }
+
+            int count = 0;
+            foreach (CharacterObject volunteer in volunteers)
+            {
+                if (volunteer != null && volunteer.StringId != null &&
+                    volunteer.StringId.StartsWith("wx_", StringComparison.Ordinal))
+                {
+                    count++;
+                }
+            }
+
+            return count;
         }
 
         private static Dictionary<RegionalRegion, CharacterObject> ResolveRegionalTroops()

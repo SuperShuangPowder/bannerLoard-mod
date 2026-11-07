@@ -36,9 +36,9 @@ $troopByRegion = @{
 }
 $chanceFormat = @{
     '0'  = '0'
+    '20' = '0.20'
     '30' = '0.30'
-    '55' = '0.55'
-    '80' = '0.80'
+    '50' = '0.50'
 }
 
 # ---- 116 个征兵点 = 19 城镇 + 97 村庄（25 座城堡仅作构建期锚点，不进入运行时）----
@@ -85,7 +85,7 @@ if (@($nodes | Where-Object { $_.id -match '^castle_[A-Z][A-Z0-9]+$' }).Count -g
     throw '生成后自检：运行时配置混入城堡行'
 }
 foreach ($node in $nodes) {
-    if ($node.chance -notin @('0', '0.30', '0.55', '0.80')) {
+    if ($node.chance -notin @('0', '0.20', '0.30', '0.50')) {
         throw "生成后自检：非法概率 $($node.id)=$($node.chance)"
     }
     if ($node.region -eq 'Core' -and $node.chance -ne '0') {

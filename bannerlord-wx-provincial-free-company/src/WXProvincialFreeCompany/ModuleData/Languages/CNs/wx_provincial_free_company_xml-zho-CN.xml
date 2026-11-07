@@ -28,5 +28,11 @@
     <string id="wx_western_provincial_auxiliary_name" text="西境行省弩手" />
     <string id="wx_western_free_company_warrior_name" text="西境自由军重弩手" />
     <string id="wx_western_free_company_veteran_name" text="西境自由军破甲弩卫" />
+    <string id="str_wx_pfc_chance_frontier" text="外缘前线地域兵概率（%）" />
+    <string id="str_wx_pfc_chance_border" text="边境腹地地域兵概率（%）" />
+    <string id="str_wx_pfc_chance_transition" text="过渡圈地域兵概率（%）" />
+    <string id="str_wx_pfc_slots_frontier" text="外缘前线地域兵槽位上限" />
+    <string id="str_wx_pfc_slots_border" text="边境腹地地域兵槽位上限" />
+    <string id="str_wx_pfc_slots_transition" text="过渡圈地域兵槽位上限" />
   </strings>
 </base>

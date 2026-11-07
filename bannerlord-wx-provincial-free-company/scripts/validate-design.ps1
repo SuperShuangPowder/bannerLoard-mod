@@ -48,7 +48,7 @@ foreach ($want in @(@('town', 19), @('castle', 25), @('village', 97))) {
 $ids = @($rows | ForEach-Object { $_.id })
 $validRegion = @('North', 'South', 'West', 'East', 'Core')
 $validTier = @('Core', 'Transition', 'Border', 'Frontier')
-$validChance = @('0', '30', '55', '80')
+$validChance = @('0', '20', '30', '50')
 
 foreach ($row in $rows) {
     if ($row.region -notin $validRegion) {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+      type="string">
+  <tags>
+    <tag language="English" />
+  </tags>
+  <strings>
+    <string id="str_wx_pfc_chance_frontier" text="Frontier regional recruit chance (%)" />
+    <string id="str_wx_pfc_chance_border" text="Border regional recruit chance (%)" />
+    <string id="str_wx_pfc_chance_transition" text="Transition regional recruit chance (%)" />
+    <string id="str_wx_pfc_slots_frontier" text="Frontier regional slot cap" />
+    <string id="str_wx_pfc_slots_border" text="Border regional slot cap" />
+    <string id="str_wx_pfc_slots_transition" text="Transition regional slot cap" />
+  </strings>
+</base>

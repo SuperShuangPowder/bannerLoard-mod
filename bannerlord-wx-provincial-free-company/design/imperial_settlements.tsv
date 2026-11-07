@@ -5,141 +5,141 @@ id	name_zh	name_en	type	faction	bound	region	tier	chance_pct	pos_x	pos_y
 castle_EN1	瓦拉戈斯堡	Varagos Castle	castle	empire		Core	Core		493.56	403.18
 castle_village_EN1_1	瓦拉戈斯	Varagos	village	empire	castle_EN1	Core	Core	0	498.16	377.53
 castle_EN2	罗卡那堡	Lochana Castle	castle	empire		East	Frontier		601.88	503.2
-castle_village_EN2_1	罗卡那	Lochana	village	empire	castle_EN2	East	Frontier	80	622.8	515.75
+castle_village_EN2_1	罗卡那	Lochana	village	empire	castle_EN2	East	Frontier	50	622.8	515.75
 castle_EN3	雷索斯堡	Rhesos Castle	castle	empire		North	Transition		445.83	439.85
-castle_village_EN3_1	雷索斯	Rhesos	village	empire	castle_EN3	North	Transition	30	463.5	432.92
+castle_village_EN3_1	雷索斯	Rhesos	village	empire	castle_EN3	North	Transition	20	463.5	432.92
 castle_EN4	伽俄斯堡	Gaos Castle	castle	empire		Core	Core		560.55	405.22
 castle_village_EN4_1	伽俄斯	Gaos	village	empire	castle_EN4	Core	Core	0	575.5	384.15
 castle_EN5	阿特里翁堡	Atrion Castle	castle	empire		North	Border		526.21	464.23
-castle_village_EN5_1	阿特里翁	Atrion	village	empire	castle_EN5	North	Border	55	539.85	445.97
+castle_village_EN5_1	阿特里翁	Atrion	village	empire	castle_EN5	North	Border	30	539.85	445.97
 castle_EN6	阿塔科尼亚堡	Ataconia Castle	castle	empire		Core	Core		428.71	406.19
 castle_village_EN6_1	阿塔科尼亚	Ataconia	village	empire	castle_EN6	Core	Core	0	449.76	395.08
 castle_EN7	厄毗诺萨堡	Epinosa Castle	castle	empire		East	Frontier		652.68	512.05
-castle_village_EN7_1	厄毗诺萨	Epinosa	village	empire	castle_EN7	East	Frontier	80	663.22	496.62
-castle_village_EN7_2	庞斯	Pons	village	empire	castle_EN7	East	Frontier	80	644.34	511.86
+castle_village_EN7_1	厄毗诺萨	Epinosa	village	empire	castle_EN7	East	Frontier	50	663.22	496.62
+castle_village_EN7_2	庞斯	Pons	village	empire	castle_EN7	East	Frontier	50	644.34	511.86
 castle_EN8	叙拉托斯堡	Syratos Castle	castle	empire		East	Frontier		663.56	477.95
-castle_village_EN8_1	叙拉托斯	Syratos	village	empire	castle_EN8	East	Frontier	80	653.05	472.72
-castle_village_EN8_2	特美摩斯	Tememos	village	empire	castle_EN8	East	Frontier	80	647.5	463.88
+castle_village_EN8_1	叙拉托斯	Syratos	village	empire	castle_EN8	East	Frontier	50	653.05	472.72
+castle_village_EN8_2	特美摩斯	Tememos	village	empire	castle_EN8	East	Frontier	50	647.5	463.88
 castle_EN9	墨卡罗维亚堡	Mecalovea Castle	castle	empire		North	Border		424.49	481.2
-castle_village_EN9_1	墨卡罗维亚	Mecalovea	village	empire	castle_EN9	North	Border	55	417.96	471.17
-castle_village_EN9_2	阿加尔蒙	Agalmon	village	empire	castle_EN9	North	Border	55	415.34	493.74
-town_EN1	厄庇克洛忒亚	Epicrotea	town	empire		North	Border	55	407.64	474.3
-village_EN1_1	马拉忒亚	Marathea	village	empire	town_EN1	North	Border	55	385.02	461.54
-village_EN1_2	斯塔堤摩斯	Stathymos	village	empire	town_EN1	North	Border	55	407.72	451.72
-village_EN1_3	居摩斯	Gymos	village	empire	town_EN1	North	Border	55	429.11	460.23
-castle_village_EN3_2	底俄帕利斯	Dyopalis	village	empire	castle_EN3	North	Transition	30	430.57	440.2
-town_EN2	狄亚特马	Diathma	town	empire		North	Border	55	465.97	475.17
-village_EN2_1	阿罗塞亚	Alosea	village	empire	town_EN2	North	Border	55	453.15	473.21
-village_EN2_2	耶拉科斯	Jeracos	village	empire	town_EN2	North	Border	55	489.94	459.73
-castle_village_EN5_2	马珊加拉	Masangara	village	empire	castle_EN5	North	Border	55	517.45	451.46
+castle_village_EN9_1	墨卡罗维亚	Mecalovea	village	empire	castle_EN9	North	Border	30	417.96	471.17
+castle_village_EN9_2	阿加尔蒙	Agalmon	village	empire	castle_EN9	North	Border	30	415.34	493.74
+town_EN1	厄庇克洛忒亚	Epicrotea	town	empire		North	Border	30	407.64	474.3
+village_EN1_1	马拉忒亚	Marathea	village	empire	town_EN1	North	Border	30	385.02	461.54
+village_EN1_2	斯塔堤摩斯	Stathymos	village	empire	town_EN1	North	Border	30	407.72	451.72
+village_EN1_3	居摩斯	Gymos	village	empire	town_EN1	North	Border	30	429.11	460.23
+castle_village_EN3_2	底俄帕利斯	Dyopalis	village	empire	castle_EN3	North	Transition	20	430.57	440.2
+town_EN2	狄亚特马	Diathma	town	empire		North	Border	30	465.97	475.17
+village_EN2_1	阿罗塞亚	Alosea	village	empire	town_EN2	North	Border	30	453.15	473.21
+village_EN2_2	耶拉科斯	Jeracos	village	empire	town_EN2	North	Border	30	489.94	459.73
+castle_village_EN5_2	马珊加拉	Masangara	village	empire	castle_EN5	North	Border	30	517.45	451.46
 town_EN3	萨涅俄帕	Saneopa	town	empire		Core	Core	0	513.34	419.1
 village_EN3_1	厄诺伊萨	Enoisa	village	empire	town_EN3	Core	Core	0	520.42	398.93
 castle_village_EN1_2	艾俄里亚	Aeoria	village	empire	castle_EN1	Core	Core	0	503.74	407.22
 village_EN3_3	克里俄斯	Crios	village	empire	town_EN3	Core	Core	0	485.82	420.13
-town_EN4	阿耳戈隆	Argoron	town	empire		North	Transition	30	534.62	495.8
+town_EN4	阿耳戈隆	Argoron	town	empire		North	Transition	20	534.62	495.8
 castle_village_EN6_2	珀塔米斯	Potamis	village	empire	castle_EN6	Core	Core	0	434.33	421.46
-village_EN4_2	阿拉堤斯	Alatys	village	empire	town_EN4	North	Transition	30	523.47	506.29
-castle_village_EN2_2	诺耳塔尼萨	Nortanisa	village	empire	castle_EN2	East	Frontier	80	573.95	503.56
-village_EN4_4	赫塔尼亚	Hetania	village	empire	town_EN4	North	Transition	30	561.82	487.85
-town_EN5	密泽亚	Myzea	town	empire		East	Transition	30	604.17	426.1
-village_EN5_1	威亚罗斯	Vealos	village	empire	town_EN5	East	Transition	30	574.82	453.29
-village_EN5_2	俄耳特拉	Orthra	village	empire	town_EN5	East	Transition	30	570.37	420.63
+village_EN4_2	阿拉堤斯	Alatys	village	empire	town_EN4	North	Transition	20	523.47	506.29
+castle_village_EN2_2	诺耳塔尼萨	Nortanisa	village	empire	castle_EN2	East	Frontier	50	573.95	503.56
+village_EN4_4	赫塔尼亚	Hetania	village	empire	town_EN4	North	Transition	20	561.82	487.85
+town_EN5	密泽亚	Myzea	town	empire		East	Transition	20	604.17	426.1
+village_EN5_1	威亚罗斯	Vealos	village	empire	town_EN5	East	Transition	20	574.82	453.29
+village_EN5_2	俄耳特拉	Orthra	village	empire	town_EN5	East	Transition	20	570.37	420.63
 castle_village_EN4_2	忒密斯	Themys	village	empire	castle_EN4	Core	Core	0	581.34	405.01
-village_EN5_4	萨马塔	Samatha	village	empire	town_EN5	East	Transition	30	621.61	432.64
-town_EN6	安普雷拉	Amprela	town	empire		East	Frontier	80	620.34	483.92
-village_EN6_1	阿瓦辛顿	Avasinton	village	empire	town_EN6	East	Frontier	80	647.2	488.27
-village_EN6_2	玻瑞阿戈拉	Boreagora	village	empire	town_EN6	East	Frontier	80	632.44	498.73
+village_EN5_4	萨马塔	Samatha	village	empire	town_EN5	East	Transition	20	621.61	432.64
+town_EN6	安普雷拉	Amprela	town	empire		East	Frontier	50	620.34	483.92
+village_EN6_1	阿瓦辛顿	Avasinton	village	empire	town_EN6	East	Frontier	50	647.2	488.27
+village_EN6_2	玻瑞阿戈拉	Boreagora	village	empire	town_EN6	East	Frontier	50	632.44	498.73
 castle_EW1	加隆托堡	Garontor Castle	castle	empire_w		West	Frontier		273.43	324.02
-castle_village_EW1_1	加隆托	Garontor	village	empire_w	castle_EW1	West	Frontier	80	277.15	338.96
+castle_village_EW1_1	加隆托	Garontor	village	empire_w	castle_EW1	West	Frontier	50	277.15	338.96
 castle_EW2	托里俄斯堡	Thorios Castle	castle	empire_w		Core	Core		467.8	359.12
 castle_village_EW2_1	托里俄斯	Thorios	village	empire_w	castle_EW2	Core	Core	0	466.12	382.98
 castle_village_EW2_2	柏耳贡	Bergum	village	empire_w	castle_EW2	Core	Core	0	478.99	381.93
 castle_EW3	俄尼卡堡	Onica Castle	castle	empire_w		South	Transition		445.93	272.57
-castle_village_EW3_1	俄尼卡	Onica	village	empire_w	castle_EW3	South	Transition	30	458.47	269.15
+castle_village_EW3_1	俄尼卡	Onica	village	empire_w	castle_EW3	South	Transition	20	458.47	269.15
 castle_EW4	色雷刻托堡	Thractorae Castle	castle	empire_w		West	Frontier		258.91	375.93
-castle_village_EW4_1	色雷刻托	Thractorae	village	empire_w	castle_EW4	West	Frontier	80	257.23	346.82
+castle_village_EW4_1	色雷刻托	Thractorae	village	empire_w	castle_EW4	West	Frontier	50	257.23	346.82
 castle_EW5	维戎堡	Veron Castle	castle	empire_w		West	Frontier		264.63	407.65
-castle_village_EW5_1	维戎	Veron	village	empire_w	castle_EW5	West	Frontier	80	286.1	417.73
-castle_village_EW5_2	戈勒林	Goleryn	village	empire_w	castle_EW5	West	Frontier	80	256.9	393.75
+castle_village_EW5_1	维戎	Veron	village	empire_w	castle_EW5	West	Frontier	50	286.1	417.73
+castle_village_EW5_2	戈勒林	Goleryn	village	empire_w	castle_EW5	West	Frontier	50	256.9	393.75
 castle_EW6	赫托该亚堡	Hertogea Castle	castle	empire_w		West	Transition		347.98	391.89
-castle_village_EW6_1	赫托该亚	Hertogea	village	empire_w	castle_EW6	West	Transition	30	340.5	403.2
+castle_village_EW6_1	赫托该亚	Hertogea	village	empire_w	castle_EW6	West	Transition	20	340.5	403.2
 castle_EW7	俄里斯托科律斯堡	Oristocorys Castle	castle	empire_w		West	Border		351.79	278.09
-castle_village_EW7_1	俄里斯托科律斯	Oristocorys	village	empire_w	castle_EW7	West	Border	55	354.03	309.14
-castle_village_EW7_2	厄尔凡尼亚	Elvania	village	empire_w	castle_EW7	West	Border	55	359.02	291.0
+castle_village_EW7_1	俄里斯托科律斯	Oristocorys	village	empire_w	castle_EW7	West	Border	30	354.03	309.14
+castle_village_EW7_2	厄尔凡尼亚	Elvania	village	empire_w	castle_EW7	West	Border	30	359.02	291.0
 castle_EW8	革耳塞戈斯堡	Gersegos Castle	castle	empire_w		North	Border		375.32	445.86
-castle_village_EW8_1	革耳塞戈斯	Gersegos	village	empire_w	castle_EW8	North	Border	55	363.72	466.55
-town_EW1	拉革塔	Lageta	town	empire_w		West	Border	55	315.29	397.11
-village_EW1_1	普里墨索斯	Primessos	village	empire_w	town_EW1	West	Border	55	297.85	386.76
-village_EW1_2	蒙托斯	Montos	village	empire_w	town_EW1	West	Border	55	310.35	416.18
-castle_village_EW6_2	尼得翁	Nideon	village	empire_w	castle_EW6	West	Transition	30	331.09	380.28
-town_EW2	泽翁尼卡	Zeonica	town	empire_w		South	Transition	30	412.41	287.63
-castle_village_EW3_2	塔耳库提斯	Tarcutis	village	empire_w	castle_EW3	South	Transition	30	434.19	287.61
-village_EW2_2	涅俄科律斯	Neocorys	village	empire_w	town_EW2	South	Transition	30	393.51	322.39
-village_EW2_3	阿尔萨索斯	Alsasos	village	empire_w	town_EW2	South	Transition	30	385.1	302.32
-village_EW2_4	泽俄科律斯	Zeocorys	village	empire_w	town_EW2	South	Transition	30	416.54	309.28
-town_EW3	贾尔马律斯	Jalmarys	town	empire_w		West	Border	55	376.99	341.69
-castle_village_EW4_2	伽玛耳丹	Gamardan	village	empire_w	castle_EW4	West	Frontier	80	245.47	356.21
-village_EW3_2	埃戈斯卡	Aegosca	village	empire_w	town_EW3	West	Border	55	395.89	343.08
-village_EW3_3	得拉狄俄斯	Dradios	village	empire_w	town_EW3	West	Border	55	372.49	371.15
-town_EW4	俄耳堤西亚	Ortysia	town	empire_w		West	Transition	30	303.86	331.89
-village_EW4_1	阿耳波提斯	Arpotis	village	empire_w	town_EW4	West	Transition	30	343.01	351.06
-castle_village_EW1_2	吕西亚	Lysia	village	empire_w	castle_EW1	West	Frontier	80	287.92	325.28
-village_EW4_3	维尼拉	Vinela	village	empire_w	town_EW4	West	Transition	30	340.29	324.21
-village_EW4_4	伽伦戈利亚	Garengolia	village	empire_w	town_EW4	West	Transition	30	306.24	349.7
+castle_village_EW8_1	革耳塞戈斯	Gersegos	village	empire_w	castle_EW8	North	Border	30	363.72	466.55
+town_EW1	拉革塔	Lageta	town	empire_w		West	Border	30	315.29	397.11
+village_EW1_1	普里墨索斯	Primessos	village	empire_w	town_EW1	West	Border	30	297.85	386.76
+village_EW1_2	蒙托斯	Montos	village	empire_w	town_EW1	West	Border	30	310.35	416.18
+castle_village_EW6_2	尼得翁	Nideon	village	empire_w	castle_EW6	West	Transition	20	331.09	380.28
+town_EW2	泽翁尼卡	Zeonica	town	empire_w		South	Transition	20	412.41	287.63
+castle_village_EW3_2	塔耳库提斯	Tarcutis	village	empire_w	castle_EW3	South	Transition	20	434.19	287.61
+village_EW2_2	涅俄科律斯	Neocorys	village	empire_w	town_EW2	South	Transition	20	393.51	322.39
+village_EW2_3	阿尔萨索斯	Alsasos	village	empire_w	town_EW2	South	Transition	20	385.1	302.32
+village_EW2_4	泽俄科律斯	Zeocorys	village	empire_w	town_EW2	South	Transition	20	416.54	309.28
+town_EW3	贾尔马律斯	Jalmarys	town	empire_w		West	Border	30	376.99	341.69
+castle_village_EW4_2	伽玛耳丹	Gamardan	village	empire_w	castle_EW4	West	Frontier	50	245.47	356.21
+village_EW3_2	埃戈斯卡	Aegosca	village	empire_w	town_EW3	West	Border	30	395.89	343.08
+village_EW3_3	得拉狄俄斯	Dradios	village	empire_w	town_EW3	West	Border	30	372.49	371.15
+town_EW4	俄耳堤西亚	Ortysia	town	empire_w		West	Transition	20	303.86	331.89
+village_EW4_1	阿耳波提斯	Arpotis	village	empire_w	town_EW4	West	Transition	20	343.01	351.06
+castle_village_EW1_2	吕西亚	Lysia	village	empire_w	castle_EW1	West	Frontier	50	287.92	325.28
+village_EW4_3	维尼拉	Vinela	village	empire_w	town_EW4	West	Transition	20	340.29	324.21
+village_EW4_4	伽伦戈利亚	Garengolia	village	empire_w	town_EW4	West	Transition	20	306.24	349.7
 town_EW5	阿弥塔堤斯	Amitatys	town	empire_w		Core	Core	0	441.84	352.92
 village_EW5_1	厄利帕	Elipa	village	empire_w	town_EW5	Core	Core	0	433.74	373.6
 village_EW5_2	法索斯	Phasos	village	empire_w	town_EW5	Core	Core	0	410.86	368.0
 town_EW6	洛泰	Rhotae	town	empire_w		Core	Core	0	390.12	393.16
 village_EW6_1	卡耳斐尼翁	Carphenion	village	empire_w	town_EW6	Core	Core	0	395.57	411.89
-castle_village_EW8_2	瓦忒亚	Vathea	village	empire_w	castle_EW8	North	Border	55	382.93	438.41
+castle_village_EW8_2	瓦忒亚	Vathea	village	empire_w	castle_EW8	North	Border	30	382.93	438.41
 village_EW6_3	忒耳塞尼翁	Thersenion	village	empire_w	town_EW6	Core	Core	0	378.97	383.12
 village_EW6_4	勒布伦尼翁	Leblenion	village	empire_w	town_EW6	Core	Core	0	355.29	377.42
 castle_ES1	俄德律萨堡	Odrysa Castle	castle	empire_s		East	Frontier		693.2	306.62
-castle_village_ES1_1	俄德律萨	Odrysa	village	empire_s	castle_ES1	East	Frontier	80	682.06	323.76
+castle_village_ES1_1	俄德律萨	Odrysa	village	empire_s	castle_ES1	East	Frontier	50	682.06	323.76
 castle_ES2	科雷尼亚堡	Corenia Castle	castle	empire_s		East	Border		661.58	363.76
-castle_village_ES2_1	科雷尼亚	Corenia	village	empire_s	castle_ES2	East	Border	55	684.08	358.24
-castle_village_ES2_2	墨塔基亚	Metachia	village	empire_s	castle_ES2	East	Border	55	670.45	343.71
+castle_village_ES2_1	科雷尼亚	Corenia	village	empire_s	castle_ES2	East	Border	30	684.08	358.24
+castle_village_ES2_2	墨塔基亚	Metachia	village	empire_s	castle_ES2	East	Border	30	670.45	343.71
 castle_ES3	墨利翁堡	Melion Castle	castle	empire_s		East	Transition		616.04	383.8
-castle_village_ES3_1	墨利翁	Melion	village	empire_s	castle_ES3	East	Transition	30	616.41	404.01
-castle_village_ES3_2	萨戈利那	Sagolina	village	empire_s	castle_ES3	East	Transition	30	623.92	359.99
+castle_village_ES3_1	墨利翁	Melion	village	empire_s	castle_ES3	East	Transition	20	616.41	404.01
+castle_village_ES3_2	萨戈利那	Sagolina	village	empire_s	castle_ES3	East	Transition	20	623.92	359.99
 castle_ES4	拉文尼亚堡	Lavenia Castle	castle	empire_s		South	Frontier		620.96	254.73
-castle_village_ES4_1	拉文尼亚	Lavenia	village	empire_s	castle_ES4	South	Frontier	80	600.64	242.03
-castle_village_ES4_2	厄忒弥萨	Ethemisa	village	empire_s	castle_ES4	South	Frontier	80	622.74	273.43
+castle_village_ES4_1	拉文尼亚	Lavenia	village	empire_s	castle_ES4	South	Frontier	50	600.64	242.03
+castle_village_ES4_2	厄忒弥萨	Ethemisa	village	empire_s	castle_ES4	South	Frontier	50	622.74	273.43
 castle_ES5	摩雷尼亚堡	Morenia Castle	castle	empire_s		South	Border		557.31	279.08
-castle_village_ES5_1	摩雷尼亚	Morenia	village	empire_s	castle_ES5	South	Border	55	550.92	301.54
+castle_village_ES5_1	摩雷尼亚	Morenia	village	empire_s	castle_ES5	South	Border	30	550.92	301.54
 castle_ES6	塞斯塔代姆堡	Sestadaim Castle	castle	empire_s		Core	Core		493.22	346.3
 castle_village_ES6_1	塞斯塔代姆	Sestadaim	village	empire_s	castle_ES6	Core	Core	0	503.65	349.41
 castle_ES7	约格律斯堡	Jogurys Castle	castle	empire_s		East	Frontier		654.55	434.01
-castle_village_ES7_1	约格律斯	Jogurys	village	empire_s	castle_ES7	East	Frontier	80	640.46	415.09
+castle_village_ES7_1	约格律斯	Jogurys	village	empire_s	castle_ES7	East	Frontier	50	640.46	415.09
 castle_ES8	卡诺普西斯堡	Chanopsis Castle	castle	empire_s		Core	Core		538.99	378.31
 castle_village_ES8_1	卡诺普西斯	Chanopsis	village	empire_s	castle_ES8	Core	Core	0	570.06	366.62
-town_ES1	达努斯提卡	Danustica	town	empire_s		South	Frontier	80	661.19	276.47
-castle_village_ES1_2	恺拉	Caira	village	empire_s	castle_ES1	East	Frontier	80	687.2	276.94
-village_ES1_2	波利西亚	Polisia	village	empire_s	town_ES1	South	Frontier	80	673.13	260.58
-village_ES1_3	泰格瑞索斯	Tegresos	village	empire_s	town_ES1	South	Frontier	80	661.63	293.11
-village_ES1_4	厄瑞玻洛斯	Erebulos	village	empire_s	town_ES1	South	Frontier	80	631.47	263.57
-town_ES2	沃斯特鲁姆	Vostrum	town	empire_s		South	Border	55	568.78	239.99
-castle_village_ES5_2	阿特费尼亚	Atphynia	village	empire_s	castle_ES5	South	Border	55	531.96	264.37
-village_ES2_2	戈耳科律斯	Gorcorys	village	empire_s	town_ES2	South	Border	55	555.63	263.71
-village_ES2_3	阿瓦吕普斯	Avalyps	village	empire_s	town_ES2	South	Border	55	585.84	276.14
-village_ES2_4	阿利西翁	Alision	village	empire_s	town_ES2	South	Border	55	548.26	246.25
-town_ES3	波罗斯	Poros	town	empire_s		South	Transition	30	471.02	269.82
-village_ES3_1	卡诺洛斯	Canoros	village	empire_s	town_ES3	South	Transition	30	498.02	281.82
-village_ES3_2	特维亚	Tevea	village	empire_s	town_ES3	South	Transition	30	490.18	299.37
-village_ES3_3	泽斯特亚	Zestea	village	empire_s	town_ES3	South	Transition	30	467.53	300.7
+town_ES1	达努斯提卡	Danustica	town	empire_s		South	Frontier	50	661.19	276.47
+castle_village_ES1_2	恺拉	Caira	village	empire_s	castle_ES1	East	Frontier	50	687.2	276.94
+village_ES1_2	波利西亚	Polisia	village	empire_s	town_ES1	South	Frontier	50	673.13	260.58
+village_ES1_3	泰格瑞索斯	Tegresos	village	empire_s	town_ES1	South	Frontier	50	661.63	293.11
+village_ES1_4	厄瑞玻洛斯	Erebulos	village	empire_s	town_ES1	South	Frontier	50	631.47	263.57
+town_ES2	沃斯特鲁姆	Vostrum	town	empire_s		South	Border	30	568.78	239.99
+castle_village_ES5_2	阿特费尼亚	Atphynia	village	empire_s	castle_ES5	South	Border	30	531.96	264.37
+village_ES2_2	戈耳科律斯	Gorcorys	village	empire_s	town_ES2	South	Border	30	555.63	263.71
+village_ES2_3	阿瓦吕普斯	Avalyps	village	empire_s	town_ES2	South	Border	30	585.84	276.14
+village_ES2_4	阿利西翁	Alision	village	empire_s	town_ES2	South	Border	30	548.26	246.25
+town_ES3	波罗斯	Poros	town	empire_s		South	Transition	20	471.02	269.82
+village_ES3_1	卡诺洛斯	Canoros	village	empire_s	town_ES3	South	Transition	20	498.02	281.82
+village_ES3_2	特维亚	Tevea	village	empire_s	town_ES3	South	Transition	20	490.18	299.37
+village_ES3_3	泽斯特亚	Zestea	village	empire_s	town_ES3	South	Transition	20	467.53	300.7
 town_ES4	吕卡隆	Lycaron	town	empire_s		Core	Core	0	515.33	333.56
 village_ES4_1	萨戈拉	Sagora	village	empire_s	town_ES4	Core	Core	0	516.33	304.76
 castle_village_ES8_2	波普西亚	Popsia	village	empire_s	castle_ES8	Core	Core	0	513.0	367.53
 village_ES4_3	坎忒里翁	Canterion	village	empire_s	town_ES4	Core	Core	0	535.42	313.41
-town_ES5	俄尼拉	Onira	town	empire_s		East	Border	55	645.32	325.38
-village_ES5_1	兰塔斯	Lanthas	village	empire_s	town_ES5	East	Border	55	620.77	330.6
-village_ES5_2	拉耳图绪斯	Lartusys	village	empire_s	town_ES5	East	Border	55	638.38	351.88
-village_ES5_3	帕拉森诺斯	Parasemnos	village	empire_s	town_ES5	East	Border	55	645.09	305.48
+town_ES5	俄尼拉	Onira	town	empire_s		East	Border	30	645.32	325.38
+village_ES5_1	兰塔斯	Lanthas	village	empire_s	town_ES5	East	Border	30	620.77	330.6
+village_ES5_2	拉耳图绪斯	Lartusys	village	empire_s	town_ES5	East	Border	30	638.38	351.88
+village_ES5_3	帕拉森诺斯	Parasemnos	village	empire_s	town_ES5	East	Border	30	645.09	305.48
 town_ES6	费卡翁	Phycaon	town	empire_s		Core	Core	0	566.24	347.43
 village_ES6_1	萨尔丹尼斯	Saldannis	village	empire_s	town_ES6	Core	Core	0	565.91	326.6
 village_ES6_2	斯珀提亚	Spotia	village	empire_s	town_ES6	Core	Core	0	554.38	337.42
 castle_village_ES6_2	阿密孔	Amycon	village	empire_s	castle_ES6	Core	Core	0	480.81	352.01
-town_ES7	席隆尼亚	Syronea	town	empire_s		East	Frontier	80	651.03	387.79
-village_ES7_1	索泰	Psotai	village	empire_s	town_ES7	East	Frontier	80	644.79	365.77
-village_ES7_2	瓦耳戈尼斯	Vargornis	village	empire_s	town_ES7	East	Frontier	80	659.76	401.48
-castle_village_ES7_2	优纳利卡	Eunalica	village	empire_s	castle_ES7	East	Frontier	80	659.42	419.42
+town_ES7	席隆尼亚	Syronea	town	empire_s		East	Frontier	50	651.03	387.79
+village_ES7_1	索泰	Psotai	village	empire_s	town_ES7	East	Frontier	50	644.79	365.77
+village_ES7_2	瓦耳戈尼斯	Vargornis	village	empire_s	town_ES7	East	Frontier	50	659.76	401.48
+castle_village_ES7_2	优纳利卡	Eunalica	village	empire_s	castle_ES7	East	Frontier	50	659.42	419.42

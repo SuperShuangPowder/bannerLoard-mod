@@ -48,6 +48,7 @@ namespace WXProvincialFreeCompany
         private static void EnsureConfigLoadedAndLog()
         {
             RegionalRecruitmentRegistry.EnsureLoaded();
+            RegionalRecruitmentSettings.EnsureLoaded();
             if (_configStateLogged)
             {
                 return;
