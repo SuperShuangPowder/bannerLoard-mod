@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 生成物，请勿手改。由 scripts/generate-recruitment-xml.ps1 从 design/imperial_settlements.tsv 同源生成；
+     运行时由 C# 配置加载器直接读取，不在 SubModule.xml 中注册 XmlNode。 -->
+<RegionalRecruitment>
+  <RegionMapping>
+    <Region id="North" troop="NPCCharacter.wx_northern_borderlander" />
+    <Region id="South" troop="NPCCharacter.wx_southern_borderlander" />
+    <Region id="West" troop="NPCCharacter.wx_western_borderlander" />
+    <Region id="East" troop="NPCCharacter.wx_eastern_borderlander" />
+  </RegionMapping>
+  <Settlements>
+    <Settlement id="castle_village_EN1_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EN1_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EN2_1" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EN2_2" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EN3_1" region="North" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_EN3_2" region="North" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_EN4_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EN4_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EN5_1" region="North" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_EN5_2" region="North" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_EN6_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EN6_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EN7_1" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EN7_2" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EN8_1" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EN8_2" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EN9_1" region="North" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_EN9_2" region="North" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_ES1_1" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_ES1_2" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_ES2_1" region="East" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_ES2_2" region="East" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_ES3_1" region="East" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_ES3_2" region="East" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_ES4_1" region="South" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_ES4_2" region="South" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_ES5_1" region="South" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_ES5_2" region="South" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_ES6_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_ES6_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_ES7_1" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_ES7_2" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_ES8_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_ES8_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EW1_1" region="West" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EW1_2" region="West" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EW2_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EW2_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="castle_village_EW3_1" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_EW3_2" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_EW4_1" region="West" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EW4_2" region="West" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EW5_1" region="West" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EW5_2" region="West" tier="Frontier" chance="0.80" />
+    <Settlement id="castle_village_EW6_1" region="West" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_EW6_2" region="West" tier="Transition" chance="0.30" />
+    <Settlement id="castle_village_EW7_1" region="West" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_EW7_2" region="West" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_EW8_1" region="North" tier="Border" chance="0.55" />
+    <Settlement id="castle_village_EW8_2" region="North" tier="Border" chance="0.55" />
+    <Settlement id="town_EN1" region="North" tier="Border" chance="0.55" />
+    <Settlement id="town_EN2" region="North" tier="Border" chance="0.55" />
+    <Settlement id="town_EN3" region="Core" tier="Core" chance="0" />
+    <Settlement id="town_EN4" region="North" tier="Transition" chance="0.30" />
+    <Settlement id="town_EN5" region="East" tier="Transition" chance="0.30" />
+    <Settlement id="town_EN6" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="town_ES1" region="South" tier="Frontier" chance="0.80" />
+    <Settlement id="town_ES2" region="South" tier="Border" chance="0.55" />
+    <Settlement id="town_ES3" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="town_ES4" region="Core" tier="Core" chance="0" />
+    <Settlement id="town_ES5" region="East" tier="Border" chance="0.55" />
+    <Settlement id="town_ES6" region="Core" tier="Core" chance="0" />
+    <Settlement id="town_ES7" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="town_EW1" region="West" tier="Border" chance="0.55" />
+    <Settlement id="town_EW2" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="town_EW3" region="West" tier="Border" chance="0.55" />
+    <Settlement id="town_EW4" region="West" tier="Transition" chance="0.30" />
+    <Settlement id="town_EW5" region="Core" tier="Core" chance="0" />
+    <Settlement id="town_EW6" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_EN1_1" region="North" tier="Border" chance="0.55" />
+    <Settlement id="village_EN1_2" region="North" tier="Border" chance="0.55" />
+    <Settlement id="village_EN1_3" region="North" tier="Border" chance="0.55" />
+    <Settlement id="village_EN2_1" region="North" tier="Border" chance="0.55" />
+    <Settlement id="village_EN2_2" region="North" tier="Border" chance="0.55" />
+    <Settlement id="village_EN3_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_EN3_3" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_EN4_2" region="North" tier="Transition" chance="0.30" />
+    <Settlement id="village_EN4_4" region="North" tier="Transition" chance="0.30" />
+    <Settlement id="village_EN5_1" region="East" tier="Transition" chance="0.30" />
+    <Settlement id="village_EN5_2" region="East" tier="Transition" chance="0.30" />
+    <Settlement id="village_EN5_4" region="East" tier="Transition" chance="0.30" />
+    <Settlement id="village_EN6_1" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="village_EN6_2" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="village_ES1_2" region="South" tier="Frontier" chance="0.80" />
+    <Settlement id="village_ES1_3" region="South" tier="Frontier" chance="0.80" />
+    <Settlement id="village_ES1_4" region="South" tier="Frontier" chance="0.80" />
+    <Settlement id="village_ES2_2" region="South" tier="Border" chance="0.55" />
+    <Settlement id="village_ES2_3" region="South" tier="Border" chance="0.55" />
+    <Settlement id="village_ES2_4" region="South" tier="Border" chance="0.55" />
+    <Settlement id="village_ES3_1" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="village_ES3_2" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="village_ES3_3" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="village_ES4_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_ES4_3" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_ES5_1" region="East" tier="Border" chance="0.55" />
+    <Settlement id="village_ES5_2" region="East" tier="Border" chance="0.55" />
+    <Settlement id="village_ES5_3" region="East" tier="Border" chance="0.55" />
+    <Settlement id="village_ES6_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_ES6_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_ES7_1" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="village_ES7_2" region="East" tier="Frontier" chance="0.80" />
+    <Settlement id="village_EW1_1" region="West" tier="Border" chance="0.55" />
+    <Settlement id="village_EW1_2" region="West" tier="Border" chance="0.55" />
+    <Settlement id="village_EW2_2" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="village_EW2_3" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="village_EW2_4" region="South" tier="Transition" chance="0.30" />
+    <Settlement id="village_EW3_2" region="West" tier="Border" chance="0.55" />
+    <Settlement id="village_EW3_3" region="West" tier="Border" chance="0.55" />
+    <Settlement id="village_EW4_1" region="West" tier="Transition" chance="0.30" />
+    <Settlement id="village_EW4_3" region="West" tier="Transition" chance="0.30" />
+    <Settlement id="village_EW4_4" region="West" tier="Transition" chance="0.30" />
+    <Settlement id="village_EW5_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_EW5_2" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_EW6_1" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_EW6_3" region="Core" tier="Core" chance="0" />
+    <Settlement id="village_EW6_4" region="Core" tier="Core" chance="0" />
+  </Settlements>
+</RegionalRecruitment>

@@ -78,3 +78,45 @@ function Assert-NoOfficialAssemblies {
         throw "Official game DLLs must not be copied into project output:`n$names"
     }
 }
+
+function Read-DesignSource {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$Path
+    )
+
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) {
+        throw "Design source not found: $Path"
+    }
+
+    $rows = @()
+    foreach ($line in [System.IO.File]::ReadAllLines($Path, [System.Text.Encoding]::UTF8)) {
+        if ($line -match '^\s*#' -or $line.Trim().Length -eq 0) {
+            continue
+        }
+
+        $fields = $line.Split([char[]]@([char]9), [System.StringSplitOptions]::None)
+        if ($fields.Count -ne 11) {
+            throw "Design source row must have 11 fields, got $($fields.Count): $line"
+        }
+        if ($fields[0] -eq 'id') {
+            continue
+        }
+
+        $rows += [pscustomobject]@{
+            id         = $fields[0]
+            name_zh    = $fields[1]
+            name_en    = $fields[2]
+            type       = $fields[3]
+            faction    = $fields[4]
+            bound      = $fields[5]
+            region     = $fields[6]
+            tier       = $fields[7]
+            chance_pct = $fields[8]
+            pos_x      = $fields[9]
+            pos_y      = $fields[10]
+        }
+    }
+
+    return $rows
+}
