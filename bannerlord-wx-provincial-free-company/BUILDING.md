@@ -58,6 +58,24 @@ artifacts/package/WXProvincialFreeCompany-v0.5.0.zip
 
 脚本会检查压缩包内存在 `SubModule.xml` 与本 MOD 的 DLL，并拒绝包含任何 `TaleWorlds*.dll` 或 `NavalDLC*.dll` 的包。
 
+## 地域征募数据层：设计源校验与运行时配置生成
+
+地域征募的唯一机器可读设计源是 `design/imperial_settlements.tsv`（141 个帝国聚落对象）。审阅地图与运行时 XML 均由脚本同源生成，禁止手改设计源之外的产物。
+
+校验设计源（字段规则 + 对照真实游戏 `settlements.xml` + 与审阅地图 HTML 的漂移检测）：
+
+```powershell
+.\scripts\validate-design.ps1 -BannerlordGameDir $gameDir
+```
+
+生成运行时配置 `src/WXProvincialFreeCompany/ModuleData/regional_recruitment.xml`（116 个征兵点 = 19 城镇 + 97 村庄）：
+
+```powershell
+.\scripts\generate-recruitment-xml.ps1 -BannerlordGameDir $gameDir
+```
+
+生成脚本会先执行设计源校验，拒绝从错误数据产出运行时配置；生成后自动重新解析自检。`regional_recruitment.xml` 由 C# 配置加载器直接读取，不在 `SubModule.xml` 注册 XmlNode。设计源任何修改后必须重跑校验与生成，并把两者一并提交。
+
 ## v0.5.0 骨架的手动加载验证
 
 1. 打开 Bannerlord 启动器，在单人模组列表启用 War Sails / NavalDLC 与 `WX Provincial Free Company`。
