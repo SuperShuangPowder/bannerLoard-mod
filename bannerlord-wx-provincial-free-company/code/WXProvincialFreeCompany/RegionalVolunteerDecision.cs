@@ -9,17 +9,17 @@ namespace WXProvincialFreeCompany
     {
         /// <summary>
         /// Returns true when the vanilla basic volunteer should be replaced by
-        /// the regional T1 for this notable update.
+        /// the regional T1 for this notable update. Full-map enablement: every
+        /// settlement with a configured profile participates; the chance band
+        /// of the profile decides the outcome.
         /// </summary>
         /// <param name="originalTroopId">StringId returned by the inner model.</param>
         /// <param name="profile">Recruitment profile of the notable's home settlement, or null.</param>
-        /// <param name="prototypeEnabled">Whether the settlement is one of the five prototype points.</param>
         /// <param name="troopId">Configured regional root troop id; empty when missing.</param>
         /// <param name="roll">Random value in [0, 1); the campaign passes MBRandom.RandomFloat.</param>
         public static bool ShouldReplace(
             string originalTroopId,
             RegionalRecruitmentProfile profile,
-            bool prototypeEnabled,
             string troopId,
             double roll)
         {
@@ -29,11 +29,6 @@ namespace WXProvincialFreeCompany
             }
 
             if (profile == null)
-            {
-                return false;
-            }
-
-            if (!prototypeEnabled)
             {
                 return false;
             }

@@ -8,12 +8,12 @@ using TaleWorlds.MountAndBlade;
 namespace WXProvincialFreeCompany
 {
     /// <summary>
-    /// v0.5.2 five-point prototype module.
+    /// v0.5.3 full-map module.
     ///
     /// Loads and validates ModuleData/regional_recruitment.xml, wraps the
-    /// current VolunteerModel with RegionalVolunteerModel (five prototype
-    /// settlements only), and exposes the wx_pfc.* diagnostic commands.
-    /// All other volunteer behavior stays vanilla.
+    /// current VolunteerModel with RegionalVolunteerModel (all 116 configured
+    /// recruit points), and exposes the wx_pfc.* diagnostic commands.
+    /// Noble recruits and everything outside the config stay vanilla.
     /// </summary>
     public sealed class SubModule : MBSubModuleBase
     {
@@ -98,8 +98,7 @@ namespace WXProvincialFreeCompany
                 var wrapper = new RegionalVolunteerModel(current);
                 starter.AddModel(wrapper);
                 Log($"[{RegionalRecruitmentRegistry.ModuleId}] VolunteerModel wrapped: inner={current.GetType().FullName}; " +
-                    $"prototype points={FivePointPrototype.EnabledSettlementIds.Length} " +
-                    $"({string.Join(", ", FivePointPrototype.EnabledSettlementIds)}).");
+                    "full-map enablement: all configured recruit points participate.");
             }
             catch (Exception exception)
             {

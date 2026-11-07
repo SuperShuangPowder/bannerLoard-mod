@@ -111,10 +111,9 @@ namespace WXProvincialFreeCompany
             }
 
             RegionalRecruitmentProfile? profile = registry.GetProfile(home.StringId);
-            bool prototypeEnabled = FivePointPrototype.IsEnabled(home.StringId);
-            if (profile == null || !prototypeEnabled)
+            if (profile == null)
             {
-                return original; // no config, or outside the five prototype points
+                return original; // no config: vanilla fallback
             }
 
             string? troopId = registry.GetTroopId(profile.Region);
@@ -126,7 +125,7 @@ namespace WXProvincialFreeCompany
             // The real campaign roll uses the game RNG (record 033 §5); the
             // fixed-seed simulation stays exclusive to the wx_pfc.sample command.
             bool replace = RegionalVolunteerDecision.ShouldReplace(
-                original.StringId, profile, prototypeEnabled, troopId, MBRandom.RandomFloat);
+                original.StringId, profile, troopId, MBRandom.RandomFloat);
             if (!replace || !RegionalTroops.TryGetValue(profile.Region, out CharacterObject regional))
             {
                 return original;

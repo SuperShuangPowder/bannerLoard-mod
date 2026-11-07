@@ -103,48 +103,38 @@ internal static class Smoke
             () => RegionalRecruitmentRegistry.Parse(ValidHeader +
                 "<Settlements><Settlement id=\"town_EN1\" region=\"North\" tier=\"Border\" chance=\"0.42\"/></Settlements></RegionalRecruitment>"));
 
-        // 5. Pure replacement decision logic (five-point prototype)
+        // 5. Pure replacement decision logic (full-map enablement)
         var north30 = new RegionalRecruitmentProfile("town_EN4", RegionalRegion.North, RegionalTier.Transition, 0.30);
+        var south55 = new RegionalRecruitmentProfile("town_ES2", RegionalRegion.South, RegionalTier.Border, 0.55);
         var core0 = new RegionalRecruitmentProfile("town_EN3", RegionalRegion.Core, RegionalTier.Core, 0.0);
         const string northTroop = "NPCCharacter.wx_northern_borderlander";
         Check("decision: 贵族兵(imperial_vigla_recruit)永不替换",
-            !RegionalVolunteerDecision.ShouldReplace("imperial_vigla_recruit", north30, true, northTroop, 0.01));
+            !RegionalVolunteerDecision.ShouldReplace("imperial_vigla_recruit", north30, northTroop, 0.01));
         Check("decision: 非帝国兵种永不替换",
-            !RegionalVolunteerDecision.ShouldReplace("sturgian_recruit", north30, true, northTroop, 0.01));
-        Check("decision: 未启用试点不替换",
-            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, false, northTroop, 0.01));
+            !RegionalVolunteerDecision.ShouldReplace("sturgian_recruit", north30, northTroop, 0.01));
         Check("decision: 核心区 0% 不替换",
-            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", core0, true, northTroop, 0.0));
+            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", core0, northTroop, 0.0));
         Check("decision: 空兵种映射不替换",
-            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, true, "", 0.01));
+            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, "", 0.01));
         Check("decision: 无配置档案不替换",
-            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", null, true, northTroop, 0.01));
-        Check("decision: 命中概率即替换 (0.29<0.30)",
-            RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, true, northTroop, 0.29));
+            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", null, northTroop, 0.01));
+        Check("decision: 北境档案命中即替换 (0.29<0.30)",
+            RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, northTroop, 0.29));
+        Check("decision: 南境档案命中即替换 (0.54<0.55)",
+            RegionalVolunteerDecision.ShouldReplace("imperial_recruit", south55, "NPCCharacter.wx_southern_borderlander", 0.54));
         Check("decision: 未命中保持原版 (0.31>=0.30)",
-            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, true, northTroop, 0.31));
+            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, northTroop, 0.31));
         Check("decision: 边界值恰等于概率不替换 (0.30>=0.30)",
-            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, true, northTroop, 0.30));
-        Check("五点试点覆盖四档概率与五地域",
-            FivePointPrototype.EnabledSettlementIds.Length == 5
-            && FivePointPrototype.IsEnabled("town_EN3")
-            && FivePointPrototype.IsEnabled("town_EN4")
-            && FivePointPrototype.IsEnabled("town_ES2")
-            && FivePointPrototype.IsEnabled("castle_village_EW1_1")
-            && FivePointPrototype.IsEnabled("town_EN6")
-            && !FivePointPrototype.IsEnabled("town_EN1"));
-        Check("五点试点在 116 征兵点配置中均有档案",
-            registry.GetProfile("town_EN3") != null
-            && registry.GetProfile("town_EN4") != null
-            && registry.GetProfile("town_ES2") != null
+            !RegionalVolunteerDecision.ShouldReplace("imperial_recruit", north30, northTroop, 0.30));
+        Check("全图启用: 全部 116 个征兵点均有档案且四地域根兵映射齐备",
+            registry.ProfileCount == 116
+            && registry.GetProfile("town_EN6") != null
             && registry.GetProfile("castle_village_EW1_1") != null
-            && registry.GetProfile("town_EN6") != null);
-        Check("五点试点联合覆盖 0/30/55/80 四档",
-            registry.GetProfile("town_EN3").AuxiliaryChance == 0.0
-            && registry.GetProfile("town_EN4").AuxiliaryChance == 0.30
-            && registry.GetProfile("town_ES2").AuxiliaryChance == 0.55
-            && registry.GetProfile("castle_village_EW1_1").AuxiliaryChance == 0.80
-            && registry.GetProfile("town_EN6").AuxiliaryChance == 0.80);
+            && registry.GetProfile("village_ES7_2") != null
+            && registry.GetTroopId(RegionalRegion.North) != null
+            && registry.GetTroopId(RegionalRegion.South) != null
+            && registry.GetTroopId(RegionalRegion.West) != null
+            && registry.GetTroopId(RegionalRegion.East) != null);
 
         Console.WriteLine();
         Console.WriteLine(failures == 0 ? "ALL CHECKS PASSED" : $"{failures} CHECK(S) FAILED");
