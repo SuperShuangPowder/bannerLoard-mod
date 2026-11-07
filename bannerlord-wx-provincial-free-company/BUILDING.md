@@ -86,13 +86,13 @@ dotnet run --project tests\SmokeTest -c Release
 
 覆盖：116 个征兵点解析、四档概率一万次模拟（0% 严格 0 命中、其余 ±2pp 容差）、非法配置拒绝与 `wx_pfc.*` 命令特性注册。
 
-## v0.5.5 手动加载与战役验证
+## v0.5.6 手动加载与战役验证
 
 1. 打开 Bannerlord 启动器，在单人模组列表启用 War Sails / NavalDLC 与 `WX Provincial Free Company`。
 2. 确认启动器没有报告 DLL 缺失、依赖缺失或版本格式错误。
 3. 启动游戏，进入主菜单，检查未发生加载崩溃。
 4. 新建沙盒或战役，进入世界地图并保存、读取一次。
-5. 打开“选项 → 战役选项”，确认 6 个地域征募滑块名称、说明和值正常显示；修改一项并确认用户 Configs 下的设置文件同步更新。
+5. 打开“选项 → 战役选项”，确认 6 个地域征募滑块不再出现 `_campaign_options_type doesn't exist` 或 `str_campaign_options_description doesn't exist`，中文名称、悬停说明和值均正常显示；修改一项并确认用户 Configs 下的设置文件同步更新。
 6. 运行 `wx_pfc.profile town_EN6` 与 `wx_pfc.sample town_EN6 10000`，确认输出当前有效概率和槽位上限。
 7. 运行 `wx_pfc.audit_volunteers`，确认统计对象是有效征兵要人，贵族兵数量未因地域替换而减少。
 8. 进入自定义战斗，确认四条地域兵种仍可选择；战役中确认核心区不产地域兵，其他配置区按概率出现对应地域 T1 且不超过槽位上限。

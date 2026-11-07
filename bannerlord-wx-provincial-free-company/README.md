@@ -6,7 +6,7 @@
 
 ## 当前版本
 
-`v0.5.5-review-fixes`：保留 v0.5.4 的全图地域征募与 50/30/20＋3/2/1 默认设置，修复设计源验证误报、实时诊断、要人/贵族统计、加载顺序和文档漂移。
+`v0.5.6-campaign-option-texts`：保留 v0.5.5 的全图地域征募与审阅修复，并按官方 `GameText` 机制注册战役选项的 6 个标题与 6 个说明文本，修复滑块界面显示 `_campaign_options_type doesn't exist` 和 `str_campaign_options_description doesn't exist` 的问题。
 
 游戏内 **选项 → 战役选项** 提供 6 个滑块实时调节（无需重启、无需改文件）；设置持久化于 `Documents\Mount and Blade II Bannerlord\Configs\WXProvincialFreeCompany.xml`，也可直接手改。概率表示每次空志愿兵槽刷新时，以地域 T1 替换原版帝国新兵的概率；槽位上限限制每名要人同时保有的地域兵槽数。贵族兵与一切非 `imperial_recruit` 结果保持原版。
 

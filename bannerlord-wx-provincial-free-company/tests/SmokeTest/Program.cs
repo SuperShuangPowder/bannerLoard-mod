@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
 using WXProvincialFreeCompany;
 
 /// <summary>
-/// Pure-logic smoke test for the v0.5.5 regional recruitment layer.
+/// Pure-logic smoke test for the v0.5.6 regional recruitment layer.
 ///
 /// Scope: config parsing, deterministic simulation and debug-command
 /// attribute registration. Runs on any machine with .NET SDK 6.0.428 after
@@ -46,11 +47,69 @@ internal static class Smoke
 
         string subModuleText = File.ReadAllText(Path.Combine(repo,
             @"src\WXProvincialFreeCompany\SubModule.xml"));
-        Check("module: version v0.5.5", subModuleText.Contains("<Version value=\"v0.5.5\""));
+        Check("module: version v0.5.6", subModuleText.Contains("<Version value=\"v0.5.6\""));
         Check("module: optional Sandbox ordering dependency",
             subModuleText.Contains("Id=\"Sandbox\" DependentVersion=\"v1.4.8\" Optional=\"true\""));
         Check("module: optional StoryMode ordering dependency",
             subModuleText.Contains("Id=\"StoryMode\" DependentVersion=\"v1.4.8\" Optional=\"true\""));
+        Check("module: campaign GameText registered",
+            subModuleText.Contains("<XmlName id=\"GameText\" path=\"wx_campaign_strings\""));
+
+        // NumericCampaignOptionData looks up labels and descriptions via
+        // GameTexts.FindText(baseId, variation). Language files can translate
+        // an existing GameText, but cannot create that variation by themselves.
+        string gameTextPath = Path.Combine(repo,
+            @"src\WXProvincialFreeCompany\ModuleData\wx_campaign_strings.xml");
+        var gameTextDocument = new XmlDocument();
+        gameTextDocument.Load(gameTextPath);
+        var gameTextNodes = gameTextDocument.SelectNodes("/strings/string");
+        Check("campaign options: exactly 12 GameText variations", gameTextNodes.Count == 12);
+
+        var localizationKeys = new HashSet<string>(StringComparer.Ordinal);
+        foreach (XmlNode node in gameTextNodes)
+        {
+            string id = node.Attributes["id"]?.Value;
+            string text = node.Attributes["text"]?.Value;
+            Check($"campaign options: valid localized GameText {id}",
+                !string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(text) && text.StartsWith("{="));
+            int keyEnd = text == null ? -1 : text.IndexOf('}');
+            if (keyEnd > 2)
+            {
+                localizationKeys.Add(text.Substring(2, keyEnd - 2));
+            }
+        }
+
+        string[] optionVariations =
+        {
+            "str_wx_pfc_chance_frontier", "str_wx_pfc_chance_border", "str_wx_pfc_chance_transition",
+            "str_wx_pfc_slots_frontier", "str_wx_pfc_slots_border", "str_wx_pfc_slots_transition",
+        };
+        var gameTextIds = new HashSet<string>(
+            gameTextNodes.Cast<XmlNode>().Select(n => n.Attributes["id"]?.Value),
+            StringComparer.Ordinal);
+        foreach (string variation in optionVariations)
+        {
+            Check($"campaign options: type variation {variation}",
+                gameTextIds.Contains("str_campaign_options_type." + variation));
+            Check($"campaign options: description variation {variation}",
+                gameTextIds.Contains("str_campaign_options_description." + variation));
+        }
+
+        foreach (string languagePath in new[]
+        {
+            @"src\WXProvincialFreeCompany\ModuleData\Languages\en\wx_provincial_free_company_xml-eng.xml",
+            @"src\WXProvincialFreeCompany\ModuleData\Languages\CNs\wx_provincial_free_company_xml-zho-CN.xml",
+        })
+        {
+            var languageDocument = new XmlDocument();
+            languageDocument.Load(Path.Combine(repo, languagePath));
+            var languageIds = new HashSet<string>(
+                languageDocument.SelectNodes("/base/strings/string").Cast<XmlNode>()
+                    .Select(n => n.Attributes["id"]?.Value),
+                StringComparer.Ordinal);
+            Check($"campaign options: all localization keys in {Path.GetDirectoryName(languagePath)}",
+                localizationKeys.All(languageIds.Contains));
+        }
 
         // 1. Diagnostic command registration attributes
         var commands = modAsm.GetType("WXProvincialFreeCompany.RegionalRecruitmentDebugCommands");

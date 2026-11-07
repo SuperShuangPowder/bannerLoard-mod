@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<strings>
+  <string id="str_campaign_options_type.str_wx_pfc_chance_frontier"
+          text="{=str_wx_pfc_chance_frontier}Frontier regional recruit chance (%)" />
+  <string id="str_campaign_options_type.str_wx_pfc_chance_border"
+          text="{=str_wx_pfc_chance_border}Border regional recruit chance (%)" />
+  <string id="str_campaign_options_type.str_wx_pfc_chance_transition"
+          text="{=str_wx_pfc_chance_transition}Transition regional recruit chance (%)" />
+  <string id="str_campaign_options_type.str_wx_pfc_slots_frontier"
+          text="{=str_wx_pfc_slots_frontier}Frontier regional slot cap" />
+  <string id="str_campaign_options_type.str_wx_pfc_slots_border"
+          text="{=str_wx_pfc_slots_border}Border regional slot cap" />
+  <string id="str_campaign_options_type.str_wx_pfc_slots_transition"
+          text="{=str_wx_pfc_slots_transition}Transition regional slot cap" />
+
+  <string id="str_campaign_options_description.str_wx_pfc_chance_frontier"
+          text="{=wx_pfc_desc_chance_frontier}Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in the frontier tier (0-100%)." />
+  <string id="str_campaign_options_description.str_wx_pfc_chance_border"
+          text="{=wx_pfc_desc_chance_border}Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in the border tier (0-100%)." />
+  <string id="str_campaign_options_description.str_wx_pfc_chance_transition"
+          text="{=wx_pfc_desc_chance_transition}Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in the transition tier (0-100%)." />
+  <string id="str_campaign_options_description.str_wx_pfc_slots_frontier"
+          text="{=wx_pfc_desc_slots_frontier}Maximum regional volunteer slots a frontier notable can hold at once (0-6)." />
+  <string id="str_campaign_options_description.str_wx_pfc_slots_border"
+          text="{=wx_pfc_desc_slots_border}Maximum regional volunteer slots a border notable can hold at once (0-6)." />
+  <string id="str_campaign_options_description.str_wx_pfc_slots_transition"
+          text="{=wx_pfc_desc_slots_transition}Maximum regional volunteer slots a transition notable can hold at once (0-6)." />
+</strings>

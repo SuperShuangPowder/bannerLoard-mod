@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.6-campaign-option-texts — 2026-11-07
+
+- 修复战役选项界面把 6 个滑块标题显示为 `_campaign_options_type doesn't exist`、把说明显示为 `str_campaign_options_description doesn't exist` 的问题。
+- 根因是 `NumericCampaignOptionData` 使用 `GameTexts.FindText(baseId, variation)` 查找文本；语言 XML 只能翻译已存在的文本键，无法单独创建 `str_campaign_options_type.<variation>` 与 `str_campaign_options_description.<variation>`。
+- 新增 `ModuleData/wx_campaign_strings.xml`，按原版 `module_strings.xml` 的结构注册 6 个标题和 6 个说明变体，并在 `SubModule.xml` 以 `GameText` 类型加载。
+- 英文与简体中文语言文件保留实际翻译键，移除此前无效且容易误导的伪 GameText 条目。
+- 冒烟测试新增模块注册、12 个 GameText 变体及中英文翻译键完整性检查；子模块版本提升至 `v0.5.6`。
+
 ## v0.5.5-review-fixes — 2026-11-07
 
 - 修复地图漂移校验把 `291.0` 与 `291` 当成不同坐标的误报；TSV、真实 `settlements.xml` 与审阅地图的 141 对象验证链恢复全绿。

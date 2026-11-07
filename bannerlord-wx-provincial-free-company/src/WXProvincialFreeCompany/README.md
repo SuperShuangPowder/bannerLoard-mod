@@ -4,7 +4,7 @@
 
 ## 当前里程碑
 
-`v0.5.5-review-fixes`：全图地域志愿兵模型已启用，并完成验证链、实时诊断、审计统计、加载顺序与文档修复。
+`v0.5.6-campaign-option-texts`：全图地域志愿兵模型已启用；战役选项标题与说明改为正式注册的 `GameText` 变体，消除选项界面的缺失文本错误。
 
 - 通过官方 `InitializeGameStarter` 包装当前有效的 `VolunteerModel`，不使用 Harmony。
 - 仅当原版结果精确为 `imperial_recruit` 时，才按聚落地域和玩家设置尝试替换为四种地域 T1；贵族兵和其他文化兵种原样返回。
@@ -40,11 +40,11 @@
 - 已加入十二个地域兵种的简体中文名称；非简体中文环境使用英文后备名称。
 - 当前包含本 MOD 自己的地域征募 DLL；不包含 Harmony、第三方 DLL、官方 DLL、自定义模型、贴图或场景。
 
-## v0.5.5 手动验证重点
+## v0.5.6 手动验证重点
 
 - 在启动器中确认模块没有 DLL、类名、依赖或版本错误。
 - 启动至主菜单并新建测试战役，确认 DLL 加载、保存和读取正常。
-- 在战役选项中确认 6 个地域征募滑块名称与说明正常显示；修改后设置文件同步更新。
+- 在战役选项中确认 6 个地域征募滑块不再出现 `_campaign_options_type doesn't exist` 或 `str_campaign_options_description doesn't exist`，中文标题、悬停说明和值均正常显示；修改后设置文件同步更新。
 - 运行 `wx_pfc.profile town_EN6`，确认同时显示 `designChance`、`effectiveChance` 与 `maxSlots`。
 - 调整前线概率后运行 `wx_pfc.sample town_EN6 10000`，确认模拟使用实时概率而不是固定 50%。
 - 运行 `wx_pfc.audit_volunteers`，确认只统计有效征兵要人；贵族统计覆盖维格拉至精锐具装骑兵整条路线。

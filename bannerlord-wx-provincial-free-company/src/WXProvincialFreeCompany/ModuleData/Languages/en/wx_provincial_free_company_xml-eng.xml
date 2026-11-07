@@ -12,19 +12,11 @@
     <string id="str_wx_pfc_slots_frontier" text="Frontier regional slot cap" />
     <string id="str_wx_pfc_slots_border" text="Border regional slot cap" />
     <string id="str_wx_pfc_slots_transition" text="Transition regional slot cap" />
-    <string id="str_campaign_options_description" text="Controls regional recruitment for this tier: chance applies whenever an empty volunteer slot is refilled; the cap limits regional slots held by one notable." />
-    <string id="str_campaign_options_type" text="Value" />
-    <string id="str_campaign_options_type.str_wx_pfc_chance_frontier" text="Frontier regional recruit chance (%)" />
-    <string id="str_campaign_options_type.str_wx_pfc_chance_border" text="Border regional recruit chance (%)" />
-    <string id="str_campaign_options_type.str_wx_pfc_chance_transition" text="Transition regional recruit chance (%)" />
-    <string id="str_campaign_options_type.str_wx_pfc_slots_frontier" text="Frontier regional slot cap" />
-    <string id="str_campaign_options_type.str_wx_pfc_slots_border" text="Border regional slot cap" />
-    <string id="str_campaign_options_type.str_wx_pfc_slots_transition" text="Transition regional slot cap" />
-    <string id="str_campaign_options_description.str_wx_pfc_chance_frontier" text="Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in this tier (0-100%)." />
-    <string id="str_campaign_options_description.str_wx_pfc_chance_border" text="Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in this tier (0-100%)." />
-    <string id="str_campaign_options_description.str_wx_pfc_chance_transition" text="Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in this tier (0-100%)." />
-    <string id="str_campaign_options_description.str_wx_pfc_slots_frontier" text="Maximum regional volunteer slots a notable of this tier can hold at once (0-6)." />
-    <string id="str_campaign_options_description.str_wx_pfc_slots_border" text="Maximum regional volunteer slots a notable of this tier can hold at once (0-6)." />
-    <string id="str_campaign_options_description.str_wx_pfc_slots_transition" text="Maximum regional volunteer slots a notable of this tier can hold at once (0-6)." />
+    <string id="wx_pfc_desc_chance_frontier" text="Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in the frontier tier (0-100%)." />
+    <string id="wx_pfc_desc_chance_border" text="Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in the border tier (0-100%)." />
+    <string id="wx_pfc_desc_chance_transition" text="Chance to replace an imperial recruit whenever an empty volunteer slot is refilled in the transition tier (0-100%)." />
+    <string id="wx_pfc_desc_slots_frontier" text="Maximum regional volunteer slots a frontier notable can hold at once (0-6)." />
+    <string id="wx_pfc_desc_slots_border" text="Maximum regional volunteer slots a border notable can hold at once (0-6)." />
+    <string id="wx_pfc_desc_slots_transition" text="Maximum regional volunteer slots a transition notable can hold at once (0-6)." />
   </strings>
 </base>
