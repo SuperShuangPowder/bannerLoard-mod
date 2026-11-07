@@ -45,10 +45,14 @@ $dataPattern = 'const\s+data\s*=\s*\[.*?\]\s*;'
 if (-not [regex]::IsMatch($html, $dataPattern, [System.Text.RegularExpressions.RegexOptions]::Singleline)) {
     throw '未能在 HTML 中找到可替换的 const data 数组。'
 }
+
+# 该 HTML 是实体转义序列化格式（脚本与数据均以 &lt;/&quot;/&#x27; 存储）。
+# 新 JSON 必须按同一编码写入，裸引号会撕裂外层转义块导致页面无法渲染。
+$escapedJson = $json -replace '&', '&amp;' -replace '<', '&lt;' -replace '>', '&gt;' -replace '"', '&quot;'
 $newHtml = [regex]::Replace(
     $html,
     $dataPattern,
-    ('const data = ' + $json + ';'),
+    ('const data = ' + $escapedJson + ';'),
     [System.Text.RegularExpressions.RegexOptions]::Singleline)
 if ($newHtml -eq $html) {
     Write-Host '✓ 审阅地图数据已与设计源一致（幂等，无需写入）。'
@@ -58,6 +62,17 @@ if ($newHtml -eq $html) {
     return
 }
 [System.IO.File]::WriteAllText($MapHtmlPath, $newHtml, (New-Object System.Text.UTF8Encoding($false)))
+
+# 写后自检：重新提取并解码，确认数组可解析为 141 个对象。
+$verifyText = Get-Content -LiteralPath $MapHtmlPath -Raw -Encoding UTF8
+$verifyMatch = [regex]::Match($verifyText, $dataPattern, [System.Text.RegularExpressions.RegexOptions]::Singleline)
+if (-not $verifyMatch.Success) {
+    throw '写后自检失败：无法在生成的 HTML 中找到 const data 数组。'
+}
+$verifyRows = [System.Net.WebUtility]::HtmlDecode($verifyMatch.Groups[1].Value) | ConvertFrom-Json
+if ($null -eq $verifyRows -or $verifyRows.Count -ne 141) {
+    throw "写后自检失败：解码后对象数为 $($verifyRows.Count)，应为 141。"
+}
 
 Write-Host ''
 Write-Host '✓ 审阅地图数据已由设计源同源重建：'
