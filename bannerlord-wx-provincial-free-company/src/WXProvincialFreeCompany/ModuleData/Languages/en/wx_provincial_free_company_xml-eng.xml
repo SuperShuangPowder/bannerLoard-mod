@@ -12,5 +12,7 @@
     <string id="str_wx_pfc_slots_frontier" text="Frontier regional slot cap" />
     <string id="str_wx_pfc_slots_border" text="Border regional slot cap" />
     <string id="str_wx_pfc_slots_transition" text="Transition regional slot cap" />
+    <string id="str_campaign_options_description" text="Controls how regional recruits mix into notable volunteer slots for this tier: chance is the long-run share, the cap is the maximum regional slots per notable." />
+    <string id="str_campaign_options_type" text="Value" />
   </strings>
 </base>

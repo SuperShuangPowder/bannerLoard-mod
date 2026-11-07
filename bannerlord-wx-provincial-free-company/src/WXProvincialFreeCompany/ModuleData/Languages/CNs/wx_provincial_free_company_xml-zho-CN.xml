@@ -34,5 +34,7 @@
     <string id="str_wx_pfc_slots_frontier" text="外缘前线地域兵槽位上限" />
     <string id="str_wx_pfc_slots_border" text="边境腹地地域兵槽位上限" />
     <string id="str_wx_pfc_slots_transition" text="过渡圈地域兵槽位上限" />
+    <string id="str_campaign_options_description" text="调整对应层级要人志愿兵槽中地域兵的出现比例与数量上限：概率是长期占比，上限是每名要人最多可容纳的地域兵数量。" />
+    <string id="str_campaign_options_type" text="数值" />
   </strings>
 </base>
