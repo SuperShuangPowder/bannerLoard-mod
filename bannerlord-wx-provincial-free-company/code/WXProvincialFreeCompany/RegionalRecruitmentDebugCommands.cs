@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Reflection;
 using System.Text;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
@@ -32,9 +31,6 @@ namespace WXProvincialFreeCompany
         private const ulong DefaultDebugFilter = 17592186044416UL;
         private const int FixedSampleSeed = 20261107;
         private const int MaxSampleCount = 1000000;
-
-        private static readonly FieldInfo VolunteerTypesField =
-            typeof(Hero).GetField("VolunteerTypes", BindingFlags.NonPublic | BindingFlags.Instance);
 
         [CommandLineFunctionality.CommandLineArgumentFunction("profile", "wx_pfc")]
         public static string Profile(List<string> strings) => Safe(ProfileImpl, strings);
@@ -162,7 +158,7 @@ namespace WXProvincialFreeCompany
                 }
 
                 heroesTotal++;
-                CharacterObject[]? volunteers = VolunteerTypesField?.GetValue(hero) as CharacterObject[];
+                CharacterObject[]? volunteers = hero.VolunteerTypes;
                 if (volunteers == null || volunteers.Length == 0)
                 {
                     continue;
@@ -208,11 +204,6 @@ namespace WXProvincialFreeCompany
             }
 
             var summary = new StringBuilder();
-            if (VolunteerTypesField == null)
-            {
-                summary.Append("(reflection: Hero.VolunteerTypes field missing) ");
-            }
-
             summary.Append("Volunteer slots audit: ");
             summary.Append($"heroes={heroesTotal}, heroesWithSlots={heroesWithSlots}, regional={regionalTotal}, ");
             summary.Append($"imperialRegular={imperialRegular}, imperialNoble={imperialNoble}, other={other}.");
