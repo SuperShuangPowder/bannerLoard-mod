@@ -41,13 +41,21 @@ foreach ($row in $rows) {
 $json = '[' + ($parts -join ',') + ']'
 
 $html = Get-Content -LiteralPath $MapHtmlPath -Raw -Encoding UTF8
+$dataPattern = 'const\s+data\s*=\s*\[.*?\]\s*;'
+if (-not [regex]::IsMatch($html, $dataPattern, [System.Text.RegularExpressions.RegexOptions]::Singleline)) {
+    throw '未能在 HTML 中找到可替换的 const data 数组。'
+}
 $newHtml = [regex]::Replace(
     $html,
-    'const\s+data\s*=\s*\[.*?\]\s*;',
+    $dataPattern,
     ('const data = ' + $json + ';'),
     [System.Text.RegularExpressions.RegexOptions]::Singleline)
 if ($newHtml -eq $html) {
-    throw '未能在 HTML 中找到可替换的 const data 数组。'
+    Write-Host '✓ 审阅地图数据已与设计源一致（幂等，无需写入）。'
+    Write-Host "  文件:     $MapHtmlPath"
+    Write-Host "  对象数:   $($rows.Count)（19 城镇 + 25 城堡 + 97 村庄）"
+    Write-Host "  档位:     核心 0 / 过渡 20 / 腹地 30 / 前线 50"
+    return
 }
 [System.IO.File]::WriteAllText($MapHtmlPath, $newHtml, (New-Object System.Text.UTF8Encoding($false)))
 
