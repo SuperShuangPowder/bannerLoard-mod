@@ -6,9 +6,9 @@
 
 ## 当前版本
 
-`v0.5.4-customizable-recruitment`：档位按实机反馈整体下调为 50/30/20（核心 0%），并引入"概率 + 槽位上限"双参数机制——概率为节流阀、上限为安全线（默认过渡 20%/1 槽、腹地 30%/2 槽、前线 50%/3 槽）。
+`v0.5.5-review-fixes`：保留 v0.5.4 的全图地域征募与 50/30/20＋3/2/1 默认设置，修复设计源验证误报、实时诊断、要人/贵族统计、加载顺序和文档漂移。
 
-游戏内 **选项 → 战役选项** 提供 6 个滑块实时调节（无需重启、无需改文件）；设置持久化于 `Documents\Mount and Blade II Bannerlord\Configs\WXProvincialFreeCompany.xml`，也可直接手改。贵族兵与一切非 `imperial_recruit` 结果保持原版。
+游戏内 **选项 → 战役选项** 提供 6 个滑块实时调节（无需重启、无需改文件）；设置持久化于 `Documents\Mount and Blade II Bannerlord\Configs\WXProvincialFreeCompany.xml`，也可直接手改。概率表示每次空志愿兵槽刷新时，以地域 T1 替换原版帝国新兵的概率；槽位上限限制每名要人同时保有的地域兵槽数。贵族兵与一切非 `imperial_recruit` 结果保持原版。
 
 War Sails 的自定义战斗界面不依据 `NavalSoldier` 或 `Mariner` 识别非诺德水兵，而依赖兵种内部 ID 中的小写 `marine`。v0.4.5 因此仅调整北境 T4/T5 内部 ID 及升级引用，不改变中英文显示名、装备或战斗数值。北境 T1–T3 仍为普通陆军，T4/T5 仍分别使用 `NavalSoldier=1` 与 `Mariner=80/90`。
 
@@ -23,7 +23,7 @@ War Sails 的自定义战斗界面不依据 `NavalSoldier` 或 `Mariner` 识别�
 
 四种 T2 分别形成盾斧、标枪双手、轻弩和徒步弓手训练。南境 T2 的两套装备分别采用阿塞莱包头巾配帝国软甲、沙漠帽配沙漠软垫布甲；东境 T2 不配坐骑，升级至 T3 时才正式转为骑射兵。
 
-本版本尚未启用 C# 地域志愿兵模型。旧共同 T2 `wx_provincial_levy` 与原版帝国新兵追加入口已经删除，四条地域树暂时作为未接入志愿兵池的独立根节点存在；自定义战斗仍可选择全部地域兵种，普通战役暂时无法正常征募，且不兼容持有旧共同 T2 的存档。
+本版本已通过官方 `VolunteerModel` 扩展机制启用全图地域征募：116 个帝国城镇/村庄征兵点按地域与层级配置，在原版模型生成 `imperial_recruit` 时进行概率替换；核心区、贵族兵和非帝国新兵保持原版。旧共同 T2 `wx_provincial_levy` 已删除，本版本不以兼容持有旧共同 T2 的存档为目标。
 
 `v0.1.1` 标签保留已通过实机测试的 T2 原型，`v0.2.0` 标签保留单线完整原型。`v0.3.0` 使用新的地域兵种 ID，建议使用新测试存档。
 
@@ -48,7 +48,9 @@ v0.3.8 将东境 T3 换装反曲弓并把弓术提高至 70；T4–T5 改用单�
 ```text
 bannerlord-wx-provincial-free-company/
 ├─ code/                       # C# 子模块工程
+├─ design/                     # 141 个聚落对象的唯一设计源
 ├─ scripts/                    # 构建、部署与打包脚本
+├─ tests/SmokeTest/            # 纯逻辑冒烟测试
 ├─ global.json                 # 锁定 .NET SDK 6.0.428
 ├─ docs/                       # 开发日志与补充教程
 ├─ src/
@@ -65,5 +67,5 @@ bannerlord-wx-provincial-free-company/
 
 - 不修改 Native、SandBoxCore、Sandbox、StoryMode、CustomBattle 或 NavalDLC 官方文件。
 - 不收录游戏存档、崩溃日志、账号凭据或官方游戏资产。
-- 当前版本包含本 MOD 自己的只读 DLL，但不包含 Harmony、第三方运行时或任何官方游戏 DLL；地域志愿兵模型尚未注册。因使用诺德毛皮装备，模块要求 War Sails / NavalDLC `v1.2.8`。
+- 当前版本包含本 MOD 自己的地域征募 DLL，但不包含 Harmony、第三方运行时或任何官方游戏 DLL；配置失败时包装器回退原版结果。因使用诺德毛皮装备，模块要求 War Sails / NavalDLC `v1.2.8`。
 

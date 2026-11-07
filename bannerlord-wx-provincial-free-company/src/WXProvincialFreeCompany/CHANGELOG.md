@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.5.5-review-fixes — 2026-11-07
+
+- 修复地图漂移校验把 `291.0` 与 `291` 当成不同坐标的误报；TSV、真实 `settlements.xml` 与审阅地图的 141 对象验证链恢复全绿。
+- `wx_pfc.profile` 与 `wx_pfc.sample` 改为同时输出静态设计概率、玩家当前有效概率和槽位上限；`sample` 按实时设置模拟，不再固定使用 XML 默认值。
+- `wx_pfc.audit_volunteers` 只统计 `IsNotable` 且当前 `VolunteerModel.CanHaveRecruits` 的有效征兵要人，并区分“有效要人”和“已有非空志愿兵槽的要人”。
+- 贵族审计覆盖 `imperial_vigla_recruit → imperial_equite → imperial_heavy_horseman → imperial_cataphract → imperial_elite_cataphract` 整条原版帝国贵族线。
+- 在 `SubModule.xml` 中加入 `Sandbox` 与 `StoryMode` 可选排序依赖，确保相应模块启用时本包装器在原版模型之后注册，同时不强制自定义战斗加载战役模块。
+- 战役选项说明将“长期占比”更正为“空志愿兵槽刷新时的替换概率”；槽位上限仍是每名要人同时保有地域兵数量的安全线。
+- 全面更新根 README、模块 README、BUILDING 手动验收步骤、旧概率注释和错误文本，使文档与全图 v0.5.5 行为一致。
+- 冒烟测试增加模块排序依赖、完整贵族线分类以及实时诊断输出检查；Release 构建继续保持 0 警告、0 错误和官方 DLL 零复制。
+
 ## v0.5.4-customizable-recruitment — 2026-11-07
 
 - 实机反馈采纳：80/55/30 档位偏高，设计档位整体下调为 **50/30/20**（核心 0%）；设计源 TSV、运行时 XML 与审阅地图数据三处同源更新（新增 `generate-map.ps1` 由设计源重建地图数据，关闭"地图与数据漂移"隐患）。

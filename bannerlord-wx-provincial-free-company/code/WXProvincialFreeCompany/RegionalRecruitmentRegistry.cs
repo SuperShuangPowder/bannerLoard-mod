@@ -11,8 +11,8 @@ namespace WXProvincialFreeCompany
     ///
     /// Parsed from ModuleData/regional_recruitment.xml. Any validation
     /// failure produces an empty registry plus a failure reason; the module
-    /// then behaves exactly like vanilla (no volunteer replacement happens in
-    /// this milestone anyway).
+    /// then behaves exactly like vanilla because the volunteer wrapper sees an
+    /// empty registry and preserves the inner model result.
     /// </summary>
     public sealed class RegionalRecruitmentRegistry
     {
@@ -231,7 +231,7 @@ namespace WXProvincialFreeCompany
                 if (Array.IndexOf(AllowedChances, chance) < 0)
                 {
                     throw new InvalidOperationException(
-                        $"Settlement '{settlementId}' has chance {chance}; allowed values are 0, 0.30, 0.55, 0.80.");
+                        $"Settlement '{settlementId}' has chance {chance}; allowed values are 0, 0.20, 0.30, 0.50.");
                 }
 
                 if (region == RegionalRegion.Core && chance != 0.0)

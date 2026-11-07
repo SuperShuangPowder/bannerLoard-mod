@@ -14,7 +14,7 @@ namespace WXProvincialFreeCompany
     ///
     /// Every member is delegated to the inner model except GetBasicVolunteer,
     /// which may substitute the regional T1 for the vanilla imperial_recruit
-    /// on the five prototype settlements. Any exception inside the
+    /// on configured imperial recruit points. Any exception inside the
     /// substitution path falls back to the vanilla result: this wrapper must
     /// never break recruitment.
     /// </summary>

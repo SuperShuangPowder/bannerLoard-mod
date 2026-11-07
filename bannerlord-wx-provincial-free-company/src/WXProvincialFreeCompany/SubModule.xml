@@ -2,12 +2,14 @@
 <Module>
   <Name value="WX Provincial Free Company" />
   <Id value="WXProvincialFreeCompany" />
-  <Version value="v0.5.4" />
+  <Version value="v0.5.5" />
   <DefaultModule value="false" />
   <ModuleCategory value="Singleplayer" />
   <DependedModules>
     <DependedModule Id="Native" DependentVersion="v1.4.8" Optional="false" />
     <DependedModule Id="SandBoxCore" DependentVersion="v1.4.8" Optional="false" />
+    <DependedModule Id="Sandbox" DependentVersion="v1.4.8" Optional="true" />
+    <DependedModule Id="StoryMode" DependentVersion="v1.4.8" Optional="true" />
     <DependedModule Id="NavalDLC" DependentVersion="v1.2.8" Optional="false" />
   </DependedModules>
   <SubModules>

@@ -34,7 +34,7 @@
     <string id="str_wx_pfc_slots_frontier" text="外缘前线地域兵槽位上限" />
     <string id="str_wx_pfc_slots_border" text="边境腹地地域兵槽位上限" />
     <string id="str_wx_pfc_slots_transition" text="过渡圈地域兵槽位上限" />
-    <string id="str_campaign_options_description" text="调整对应层级要人志愿兵槽中地域兵的出现比例与数量上限：概率是长期占比，上限是每名要人最多可容纳的地域兵数量。" />
+    <string id="str_campaign_options_description" text="调整对应层级的地域征募：概率在空志愿兵槽刷新时生效，上限限制每名要人同时保有的地域兵槽数。" />
     <string id="str_campaign_options_type" text="数值" />
     <string id="str_campaign_options_type.str_wx_pfc_chance_frontier" text="外缘前线地域兵概率（%）" />
     <string id="str_campaign_options_type.str_wx_pfc_chance_border" text="边境腹地地域兵概率（%）" />
@@ -42,9 +42,9 @@
     <string id="str_campaign_options_type.str_wx_pfc_slots_frontier" text="外缘前线地域兵槽位上限" />
     <string id="str_campaign_options_type.str_wx_pfc_slots_border" text="边境腹地地域兵槽位上限" />
     <string id="str_campaign_options_type.str_wx_pfc_slots_transition" text="过渡圈地域兵槽位上限" />
-    <string id="str_campaign_options_description.str_wx_pfc_chance_frontier" text="该层级要人志愿兵槽中地域兵的长期占比（0–100%）。" />
-    <string id="str_campaign_options_description.str_wx_pfc_chance_border" text="该层级要人志愿兵槽中地域兵的长期占比（0–100%）。" />
-    <string id="str_campaign_options_description.str_wx_pfc_chance_transition" text="该层级要人志愿兵槽中地域兵的长期占比（0–100%）。" />
+    <string id="str_campaign_options_description.str_wx_pfc_chance_frontier" text="该层级每次空志愿兵槽刷新时，以地域兵替换帝国新兵的概率（0–100%）。" />
+    <string id="str_campaign_options_description.str_wx_pfc_chance_border" text="该层级每次空志愿兵槽刷新时，以地域兵替换帝国新兵的概率（0–100%）。" />
+    <string id="str_campaign_options_description.str_wx_pfc_chance_transition" text="该层级每次空志愿兵槽刷新时，以地域兵替换帝国新兵的概率（0–100%）。" />
     <string id="str_campaign_options_description.str_wx_pfc_slots_frontier" text="该层级每名要人最多可同时容纳的地域兵槽位数（0–6）。" />
     <string id="str_campaign_options_description.str_wx_pfc_slots_border" text="该层级每名要人最多可同时容纳的地域兵槽位数（0–6）。" />
     <string id="str_campaign_options_description.str_wx_pfc_slots_transition" text="该层级每名要人最多可同时容纳的地域兵槽位数（0–6）。" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
@@ -31,6 +32,15 @@ namespace WXProvincialFreeCompany
         private const ulong DefaultDebugFilter = 17592186044416UL;
         private const int FixedSampleSeed = 20261107;
         private const int MaxSampleCount = 1000000;
+
+        private static readonly HashSet<string> ImperialNobleTroopIds = new HashSet<string>(StringComparer.Ordinal)
+        {
+            "imperial_vigla_recruit",
+            "imperial_equite",
+            "imperial_heavy_horseman",
+            "imperial_cataphract",
+            "imperial_elite_cataphract",
+        };
 
         [CommandLineFunctionality.CommandLineArgumentFunction("profile", "wx_pfc")]
         public static string Profile(List<string> strings) => Safe(ProfileImpl, strings);
@@ -84,9 +94,16 @@ namespace WXProvincialFreeCompany
                 ? "none (core region)"
                 : (registry.GetTroopId(profile.Region) ?? "mapping missing");
 
+            RegionalRecruitmentSettings.EnsureLoaded();
+            RegionalRecruitmentSettings settings = RegionalRecruitmentSettings.Instance;
+            double effectiveChance = settings.GetChance(profile.Tier);
+            int maxSlots = settings.GetMaxSlots(profile.Tier);
+
             string message =
                 $"{settlementId}: {profile.Region}/{profile.Tier}, " +
-                $"chance={profile.AuxiliaryChance.ToString("0.00", CultureInfo.InvariantCulture)}, troop={troop}";
+                $"designChance={profile.AuxiliaryChance.ToString("0.00", CultureInfo.InvariantCulture)}, " +
+                $"effectiveChance={effectiveChance.ToString("0.00", CultureInfo.InvariantCulture)}, " +
+                $"maxSlots={maxSlots}, troop={troop}";
             Log(message);
             return message;
         }
@@ -123,11 +140,16 @@ namespace WXProvincialFreeCompany
                 return $"{settlementId}: no regional config (vanilla behavior)";
             }
 
+            RegionalRecruitmentSettings.EnsureLoaded();
+            RegionalRecruitmentSettings settings = RegionalRecruitmentSettings.Instance;
+            double effectiveChance = settings.GetChance(profile.Tier);
+            int maxSlots = settings.GetMaxSlots(profile.Tier);
             RegionalRecruitmentSimulation.Result result =
-                RegionalRecruitmentSimulation.Simulate(profile.AuxiliaryChance, count, FixedSampleSeed);
+                RegionalRecruitmentSimulation.Simulate(effectiveChance, count, FixedSampleSeed);
 
             string message =
-                $"{settlementId}: chance={profile.AuxiliaryChance.ToString("0.00", CultureInfo.InvariantCulture)}, " +
+                $"{settlementId}: designChance={profile.AuxiliaryChance.ToString("0.00", CultureInfo.InvariantCulture)}, " +
+                $"effectiveChance={effectiveChance.ToString("0.00", CultureInfo.InvariantCulture)}, maxSlots={maxSlots}, " +
                 $"n={result.Count}, seed={result.Seed}, hits={result.Hits}, " +
                 $"observed={result.ObservedRatio.ToString("0.0000", CultureInfo.InvariantCulture)}, " +
                 $"deviation={result.DeviationPoints.ToString("+0.00;-0.00", CultureInfo.InvariantCulture)}pp";
@@ -142,29 +164,30 @@ namespace WXProvincialFreeCompany
                 return "wx_pfc: no active campaign, cannot audit volunteer slots";
             }
 
-            int heroesTotal = 0;
-            int heroesWithSlots = 0;
+            int eligibleNotables = 0;
+            int notablesWithVolunteers = 0;
             var regionalById = new Dictionary<string, int>();
             var regionalByTier = new Dictionary<int, int>();
             int imperialRegular = 0;
             int imperialNoble = 0;
             int other = 0;
 
+            VolunteerModel volunteerModel = Campaign.Current.Models.VolunteerModel;
             foreach (Hero hero in Hero.AllAliveHeroes)
             {
-                if (hero == null)
+                if (hero == null || !hero.IsNotable || !volunteerModel.CanHaveRecruits(hero))
                 {
                     continue;
                 }
 
-                heroesTotal++;
+                eligibleNotables++;
                 CharacterObject[]? volunteers = hero.VolunteerTypes;
                 if (volunteers == null || volunteers.Length == 0)
                 {
                     continue;
                 }
 
-                heroesWithSlots++;
+                bool hasVolunteer = false;
                 foreach (CharacterObject volunteer in volunteers)
                 {
                     if (volunteer == null)
@@ -172,6 +195,7 @@ namespace WXProvincialFreeCompany
                         continue;
                     }
 
+                    hasVolunteer = true;
                     string category = Classify(volunteer.StringId);
                     if (category == "regional")
                     {
@@ -195,6 +219,11 @@ namespace WXProvincialFreeCompany
                         other++;
                     }
                 }
+
+                if (hasVolunteer)
+                {
+                    notablesWithVolunteers++;
+                }
             }
 
             int regionalTotal = 0;
@@ -205,7 +234,7 @@ namespace WXProvincialFreeCompany
 
             var summary = new StringBuilder();
             summary.Append("Volunteer slots audit: ");
-            summary.Append($"heroes={heroesTotal}, heroesWithSlots={heroesWithSlots}, regional={regionalTotal}, ");
+            summary.Append($"eligibleNotables={eligibleNotables}, notablesWithVolunteers={notablesWithVolunteers}, regional={regionalTotal}, ");
             summary.Append($"imperialRegular={imperialRegular}, imperialNoble={imperialNoble}, other={other}.");
             foreach (var pair in regionalById)
             {
@@ -319,7 +348,7 @@ namespace WXProvincialFreeCompany
                 return "regional";
             }
 
-            if (stringId.StartsWith("imperial_vigla", StringComparison.Ordinal))
+            if (ImperialNobleTroopIds.Contains(stringId))
             {
                 return "imperial-noble";
             }

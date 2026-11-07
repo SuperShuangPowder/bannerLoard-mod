@@ -1,11 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using WXProvincialFreeCompany;
 
 /// <summary>
-/// Pure-logic smoke test for the v0.5.1 read-only recruitment layer.
+/// Pure-logic smoke test for the v0.5.5 regional recruitment layer.
 ///
 /// Scope: config parsing, deterministic simulation and debug-command
 /// attribute registration. Runs on any machine with .NET SDK 6.0.428 after
@@ -43,6 +44,14 @@ internal static class Smoke
 
         Check("DLL 加载", true);
 
+        string subModuleText = File.ReadAllText(Path.Combine(repo,
+            @"src\WXProvincialFreeCompany\SubModule.xml"));
+        Check("module: version v0.5.5", subModuleText.Contains("<Version value=\"v0.5.5\""));
+        Check("module: optional Sandbox ordering dependency",
+            subModuleText.Contains("Id=\"Sandbox\" DependentVersion=\"v1.4.8\" Optional=\"true\""));
+        Check("module: optional StoryMode ordering dependency",
+            subModuleText.Contains("Id=\"StoryMode\" DependentVersion=\"v1.4.8\" Optional=\"true\""));
+
         // 1. Diagnostic command registration attributes
         var commands = modAsm.GetType("WXProvincialFreeCompany.RegionalRecruitmentDebugCommands");
         var expected = new[] { "Profile", "Sample", "AuditVolunteers", "AuditParties" };
@@ -61,6 +70,24 @@ internal static class Smoke
                 Console.WriteLine("  SKIP  命令特性注册（TaleWorlds.Library 不可解析；设置 BANNERLORD_GAME_DIR 可启用该检查）");
             }
         }
+
+        // The audit classifier must recognize the complete imperial noble line,
+        // not only the T1 vigla recruit.
+        MethodInfo classify = commands.GetMethod("Classify", BindingFlags.NonPublic | BindingFlags.Static);
+        foreach (string nobleId in new[]
+        {
+            "imperial_vigla_recruit",
+            "imperial_equite",
+            "imperial_heavy_horseman",
+            "imperial_cataphract",
+            "imperial_elite_cataphract",
+        })
+        {
+            string category = (string)classify.Invoke(null, new object[] { nobleId });
+            Check($"audit: noble classification {nobleId}", category == "imperial-noble");
+        }
+        Check("audit: regular imperial troop stays regular",
+            (string)classify.Invoke(null, new object[] { "imperial_infantryman" }) == "imperial");
 
         // 2. Parse the real generated config
         string xmlPath = Path.Combine(repo, @"src\WXProvincialFreeCompany\ModuleData\regional_recruitment.xml");
@@ -82,6 +109,22 @@ internal static class Smoke
         Check("town_EN3 核心=0",
             IsProfile(registry, "town_EN3", RegionalRegion.Core, RegionalTier.Core, 0.0));
         Check("无配置聚落返回 null", registry.GetProfile("retirement_retreat") == null);
+
+        // Diagnostic commands must report and simulate the effective player
+        // setting, while retaining the static design value for comparison.
+        RegionalRecruitmentRegistry.Load(File.ReadAllText(xmlPath));
+        RegionalRecruitmentSettings.EnsureLoaded();
+        double effectiveFrontierChance = RegionalRecruitmentSettings.Instance.GetChance(RegionalTier.Frontier);
+        string effectiveFrontierText = effectiveFrontierChance.ToString("0.00", System.Globalization.CultureInfo.InvariantCulture);
+        string profileOutput = RegionalRecruitmentDebugCommands.Profile(new List<string> { "town_EN6" });
+        Check("diagnostic: profile reports design and effective chance",
+            profileOutput.Contains("designChance=0.50")
+            && profileOutput.Contains("effectiveChance=" + effectiveFrontierText)
+            && profileOutput.Contains("maxSlots=" + RegionalRecruitmentSettings.Instance.FrontierMaxSlots));
+        string sampleOutput = RegionalRecruitmentDebugCommands.Sample(new List<string> { "town_EN6", "100" });
+        Check("diagnostic: sample uses effective chance",
+            sampleOutput.Contains("designChance=0.50")
+            && sampleOutput.Contains("effectiveChance=" + effectiveFrontierText));
 
         // 3. Simulation tolerance (frozen: 10k samples, 0 strict, others ±2pp)
         Check("sim 0.00 一万次严格 0 命中",

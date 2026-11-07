@@ -224,8 +224,10 @@ if (-not $SkipMapCheck) {
                 if ($row.type -ne 'castle' -and [string]$mapRow.p -ne $row.chance_pct) {
                     Fail "[$($row.id)] 概率漂移：HTML=$($mapRow.p) 设计源=$($row.chance_pct)"
                 }
-                if ([string]$mapRow.x -ne $row.pos_x -or [string]$mapRow.y -ne $row.pos_y) {
-                    Fail "[$($row.id)] 坐标漂移"
+                # JSON 数值解析会把 291.0 规范化为 291；坐标应按数值而非字符串比较。
+                if ([math]::Abs([double]$mapRow.x - [double]$row.pos_x) -gt 0.0001 -or
+                    [math]::Abs([double]$mapRow.y - [double]$row.pos_y) -gt 0.0001) {
+                    Fail "[$($row.id)] 坐标漂移：HTML=($($mapRow.x),$($mapRow.y)) 设计源=($($row.pos_x),$($row.pos_y))"
                 }
             }
 

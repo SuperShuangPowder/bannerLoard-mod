@@ -8,7 +8,7 @@ using TaleWorlds.MountAndBlade;
 namespace WXProvincialFreeCompany
 {
     /// <summary>
-    /// v0.5.3 full-map module.
+    /// v0.5.5 full-map regional recruitment module.
     ///
     /// Loads and validates ModuleData/regional_recruitment.xml, wraps the
     /// current VolunteerModel with RegionalVolunteerModel (all 116 configured
@@ -74,7 +74,7 @@ namespace WXProvincialFreeCompany
 
         /// <summary>
         /// Wraps the currently effective VolunteerModel with the regional
-        /// decorator (five-point prototype). Reentrant: a double wrap on the
+        /// decorator (all configured recruit points). Reentrant: a double wrap on the
         /// same starter is guarded; each campaign receives a fresh starter.
         /// </summary>
         private static void WrapVolunteerModel(IGameStarter gameStarter)

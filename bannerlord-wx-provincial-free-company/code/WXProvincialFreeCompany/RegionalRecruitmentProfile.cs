@@ -43,7 +43,7 @@ namespace WXProvincialFreeCompany
 
         public RegionalTier Tier { get; }
 
-        /// <summary>0 / 0.30 / 0.55 / 0.80; always 0 for the Core region.</summary>
+        /// <summary>0 / 0.20 / 0.30 / 0.50; always 0 for the Core region.</summary>
         public double AuxiliaryChance { get; }
 
         public bool IsCoreRegion => Region == RegionalRegion.Core;
