@@ -22,6 +22,10 @@ namespace WXProvincialFreeCompany
     ///
     /// None of these commands mutate game state; in particular they never
     /// touch volunteer slots, parties, or the campaign RNG.
+    ///
+    /// All console output is ASCII-only: the in-game debug console font does
+    /// not contain CJK glyphs, so Chinese text renders as question marks.
+    /// Detailed diagnostics go to the log via Debug.Print.
     /// </summary>
     public static class RegionalRecruitmentDebugCommands
     {
@@ -65,10 +69,11 @@ namespace WXProvincialFreeCompany
                 return "wx_pfc.profile <SettlementId>";
             }
 
+            RegionalRecruitmentRegistry.EnsureLoaded();
             string? loadFailure = RegionalRecruitmentRegistry.LoadFailureReason;
             if (loadFailure != null)
             {
-                return $"配置未加载，按原版处理：{loadFailure}";
+                return $"wx_pfc: config not loaded, vanilla behavior: {loadFailure}";
             }
 
             string settlementId = strings[0];
@@ -76,12 +81,12 @@ namespace WXProvincialFreeCompany
             RegionalRecruitmentProfile? profile = registry.GetProfile(settlementId);
             if (profile == null)
             {
-                return $"{settlementId}: 无地域配置（按原版处理）";
+                return $"{settlementId}: no regional config (vanilla behavior)";
             }
 
             string troop = profile.IsCoreRegion
-                ? "无（核心区）"
-                : (registry.GetTroopId(profile.Region) ?? "缺失映射");
+                ? "none (core region)"
+                : (registry.GetTroopId(profile.Region) ?? "mapping missing");
 
             string message =
                 $"{settlementId}: {profile.Region}/{profile.Tier}, " +
@@ -97,28 +102,29 @@ namespace WXProvincialFreeCompany
                 return "wx_pfc.sample <SettlementId> <Count>";
             }
 
+            RegionalRecruitmentRegistry.EnsureLoaded();
             string? loadFailure = RegionalRecruitmentRegistry.LoadFailureReason;
             if (loadFailure != null)
             {
-                return $"配置未加载，按原版处理：{loadFailure}";
+                return $"wx_pfc: config not loaded, vanilla behavior: {loadFailure}";
             }
 
             string settlementId = strings[0];
             if (!int.TryParse(strings[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out int count))
             {
-                return $"计数无法解析: '{strings[1]}'";
+                return $"count not parseable: '{strings[1]}'";
             }
 
             if (count < 1 || count > MaxSampleCount)
             {
-                return $"计数必须在 1..{MaxSampleCount} 之间";
+                return $"count must be within 1..{MaxSampleCount}";
             }
 
             RegionalRecruitmentRegistry registry = RegionalRecruitmentRegistry.Instance;
             RegionalRecruitmentProfile? profile = registry.GetProfile(settlementId);
             if (profile == null)
             {
-                return $"{settlementId}: 无地域配置（按原版处理）";
+                return $"{settlementId}: no regional config (vanilla behavior)";
             }
 
             RegionalRecruitmentSimulation.Result result =
@@ -137,15 +143,16 @@ namespace WXProvincialFreeCompany
         {
             if (Campaign.Current == null)
             {
-                return "当前无战役，无法审计志愿兵槽";
+                return "wx_pfc: no active campaign, cannot audit volunteer slots";
             }
 
+            int heroesTotal = 0;
+            int heroesWithSlots = 0;
             var regionalById = new Dictionary<string, int>();
             var regionalByTier = new Dictionary<int, int>();
             int imperialRegular = 0;
             int imperialNoble = 0;
             int other = 0;
-            int heroesWithSlots = 0;
 
             foreach (Hero hero in Hero.AllAliveHeroes)
             {
@@ -154,6 +161,7 @@ namespace WXProvincialFreeCompany
                     continue;
                 }
 
+                heroesTotal++;
                 CharacterObject[]? volunteers = VolunteerTypesField?.GetValue(hero) as CharacterObject[];
                 if (volunteers == null || volunteers.Length == 0)
                 {
@@ -200,25 +208,29 @@ namespace WXProvincialFreeCompany
             }
 
             var summary = new StringBuilder();
-            summary.Append("志愿兵槽审计: ");
-            summary.Append($"要人(有槽)={heroesWithSlots}, 地域兵={regionalTotal}, 帝国正规={imperialRegular}, ");
-            summary.Append($"帝国贵族={imperialNoble}, 其他={other}。");
-            if (regionalById.Count > 0)
+            if (VolunteerTypesField == null)
             {
-                summary.Append(" 地域兵按ID: ");
-                foreach (var pair in regionalById)
-                {
-                    summary.Append($"{pair.Key}={pair.Value}, ");
-                }
+                summary.Append("(reflection: Hero.VolunteerTypes field missing) ");
+            }
 
-                summary.Append("按Tier: ");
+            summary.Append("Volunteer slots audit: ");
+            summary.Append($"heroes={heroesTotal}, heroesWithSlots={heroesWithSlots}, regional={regionalTotal}, ");
+            summary.Append($"imperialRegular={imperialRegular}, imperialNoble={imperialNoble}, other={other}.");
+            foreach (var pair in regionalById)
+            {
+                summary.Append($" {pair.Key}={pair.Value},");
+            }
+
+            if (regionalByTier.Count > 0)
+            {
+                summary.Append(" tier:");
                 foreach (var pair in regionalByTier)
                 {
-                    summary.Append($"T{pair.Key}={pair.Value}, ");
+                    summary.Append($"T{pair.Key}={pair.Value},");
                 }
             }
 
-            string message = summary.ToString().TrimEnd(' ', ',');
+            string message = summary.ToString().TrimEnd(',');
             Log(message);
             return message;
         }
@@ -227,7 +239,7 @@ namespace WXProvincialFreeCompany
         {
             if (Campaign.Current == null)
             {
-                return "当前无战役，无法审计部队";
+                return "wx_pfc: no active campaign, cannot audit parties";
             }
 
             int partyCount = 0;
@@ -290,10 +302,10 @@ namespace WXProvincialFreeCompany
             }
 
             var summary = new StringBuilder();
-            summary.Append("部队审计: ");
-            summary.Append($"部队数={partyCount}, 总人数={troopTotal}, 地域兵={regionalTotal}, ");
-            summary.Append($"帝国正规={imperialRegular}, 帝国贵族={imperialNoble}, 其他={other}, ");
-            summary.Append($"含地域兵部队={partiesWithRegional}。");
+            summary.Append("Party audit: ");
+            summary.Append($"parties={partyCount}, troops={troopTotal}, regional={regionalTotal}, ");
+            summary.Append($"imperialRegular={imperialRegular}, imperialNoble={imperialNoble}, other={other}, ");
+            summary.Append($"partiesWithRegional={partiesWithRegional}.");
             foreach (var pair in regionalById)
             {
                 summary.Append($" {pair.Key}={pair.Value},");

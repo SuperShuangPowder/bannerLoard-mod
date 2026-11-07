@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.Core;
@@ -11,63 +10,59 @@ namespace WXProvincialFreeCompany
     /// <summary>
     /// v0.5.1 read-only campaign module.
     ///
-    /// Loads and validates ModuleData/regional_recruitment.xml at activation
-    /// and exposes the wx_pfc.* diagnostic commands. This milestone does NOT
-    /// wrap or replace VolunteerModel: volunteer results stay vanilla.
+    /// Loads and validates ModuleData/regional_recruitment.xml and exposes the
+    /// wx_pfc.* diagnostic commands. This milestone does NOT wrap or replace
+    /// VolunteerModel: volunteer results stay vanilla.
     /// </summary>
     public sealed class SubModule : MBSubModuleBase
     {
         private const ulong DefaultDebugFilter = 17592186044416UL;
-        private const string ModuleId = "WXProvincialFreeCompany";
+
+        private static bool _configStateLogged;
 
         public override void OnSubModuleActivated()
         {
             base.OnSubModuleActivated();
-            LoadRecruitmentConfig();
+            EnsureConfigLoadedAndLog();
+        }
+
+        public override void BeginGameStart(Game game)
+        {
+            base.BeginGameStart(game);
+            EnsureConfigLoadedAndLog();
         }
 
         public override void OnCampaignStart(Game game, object starterObject)
         {
             base.OnCampaignStart(game, starterObject);
+            EnsureConfigLoadedAndLog();
             LogCurrentVolunteerModel(starterObject);
         }
 
-        private static void LoadRecruitmentConfig()
+        private static void EnsureConfigLoadedAndLog()
         {
-            try
+            RegionalRecruitmentRegistry.EnsureLoaded();
+            if (_configStateLogged)
             {
-                string path = GetModuleDataPath();
-                if (!File.Exists(path))
-                {
-                    RegionalRecruitmentRegistry.Fail($"配置文件不存在: {path}");
-                    Log($"[{ModuleId}] regional_recruitment.xml missing: {path} — vanilla behavior preserved.");
-                    return;
-                }
-
-                string xmlText = File.ReadAllText(path);
-                RegionalRecruitmentRegistry.Load(xmlText);
-                RegionalRecruitmentRegistry registry = RegionalRecruitmentRegistry.Instance;
-
-                if (RegionalRecruitmentRegistry.LoadFailureReason != null)
-                {
-                    Log($"[{ModuleId}] regional_recruitment.xml rejected: " +
-                        $"{RegionalRecruitmentRegistry.LoadFailureReason} — vanilla behavior preserved.");
-                    return;
-                }
-
-                Log($"[{ModuleId}] regional_recruitment.xml loaded: {registry.ProfileCount} profiles " +
-                    $"(North={registry.CountByRegion(RegionalRegion.North)}, " +
-                    $"South={registry.CountByRegion(RegionalRegion.South)}, " +
-                    $"West={registry.CountByRegion(RegionalRegion.West)}, " +
-                    $"East={registry.CountByRegion(RegionalRegion.East)}, " +
-                    $"Core={registry.CountByRegion(RegionalRegion.Core)}).");
+                return;
             }
-            catch (Exception exception)
+
+            _configStateLogged = true;
+            RegionalRecruitmentRegistry registry = RegionalRecruitmentRegistry.Instance;
+            if (RegionalRecruitmentRegistry.LoadFailureReason != null)
             {
-                RegionalRecruitmentRegistry.Fail(exception.Message);
-                Log($"[{ModuleId}] regional_recruitment.xml load failed: {exception.Message} " +
-                    "— vanilla behavior preserved.");
+                Log($"[{RegionalRecruitmentRegistry.ModuleId}] regional_recruitment.xml NOT loaded: " +
+                    $"{RegionalRecruitmentRegistry.LoadFailureReason} — vanilla behavior preserved.");
+                return;
             }
+
+            Log($"[{RegionalRecruitmentRegistry.ModuleId}] regional_recruitment.xml loaded: " +
+                $"{registry.ProfileCount} profiles " +
+                $"(North={registry.CountByRegion(RegionalRegion.North)}, " +
+                $"South={registry.CountByRegion(RegionalRegion.South)}, " +
+                $"West={registry.CountByRegion(RegionalRegion.West)}, " +
+                $"East={registry.CountByRegion(RegionalRegion.East)}, " +
+                $"Core={registry.CountByRegion(RegionalRegion.Core)}).");
         }
 
         private static void LogCurrentVolunteerModel(object starterObject)
@@ -77,28 +72,20 @@ namespace WXProvincialFreeCompany
                 if (starterObject is CampaignGameStarter starter)
                 {
                     VolunteerModel model = starter.GetModel<VolunteerModel>();
-                    Log($"[{ModuleId}] current VolunteerModel: {model.GetType().FullName} " +
+                    Log($"[{RegionalRecruitmentRegistry.ModuleId}] current VolunteerModel: {model.GetType().FullName} " +
                         "(read-only milestone: not wrapped, not replaced).");
                 }
                 else
                 {
-                    Log($"[{ModuleId}] OnCampaignStart starterObject is " +
+                    Log($"[{RegionalRecruitmentRegistry.ModuleId}] OnCampaignStart starterObject is " +
                         $"{(starterObject == null ? "null" : starterObject.GetType().FullName)}; " +
                         "VolunteerModel inspection skipped.");
                 }
             }
             catch (Exception exception)
             {
-                Log($"[{ModuleId}] VolunteerModel inspection failed: {exception.Message}");
+                Log($"[{RegionalRecruitmentRegistry.ModuleId}] VolunteerModel inspection failed: {exception.Message}");
             }
-        }
-
-        private static string GetModuleDataPath()
-        {
-            // <game>/bin/Win64_Shipping_Client (or _wEditor) -> <game>/Modules/...
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string gameRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", ".."));
-            return Path.Combine(gameRoot, "Modules", ModuleId, "ModuleData", "regional_recruitment.xml");
         }
 
         private static void Log(string message)

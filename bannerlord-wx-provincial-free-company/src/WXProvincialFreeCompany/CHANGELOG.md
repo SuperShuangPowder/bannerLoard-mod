@@ -10,6 +10,7 @@
 - 新增四个官方扩展点诊断命令（`TaleWorlds.Library.CommandLineFunctionality`，无 Harmony）：`wx_pfc.profile`、`wx_pfc.sample`、`wx_pfc.audit_volunteers`、`wx_pfc.audit_parties`。命令只读世界状态，不修改任何游戏数据。
 - 新增 `tests/SmokeTest` 自动冒烟测试（23 项断言）：真实配置解析、四档概率一万次模拟（0% 严格 0 命中、30/55/80 偏差 ≤ ±2pp）、非法配置拒绝、命令特性注册。
 - 本版本仍不包装 `VolunteerModel`：志愿兵结果与原版完全一致；五点概率替换原型与全图启用留待后续版本。
+- 实机验收修复：配置加载改为惰性 `EnsureLoaded`（`BeginGameStart`/`OnCampaignStart` 及命令自身触发，不再依赖本版本未调用的 `OnSubModuleActivated`）；命令输出全 ASCII（游戏内控制台字体不含 CJK 字形，中文会显示为问号）；`audit_volunteers` 增加要人总数统计。
 - 子模块版本号提升为 `v0.5.1`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
 
 ## v0.5.0-campaign-skeleton — 2026-11-07

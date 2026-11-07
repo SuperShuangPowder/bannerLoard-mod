@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Xml;
 
 namespace WXProvincialFreeCompany
@@ -8,13 +9,15 @@ namespace WXProvincialFreeCompany
     /// <summary>
     /// Read-only registry of regional recruitment profiles.
     ///
-    /// Parsed once from ModuleData/regional_recruitment.xml. Any validation
+    /// Parsed from ModuleData/regional_recruitment.xml. Any validation
     /// failure produces an empty registry plus a failure reason; the module
     /// then behaves exactly like vanilla (no volunteer replacement happens in
     /// this milestone anyway).
     /// </summary>
     public sealed class RegionalRecruitmentRegistry
     {
+        public const string ModuleId = "WXProvincialFreeCompany";
+
         private static readonly double[] AllowedChances = { 0.0, 0.30, 0.55, 0.80 };
 
         private readonly Dictionary<string, RegionalRecruitmentProfile> _profiles;
@@ -64,6 +67,35 @@ namespace WXProvincialFreeCompany
         {
             string troopId;
             return _troopByRegion.TryGetValue(region, out troopId) ? troopId : null;
+        }
+
+        /// <summary>
+        /// Lazy, idempotent load from the deployed module folder. Safe to call
+        /// from any game callback or diagnostic command; the first attempt
+        /// wins and its outcome (loaded or failed) is sticky.
+        /// </summary>
+        public static void EnsureLoaded()
+        {
+            if (LoadFailureReason != null || Instance.ProfileCount > 0)
+            {
+                return;
+            }
+
+            string path = GetModuleDataPath();
+            try
+            {
+                if (!File.Exists(path))
+                {
+                    Fail($"config file not found: {path}");
+                    return;
+                }
+
+                Load(File.ReadAllText(path));
+            }
+            catch (Exception exception)
+            {
+                Fail(exception.Message);
+            }
         }
 
         /// <summary>Installs an empty registry and records the given failure reason.</summary>
@@ -235,6 +267,14 @@ namespace WXProvincialFreeCompany
             }
 
             return profiles;
+        }
+
+        private static string GetModuleDataPath()
+        {
+            // <game>/bin/Win64_Shipping_Client (or _wEditor) -> <game>/Modules/...
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string gameRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", ".."));
+            return Path.Combine(gameRoot, "Modules", ModuleId, "ModuleData", "regional_recruitment.xml");
         }
 
         private static RegionalRecruitmentRegistry Empty()
