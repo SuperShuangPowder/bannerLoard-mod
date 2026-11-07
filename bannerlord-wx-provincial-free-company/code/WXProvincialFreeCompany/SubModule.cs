@@ -8,11 +8,12 @@ using TaleWorlds.MountAndBlade;
 namespace WXProvincialFreeCompany
 {
     /// <summary>
-    /// v0.5.1 read-only campaign module.
+    /// v0.5.2 five-point prototype module.
     ///
-    /// Loads and validates ModuleData/regional_recruitment.xml and exposes the
-    /// wx_pfc.* diagnostic commands. This milestone does NOT wrap or replace
-    /// VolunteerModel: volunteer results stay vanilla.
+    /// Loads and validates ModuleData/regional_recruitment.xml, wraps the
+    /// current VolunteerModel with RegionalVolunteerModel (five prototype
+    /// settlements only), and exposes the wx_pfc.* diagnostic commands.
+    /// All other volunteer behavior stays vanilla.
     /// </summary>
     public sealed class SubModule : MBSubModuleBase
     {
@@ -36,7 +37,7 @@ namespace WXProvincialFreeCompany
         {
             base.OnCampaignStart(game, starterObject);
             EnsureConfigLoadedAndLog();
-            LogCurrentVolunteerModel(starterObject);
+            WrapVolunteerModel(starterObject);
         }
 
         private static void EnsureConfigLoadedAndLog()
@@ -65,26 +66,40 @@ namespace WXProvincialFreeCompany
                 $"Core={registry.CountByRegion(RegionalRegion.Core)}).");
         }
 
-        private static void LogCurrentVolunteerModel(object starterObject)
+        /// <summary>
+        /// Wraps the currently effective VolunteerModel with the regional
+        /// decorator (five-point prototype). Reentrant: each campaign start
+        /// receives a fresh CampaignGameStarter, and a double wrap is guarded.
+        /// </summary>
+        private static void WrapVolunteerModel(object starterObject)
         {
             try
             {
-                if (starterObject is CampaignGameStarter starter)
-                {
-                    VolunteerModel model = starter.GetModel<VolunteerModel>();
-                    Log($"[{RegionalRecruitmentRegistry.ModuleId}] current VolunteerModel: {model.GetType().FullName} " +
-                        "(read-only milestone: not wrapped, not replaced).");
-                }
-                else
+                if (!(starterObject is CampaignGameStarter starter))
                 {
                     Log($"[{RegionalRecruitmentRegistry.ModuleId}] OnCampaignStart starterObject is " +
                         $"{(starterObject == null ? "null" : starterObject.GetType().FullName)}; " +
-                        "VolunteerModel inspection skipped.");
+                        "VolunteerModel wrapper skipped.");
+                    return;
                 }
+
+                VolunteerModel current = starter.GetModel<VolunteerModel>();
+                if (current is RegionalVolunteerModel)
+                {
+                    Log($"[{RegionalRecruitmentRegistry.ModuleId}] VolunteerModel already wrapped; reentrancy guard.");
+                    return;
+                }
+
+                var wrapper = new RegionalVolunteerModel(current);
+                starter.AddModel(wrapper);
+                Log($"[{RegionalRecruitmentRegistry.ModuleId}] VolunteerModel wrapped: inner={current.GetType().FullName}; " +
+                    $"prototype points={FivePointPrototype.EnabledSettlementIds.Length} " +
+                    $"({string.Join(", ", FivePointPrototype.EnabledSettlementIds)}).");
             }
             catch (Exception exception)
             {
-                Log($"[{RegionalRecruitmentRegistry.ModuleId}] VolunteerModel inspection failed: {exception.Message}");
+                Log($"[{RegionalRecruitmentRegistry.ModuleId}] VolunteerModel wrap failed: {exception.Message}; " +
+                    "vanilla recruitment preserved.");
             }
         }
 

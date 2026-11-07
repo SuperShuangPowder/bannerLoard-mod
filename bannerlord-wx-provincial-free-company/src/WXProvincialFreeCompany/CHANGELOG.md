@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.5.2-five-point-prototype — 2026-11-07
+
+- 新增 `RegionalVolunteerModel` 装饰器：包装当前生效的 `VolunteerModel`，除 `GetBasicVolunteer` 外全部成员委托内层模型（含 `MaxVolunteerTier` 等全部抽象成员），不改变招募速度、槽位解锁、驻军规则与成长上限。
+- 替换边界严格冻结：仅当内层模型精确返回 `imperial_recruit` 时才按概率替换为地域 T1；`imperial_vigla_recruit` 与一切其他结果原样保留；任何异常均安全回退原版结果并记录日志。
+- 新增 `FivePointPrototype` 门控与 `RegionalVolunteerDecision` 纯决策逻辑（无游戏状态、roll 由调用方传入，可单测）。
+- 五点试点冻结：`town_EN3`（核心 0%）、`town_EN4` 阿耳戈隆（北境 30%）、`town_ES2` 沃斯特鲁姆（南境 55%）、`castle_village_EW1_1` 加隆托（西境 80%，城堡绑定村庄路径）、`town_EN6` 安普雷拉（东境 80%）；其余 111 个征兵点保持原版。
+- 战役内真实判定使用游戏随机源 `MBRandom.RandomFloat`；`wx_pfc.sample` 继续使用独立固定种子模拟，两者分离。
+- 子模块在 `OnCampaignStart` 包装模型：重入防护（已是本包装器则跳过）、内层模型类型名写入启动日志、包装失败自动保持原版。
+- 冒烟测试新增 13 项断言（决策逻辑边界、五点试点覆盖四档概率与五地域），共 36 项全部通过。
+- 子模块版本号提升为 `v0.5.2`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
+
 ## v0.5.1-readonly-recruitment-config — 2026-11-07
 
 - 建立 141 个帝国聚落对象的唯一机器可读设计源 `design/imperial_settlements.tsv`（19 城镇 + 25 城堡 + 97 村庄），与真实 `settlements.xml`、审阅地图 HTML 三方交叉验证；游戏帝国文化对象与设计源的差集仅特殊聚落 `retirement_retreat`。
