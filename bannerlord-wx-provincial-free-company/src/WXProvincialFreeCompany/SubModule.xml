@@ -2,16 +2,35 @@
 <Module>
   <Name value="WX Provincial Free Company" />
   <Id value="WXProvincialFreeCompany" />
-  <Version value="v0.4.5" />
+  <Version value="v0.5.6" />
   <DefaultModule value="false" />
   <ModuleCategory value="Singleplayer" />
   <DependedModules>
     <DependedModule Id="Native" DependentVersion="v1.4.8" Optional="false" />
     <DependedModule Id="SandBoxCore" DependentVersion="v1.4.8" Optional="false" />
+    <DependedModule Id="Sandbox" DependentVersion="v1.4.8" Optional="true" />
+    <DependedModule Id="StoryMode" DependentVersion="v1.4.8" Optional="true" />
     <DependedModule Id="NavalDLC" DependentVersion="v1.2.8" Optional="false" />
   </DependedModules>
-  <SubModules />
+  <SubModules>
+    <SubModule>
+      <Name value="WX Provincial Free Company Campaign Skeleton" />
+      <DLLName value="WXProvincialFreeCompany.dll" />
+      <SubModuleClassType value="WXProvincialFreeCompany.SubModule" />
+      <Tags>
+        <Tag key="DedicatedServerType" value="none" />
+        <Tag key="IsNoRenderModeElement" value="false" />
+      </Tags>
+    </SubModule>
+  </SubModules>
   <Xmls>
+    <XmlNode>
+      <XmlName id="GameText" path="wx_campaign_strings" />
+      <IncludedGameTypes>
+        <GameType value="Campaign" />
+        <GameType value="CampaignStoryMode" />
+      </IncludedGameTypes>
+    </XmlNode>
     <XmlNode>
       <XmlName id="Items" path="wx_items" />
       <IncludedGameTypes>

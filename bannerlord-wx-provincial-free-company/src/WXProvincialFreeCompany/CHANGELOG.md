@@ -1,5 +1,77 @@
 # Changelog
 
+## v0.5.6-campaign-option-texts — 2026-11-07
+
+- 修复战役选项界面把 6 个滑块标题显示为 `_campaign_options_type doesn't exist`、把说明显示为 `str_campaign_options_description doesn't exist` 的问题。
+- 根因是 `NumericCampaignOptionData` 使用 `GameTexts.FindText(baseId, variation)` 查找文本；语言 XML 只能翻译已存在的文本键，无法单独创建 `str_campaign_options_type.<variation>` 与 `str_campaign_options_description.<variation>`。
+- 新增 `ModuleData/wx_campaign_strings.xml`，按原版 `module_strings.xml` 的结构注册 6 个标题和 6 个说明变体，并在 `SubModule.xml` 以 `GameText` 类型加载。
+- 英文与简体中文语言文件保留实际翻译键，移除此前无效且容易误导的伪 GameText 条目。
+- 冒烟测试新增模块注册、12 个 GameText 变体及中英文翻译键完整性检查；子模块版本提升至 `v0.5.6`。
+
+## v0.5.5-review-fixes — 2026-11-07
+
+- 修复地图漂移校验把 `291.0` 与 `291` 当成不同坐标的误报；TSV、真实 `settlements.xml` 与审阅地图的 141 对象验证链恢复全绿。
+- `wx_pfc.profile` 与 `wx_pfc.sample` 改为同时输出静态设计概率、玩家当前有效概率和槽位上限；`sample` 按实时设置模拟，不再固定使用 XML 默认值。
+- `wx_pfc.audit_volunteers` 只统计 `IsNotable` 且当前 `VolunteerModel.CanHaveRecruits` 的有效征兵要人，并区分“有效要人”和“已有非空志愿兵槽的要人”。
+- 贵族审计覆盖 `imperial_vigla_recruit → imperial_equite → imperial_heavy_horseman → imperial_cataphract → imperial_elite_cataphract` 整条原版帝国贵族线。
+- 在 `SubModule.xml` 中加入 `Sandbox` 与 `StoryMode` 可选排序依赖，确保相应模块启用时本包装器在原版模型之后注册，同时不强制自定义战斗加载战役模块。
+- 战役选项说明将“长期占比”更正为“空志愿兵槽刷新时的替换概率”；槽位上限仍是每名要人同时保有地域兵数量的安全线。
+- 全面更新根 README、模块 README、BUILDING 手动验收步骤、旧概率注释和错误文本，使文档与全图 v0.5.5 行为一致。
+- 冒烟测试增加模块排序依赖、完整贵族线分类以及实时诊断输出检查；Release 构建继续保持 0 警告、0 错误和官方 DLL 零复制。
+
+## v0.5.4-customizable-recruitment — 2026-11-07
+
+- 实机反馈采纳：80/55/30 档位偏高，设计档位整体下调为 **50/30/20**（核心 0%）；设计源 TSV、运行时 XML 与审阅地图数据三处同源更新（新增 `generate-map.ps1` 由设计源重建地图数据，关闭"地图与数据漂移"隐患）。
+- 新增"概率 + 槽位上限"双参数机制：概率为节流阀（渗入速度），上限为安全线（最终构成），解决纯概率下调无法钉死"领主大量地域化"的问题。
+- 新增 `RegionalRecruitmentSettings`：8 项玩家可调参数（四层级概率 0–100% + 四层级槽位上限 0–6，默认 50/30/20 与 3/2/1），持久化到 `Documents\Mount and Blade II Bannerlord\Configs\WXProvincialFreeCompany.xml`；缺失或损坏自动回退默认并钳制越界值。
+- 新增 `WxPfcCampaignOptionsProvider`：官方 `ICampaignOptionProvider` 扩展点（IL 级验证游戏自动扫描发现，零 Harmony），在游戏内战役选项界面提供 6 个滑块（外缘前线/边境腹地/过渡圈 × 概率与上限）；核心区不提供滑块（无核心地域兵种身份，恒为 0）。
+- `RegionalVolunteerDecision` 重构为纯参数判定（roll/chance/maxSlots/地域槽数）；包装器实时统计要人槽内地域兵数（`Hero.VolunteerTypes` 直读）。
+- 新增中文与英文选项标签；编译引用增加官方 `TaleWorlds.CampaignSystem.ViewModelCollection`（Private=false，零泄漏）。
+- 冒烟测试增至 44 项断言：新档位解析、三档一万次模拟、上限边界（达上限/超上限不替换）、设置默认值/XML 往返/钳制/缺失回退。
+- 子模块版本号提升为 `v0.5.4`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
+
+## v0.5.3-full-map — 2026-11-07
+
+- 五点试点实机验收通过（试点要人槽位按 80/55/30 出现四地域边民、核心区与非试点无地域兵、贵族兵不受影响），进入全图启用。
+- 移除 `FivePointPrototype` 门控：全部 116 个已配置征兵点（19 城镇 + 97 村庄）按冻结档位 0/30/55/80 参与地域志愿兵替换；核心区显式 0%，无配置聚落与一切非 `imperial_recruit` 结果保持原版。
+- `RegionalVolunteerDecision` 决策逻辑随全图启用简化（移除试点开关参数），冒烟测试同步更新，共 34 项断言全部通过。
+- 子模块版本号提升为 `v0.5.3`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
+- 已知后续：辅助兵比例整体下调属未来优化（依据全图长期审计数据再定档），不在本版实施。
+
+## v0.5.2-five-point-prototype — 2026-11-07
+
+- 新增 `RegionalVolunteerModel` 装饰器：包装当前生效的 `VolunteerModel`，除 `GetBasicVolunteer` 外全部成员委托内层模型（含 `MaxVolunteerTier` 等全部抽象成员），不改变招募速度、槽位解锁、驻军规则与成长上限。
+- 替换边界严格冻结：仅当内层模型精确返回 `imperial_recruit` 时才按概率替换为地域 T1；`imperial_vigla_recruit` 与一切其他结果原样保留；任何异常均安全回退原版结果并记录日志。
+- 新增 `FivePointPrototype` 门控与 `RegionalVolunteerDecision` 纯决策逻辑（无游戏状态、roll 由调用方传入，可单测）。
+- 五点试点冻结：`town_EN3`（核心 0%）、`town_EN4` 阿耳戈隆（北境 30%）、`town_ES2` 沃斯特鲁姆（南境 55%）、`castle_village_EW1_1` 加隆托（西境 80%，城堡绑定村庄路径）、`town_EN6` 安普雷拉（东境 80%）；其余 111 个征兵点保持原版。
+- 战役内真实判定使用游戏随机源 `MBRandom.RandomFloat`；`wx_pfc.sample` 继续使用独立固定种子模拟，两者分离。
+- 子模块在 `OnCampaignStart` 包装模型：重入防护（已是本包装器则跳过）、内层模型类型名写入启动日志、包装失败自动保持原版。
+- 冒烟测试新增 13 项断言（决策逻辑边界、五点试点覆盖四档概率与五地域），共 36 项全部通过。
+- 子模块版本号提升为 `v0.5.2`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
+
+## v0.5.1-readonly-recruitment-config — 2026-11-07
+
+- 建立 141 个帝国聚落对象的唯一机器可读设计源 `design/imperial_settlements.tsv`（19 城镇 + 25 城堡 + 97 村庄），与真实 `settlements.xml`、审阅地图 HTML 三方交叉验证；游戏帝国文化对象与设计源的差集仅特殊聚落 `retirement_retreat`。
+- 新增 `scripts/validate-design.ps1`：字段规则、村庄绑定继承一致性、真实游戏数据核对、旧审阅地图漂移检测，构建期即拒绝错误数据。
+- 新增 `scripts/generate-recruitment-xml.ps1`：由设计源同源生成 116 个征兵点（19 城镇 + 97 村庄）的运行时 `regional_recruitment.xml`；地域→根兵映射只定义一次；核心区显式 `chance=0`；生成后自动重新解析自检，产物确定性可复现。
+- C# 新增只读配置加载层：`RegionalRecruitmentProfile`（不可变档案）、`RegionalRecruitmentRegistry`（启动时解析并全量校验，重复 ID、未知地域/层级、非法概率、核心区非零概率等一律拒绝），任何配置错误都安全回退原版并写入启动日志。
+- 新增纯逻辑模拟 `RegionalRecruitmentSimulation`：独立固定种子 `System.Random`，不读取、不消耗战役 RNG。
+- 新增四个官方扩展点诊断命令（`TaleWorlds.Library.CommandLineFunctionality`，无 Harmony）：`wx_pfc.profile`、`wx_pfc.sample`、`wx_pfc.audit_volunteers`、`wx_pfc.audit_parties`。命令只读世界状态，不修改任何游戏数据。
+- 新增 `tests/SmokeTest` 自动冒烟测试（23 项断言）：真实配置解析、四档概率一万次模拟（0% 严格 0 命中、30/55/80 偏差 ≤ ±2pp）、非法配置拒绝、命令特性注册。
+- 本版本仍不包装 `VolunteerModel`：志愿兵结果与原版完全一致；五点概率替换原型与全图启用留待后续版本。
+- 实机验收修复：配置加载改为惰性 `EnsureLoaded`（`BeginGameStart`/`OnCampaignStart` 及命令自身触发，不再依赖本版本未调用的 `OnSubModuleActivated`）；命令输出全 ASCII（游戏内控制台字体不含 CJK 字形，中文会显示为问号）；`audit_volunteers` 增加要人总数统计。
+- 子模块版本号提升为 `v0.5.1`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
+
+## v0.5.0-campaign-skeleton — 2026-11-07
+
+- 建立正式 `netstandard2.0` / x64 C# 工程，并通过根目录 `global.json` 精确锁定 .NET SDK `6.0.428`。
+- 所有 Bannerlord 官方程序集通过构建参数 `BannerlordGameDir` 或环境变量 `BANNERLORD_GAME_DIR` 定位；仓库不写死本机安装路径。
+- 新增继承 `MBSubModuleBase` 的 `WXProvincialFreeCompany.SubModule`，并在 `SubModule.xml` 中注册 `WXProvincialFreeCompany.dll`。
+- 当前子模块是明确的只读空实现，不注册 `VolunteerModel`、战役行为、事件处理器或存档数据，不改变志愿兵与现有 XML 玩法。
+- 新增 `build.ps1`、`deploy.ps1` 与 `package.ps1`，分别负责 SDK/引用检查与编译、游戏目录部署、发布包生成与结构校验。
+- 所有官方引用均设置 `Private=false`；Release 构建与发布包会主动拒绝 `TaleWorlds*.dll`、`NavalDLC*.dll` 泄漏。
+- DLL 同时支持部署到客户端和 Modding Kit 运行目录；本轮不自动启动 Steam、游戏或编辑器，运行时加载留给手动验收。
+
 ## v0.4.5-custom-battle-mariner — 2026-11-07
 
 - 修复北境 T4“北境自由军盾斧兵”与 T5“北境自由军盾卫”在战役中拥有水兵特性、却在 War Sails 自定义战斗界面被标为普通步兵的显示问题。

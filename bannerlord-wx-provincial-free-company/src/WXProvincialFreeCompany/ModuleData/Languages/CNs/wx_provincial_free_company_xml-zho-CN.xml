@@ -28,5 +28,17 @@
     <string id="wx_western_provincial_auxiliary_name" text="西境行省弩手" />
     <string id="wx_western_free_company_warrior_name" text="西境自由军重弩手" />
     <string id="wx_western_free_company_veteran_name" text="西境自由军破甲弩卫" />
+    <string id="str_wx_pfc_chance_frontier" text="外缘前线地域兵概率（%）" />
+    <string id="str_wx_pfc_chance_border" text="边境腹地地域兵概率（%）" />
+    <string id="str_wx_pfc_chance_transition" text="过渡圈地域兵概率（%）" />
+    <string id="str_wx_pfc_slots_frontier" text="外缘前线地域兵槽位上限" />
+    <string id="str_wx_pfc_slots_border" text="边境腹地地域兵槽位上限" />
+    <string id="str_wx_pfc_slots_transition" text="过渡圈地域兵槽位上限" />
+    <string id="wx_pfc_desc_chance_frontier" text="外缘前线每次空志愿兵槽刷新时，以地域兵替换帝国新兵的概率（0–100%）。" />
+    <string id="wx_pfc_desc_chance_border" text="边境腹地每次空志愿兵槽刷新时，以地域兵替换帝国新兵的概率（0–100%）。" />
+    <string id="wx_pfc_desc_chance_transition" text="过渡圈每次空志愿兵槽刷新时，以地域兵替换帝国新兵的概率（0–100%）。" />
+    <string id="wx_pfc_desc_slots_frontier" text="每名外缘前线要人最多可同时容纳的地域兵槽位数（0–6）。" />
+    <string id="wx_pfc_desc_slots_border" text="每名边境腹地要人最多可同时容纳的地域兵槽位数（0–6）。" />
+    <string id="wx_pfc_desc_slots_transition" text="每名过渡圈要人最多可同时容纳的地域兵槽位数（0–6）。" />
   </strings>
 </base>
