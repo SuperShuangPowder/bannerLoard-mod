@@ -54,7 +54,7 @@ $builder = New-Object System.Text.StringBuilder
 [void]$builder.AppendLine('<RegionalRecruitment>')
 [void]$builder.AppendLine('  <RegionMapping>')
 foreach ($region in @('North', 'South', 'West', 'East')) {
-    [void]$builder.AppendLine("    <Region id=`"$region`" troop=`"$($troopByRegion[$region])`" />")
+    [void]$builder.AppendLine("    <Region region=`"$region`" troop=`"$($troopByRegion[$region])`" />")
 }
 [void]$builder.AppendLine('  </RegionMapping>')
 [void]$builder.AppendLine('  <Settlements>')
@@ -100,7 +100,7 @@ if ($mapping.Count -ne 4) {
     throw "生成后自检：RegionMapping 应为 4 条，实际 $($mapping.Count)"
 }
 foreach ($region in @('North', 'South', 'West', 'East')) {
-    $entry = @($mapping | Where-Object { $_.id -eq $region })[0]
+    $entry = @($mapping | Where-Object { $_.region -eq $region })[0]
     if (-not $entry -or $entry.troop -ne $troopByRegion[$region]) {
         throw "生成后自检：$region 根兵映射错误"
     }

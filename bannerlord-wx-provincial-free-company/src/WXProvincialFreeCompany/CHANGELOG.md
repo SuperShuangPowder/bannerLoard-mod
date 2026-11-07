@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.5.1-readonly-recruitment-config — 2026-11-07
+
+- 建立 141 个帝国聚落对象的唯一机器可读设计源 `design/imperial_settlements.tsv`（19 城镇 + 25 城堡 + 97 村庄），与真实 `settlements.xml`、审阅地图 HTML 三方交叉验证；游戏帝国文化对象与设计源的差集仅特殊聚落 `retirement_retreat`。
+- 新增 `scripts/validate-design.ps1`：字段规则、村庄绑定继承一致性、真实游戏数据核对、旧审阅地图漂移检测，构建期即拒绝错误数据。
+- 新增 `scripts/generate-recruitment-xml.ps1`：由设计源同源生成 116 个征兵点（19 城镇 + 97 村庄）的运行时 `regional_recruitment.xml`；地域→根兵映射只定义一次；核心区显式 `chance=0`；生成后自动重新解析自检，产物确定性可复现。
+- C# 新增只读配置加载层：`RegionalRecruitmentProfile`（不可变档案）、`RegionalRecruitmentRegistry`（启动时解析并全量校验，重复 ID、未知地域/层级、非法概率、核心区非零概率等一律拒绝），任何配置错误都安全回退原版并写入启动日志。
+- 新增纯逻辑模拟 `RegionalRecruitmentSimulation`：独立固定种子 `System.Random`，不读取、不消耗战役 RNG。
+- 新增四个官方扩展点诊断命令（`TaleWorlds.Library.CommandLineFunctionality`，无 Harmony）：`wx_pfc.profile`、`wx_pfc.sample`、`wx_pfc.audit_volunteers`、`wx_pfc.audit_parties`。命令只读世界状态，不修改任何游戏数据。
+- 新增 `tests/SmokeTest` 自动冒烟测试（23 项断言）：真实配置解析、四档概率一万次模拟（0% 严格 0 命中、30/55/80 偏差 ≤ ±2pp）、非法配置拒绝、命令特性注册。
+- 本版本仍不包装 `VolunteerModel`：志愿兵结果与原版完全一致；五点概率替换原型与全图启用留待后续版本。
+- 子模块版本号提升为 `v0.5.1`；官方 DLL 零复制、零泄漏；仅本地分支提交，未推送远端。
+
 ## v0.5.0-campaign-skeleton — 2026-11-07
 
 - 建立正式 `netstandard2.0` / x64 C# 工程，并通过根目录 `global.json` 精确锁定 .NET SDK `6.0.428`。

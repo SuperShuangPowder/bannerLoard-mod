@@ -76,6 +76,16 @@ artifacts/package/WXProvincialFreeCompany-v0.5.0.zip
 
 生成脚本会先执行设计源校验，拒绝从错误数据产出运行时配置；生成后自动重新解析自检。`regional_recruitment.xml` 由 C# 配置加载器直接读取，不在 `SubModule.xml` 注册 XmlNode。设计源任何修改后必须重跑校验与生成，并把两者一并提交。
 
+## 纯逻辑冒烟测试
+
+Release 构建完成后运行（不依赖游戏目录；若设置 `BANNERLORD_GAME_DIR` 还会追加命令特性注册检查）：
+
+```powershell
+dotnet run --project tests\SmokeTest -c Release
+```
+
+覆盖：116 个征兵点解析、四档概率一万次模拟（0% 严格 0 命中、其余 ±2pp 容差）、非法配置拒绝与 `wx_pfc.*` 命令特性注册。
+
 ## v0.5.0 骨架的手动加载验证
 
 1. 打开 Bannerlord 启动器，在单人模组列表启用 War Sails / NavalDLC 与 `WX Provincial Free Company`。

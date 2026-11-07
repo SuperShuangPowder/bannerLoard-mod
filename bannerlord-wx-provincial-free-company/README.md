@@ -6,9 +6,9 @@
 
 ## 当前版本
 
-`v0.5.0-campaign-skeleton`：在完整保留 v0.4.5 兵种数据的基础上，加入可由游戏加载的只读 C# 子模块骨架和正式工程化工具链。
+`v0.5.1-readonly-recruitment-config`：在 v0.5.0 只读骨架基础上加入地域征募数据层（141 对象设计源 + 构建期校验 + 116 征兵点运行时配置）与只读 C# 配置加载器，并注册 `wx_pfc.profile / sample / audit_volunteers / audit_parties` 四个官方扩展点诊断命令。
 
-本里程碑只验证 DLL 的编译、注册、打包与加载边界。`SubModule` 不注册战役模型、行为、事件处理器或存档数据，因此尚不会改变地域志愿兵来源；正式的 `VolunteerModel` 包装将在手动加载测试通过后继续开发。
+本里程碑仍然不包装 `VolunteerModel`：志愿兵结果与原版完全一致，尚不会改变地域志愿兵来源；五点概率替换原型与全图启用留待下一轮，需在手动加载测试通过后继续。
 
 War Sails 的自定义战斗界面不依据 `NavalSoldier` 或 `Mariner` 识别非诺德水兵，而依赖兵种内部 ID 中的小写 `marine`。v0.4.5 因此仅调整北境 T4/T5 内部 ID 及升级引用，不改变中英文显示名、装备或战斗数值。北境 T1–T3 仍为普通陆军，T4/T5 仍分别使用 `NavalSoldier=1` 与 `Mariner=80/90`。
 
