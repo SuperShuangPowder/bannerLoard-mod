@@ -43,16 +43,30 @@ v0.3.8 将东境 T3 换装反曲弓并把弓术提高至 70；T4–T5 改用单�
 
 西境 T5 的两套随机装备现已统一使用 `kettle_hat_over_mail_coif`（锅帽衬链甲围帽）；武器、身体护甲、技能与远程分组保持不变。
 
+## 文档入口与事实优先级
+
+第一次接手项目时，建议按以下顺序阅读：
+
+1. [PROJECT_HANDOFF.md](./PROJECT_HANDOFF.md)：当前状态、架构边界、唯一真相源和接手步骤。
+2. 本README：MOD当前功能与兵种设计。
+3. [BUILDING.md](./BUILDING.md)：构建、部署、打包与人工验收。
+4. [CHANGELOG](./src/WXProvincialFreeCompany/CHANGELOG.md)：各版本实际交付内容。
+5. [第1册：战斗设计部分](./docs/骑砍2兵种扩展MOD开发日志-1战斗设计部分.md) 与 [第2册：战役设计部分](./docs/骑砍2兵种扩展MOD开发日志-2战役设计部分.md)：完整设计演进与问题复盘。
+6. [帝国地域征募分区地图](./docs/帝国地域征募分区地图-世界观校准版.html)：审阅116个实际征兵点及中心—边疆分区。
+
+发生冲突时，以当前源码、XML、项目文件和脚本为最高事实源，其次是交接说明、README、BUILDING和CHANGELOG；开发日志用于解释历史决策，不应覆盖已经落地的新版本行为。
+
 ## 仓库结构
 
 ```text
 bannerlord-wx-provincial-free-company/
+├─ PROJECT_HANDOFF.md           # 新开发者与Agent的统一接手入口
 ├─ code/                       # C# 子模块工程
 ├─ design/                     # 141 个聚落对象的唯一设计源
 ├─ scripts/                    # 构建、部署与打包脚本
 ├─ tests/SmokeTest/            # 纯逻辑冒烟测试
 ├─ global.json                 # 锁定 .NET SDK 6.0.428
-├─ docs/                       # 开发日志与补充教程
+├─ docs/                       # 当前两册开发日志、归档入口与补充教程
 ├─ src/
 │  └─ WXProvincialFreeCompany/   # 可部署的 Bannerlord 模块
 ├─ BUILDING.md                 # 工具链与手动验证说明
