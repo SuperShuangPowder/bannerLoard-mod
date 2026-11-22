@@ -4,14 +4,14 @@
 > - **项目名称：** 帝国行省自由军
 > - **文档用途：** 集中记录地域征兵、志愿兵模型、AI军队生态、贵族兵保护、存档兼容、经济与长期战役平衡
 > - **建档日期：** 2026-11-05
-> - **当前状态：** `v0.5.6` 第一版战役征募系统的关键项目已于 2026-11-07 全部通过实机验收，开发第一阶段正式完成；当前进入玩家新档长期游玩与 Day 0/30/60/120 非阻断平衡观察
+> - **当前状态：** `v0.5.7-workshop-path-hotfix` 已完成代码、干净构建、自动测试和 Client 候选版；等待用户手动更新创意工坊并在原十年档确认地域志愿兵恢复刷新
 > - **战斗与兵种本体日志：** [`骑砍2兵种扩展MOD开发日志-1战斗设计部分.md`](./骑砍2兵种扩展MOD开发日志-1战斗设计部分.md)
 
 ---
 
 ## 阅读导航
 
-> **推荐读法：** 新接手项目时先读“分册说明”与战役记录020；需要理解实现时再读战役记录003–019；只有追溯设计演进时才需要从战役记录001开始通读。
+> **推荐读法：** 新接手项目时先读“分册说明”、战役记录020和021；需要理解实现时再读战役记录003–019；只有追溯设计演进时才需要从战役记录001开始通读。
 
 | 阅读阶段 | 本册记录 | 主要内容 |
 |---|---|---|
@@ -20,11 +20,12 @@
 | 工程骨架与数据层 | [战役记录010–014](#campaign-record-034) | DLL骨架、唯一设计源、配置加载、诊断命令与五点原型 |
 | 全图启用与设置 | [战役记录015–016](#campaign-record-039) | 116个征兵点、概率与槽位上限、阶段性总结 |
 | 审阅、修复与验收 | [战役记录017–020](#campaign-record-041) | Review修复、GameText、最终验收与阶段收尾 |
+| 创意工坊运行修复 | [战役记录021](#campaign-record-021) | Workshop路径断供根因、兼容修复与发布回归 |
 | 长期观察 | [阶段收尾后的长期观察清单](#campaign-todo) | Day 0/30/60/120、AI军队与势力生态 |
 
 ### 编号规则
 
-本册使用独立、连续的“战役记录”编号001–020。标题中的“原全局记录”用于对应拆册前的历史编号；正文里遗留的“记录024”等说法也均指原全局编号。
+本册使用独立、连续的“战役记录”编号001–021。标题中的“原全局记录”用于对应拆册前的历史编号；正文里遗留的“记录024”等说法也均指原全局编号。
 
 <details>
 <summary>展开本册编号与原全局记录号对照</summary>
@@ -52,6 +53,7 @@
 | 战役记录018 | 记录042 | GameText修复 |
 | 战役记录019 | 记录043 | 最终验收门槛 |
 | 战役记录020 | 记录044 | 关键验收与正式收尾 |
+| 战役记录021 | 无旧全局编号 | v0.5.7 创意工坊配置路径热修复 |
 
 > 注：v0.5.1–v0.5.4 阶段总结是一个不占编号的阅读检查点，因此不会打断战役记录016与017的连续关系。
 
@@ -2211,6 +2213,85 @@ wx_pfc.audit_parties
 - 第一阶段状态：**完成**。
 - 当前建议：使用 `v0.5.6` 开新档正常游玩并记录自然反馈，不为追求“绝对完成”继续无目的增加功能。
 - 新发现的问题：按复现步骤、存档、日志和版本单独建立后续记录；不回写或模糊本阶段已通过的验收结论。
+
+---
+
+<a id="campaign-record-021"></a>
+
+## 战役记录 021：v0.5.7 创意工坊地域兵断供路径热修复
+
+**日期：** 2026-11-22
+
+**分支：** `fix/v0.5.7-workshop-path-hotfix`
+
+**环境：** Bannerlord `v1.4.8`、War Sails / NavalDLC `v1.2.8`、Workshop Item `3840193132`
+
+**性质：** 发布安装位置兼容修复；不调整兵种、概率、槽位上限或存档结构
+
+### 1. 长档反馈与表面现象
+
+用户使用创意工坊订阅版在同一存档游玩接近十个游戏年后发现：边境要人不再补充四地域辅助兵，现有 NPC 军队中只剩少量历史地域兵，整体呈现“中途断供”。用户此前调整过战役选项，最初怀疑概率或槽位机制在长档中失效。
+
+静态兵种数据和动态征募逻辑是两条独立加载链。已有地域兵仍可保留、升级和战斗，只能证明兵种 XML 已加载，不能证明负责产生新地域 T1 的 C# 配置注册表仍然有效。
+
+### 2. 日志证据与根因
+
+最近多次 `rgl_log` 均显示：
+
+```text
+[WXProvincialFreeCompany] regional_recruitment.xml NOT loaded:
+config file not found: <game>\Modules\WXProvincialFreeCompany\ModuleData\regional_recruitment.xml
+— vanilla behavior preserved.
+```
+
+同时日志确认 DLL 实际从以下创意工坊目录加载：
+
+```text
+steamapps\workshop\content\261550\3840193132\bin\Win64_Shipping_Client\WXProvincialFreeCompany.dll
+```
+
+创意工坊目录中的 `regional_recruitment.xml` 实际存在、包含 116 个征兵点，并与源码及候选版哈希一致。真正错误位于旧 `RegionalRecruitmentRegistry.GetModuleDataPath()`：它以 `AppDomain.CurrentDomain.BaseDirectory`（游戏 `bin`）为起点，固定拼接 `<game>/Modules/<ModuleId>`。这种假设只适用于开发部署版，不适用于 Workshop 的 `steamapps/workshop/content/...`。
+
+配置注册表因此为空；`RegionalVolunteerModel` 按既定安全策略返回原版 `imperial_recruit`。地域兵不是某一天被删除，而是在切换到订阅版后停止新增，经过多年伤亡与升级才逐渐表现为断供。当前玩家设置文件仍为正常的 50/30/20 与 3/2/1，不是本次根因。
+
+### 3. v0.5.7 修复
+
+运行时配置改为按以下优先级构造并去重候选路径：
+
+1. `TaleWorlds.ModuleManager.ModuleHelper.GetModuleFullPath(ModuleId)`：由 Bannerlord 返回当前真正启用的模块目录，兼容本地 `Modules` 与 Steam Workshop；
+2. 当前 `WXProvincialFreeCompany.dll` 所在目录向上两级：兼容官方路径 API 尚未初始化的早期生命周期及编辑器目录；
+3. 原 `<game>/Modules/WXProvincialFreeCompany`：保留历史本地部署回退。
+
+加载成功日志新增 `source=<实际配置路径>`；全部候选不存在时，错误日志会列出所有检查路径。新增官方 `TaleWorlds.ModuleManager` 编译引用并保持 `Private=false`，不把官方 DLL 带入产物。
+
+修复不改变模块 ID、兵种 ID、升级树、`VolunteerModel` 替换边界、设置 XML 或存档数据。旧存档可直接续玩；只有以后填充的空志愿兵槽重新参与地域 T1 判定，既有原版志愿兵不会被批量改写。
+
+### 4. 自动验证与产物
+
+- .NET SDK：`6.0.428`；Release：0 警告、0 错误。
+- 设计源：141 个对象校验通过；运行时配置：116 个征兵点。
+- SmokeTest：全部通过；新增 Workshop 活动路径优先、本地 Modules 兼容与重复候选去重检查。
+- Release DLL SHA-256：`D3D7AFDFFA4C88C17C1EE5B6C7032461CD49DF40D88EE422A701EE7572AC5BCA`。
+- 开发完整包：`artifacts/package/WXProvincialFreeCompany-v0.5.7.zip`，SHA-256 `1DC65486B49A7330B23B67F0CBA5C7C083E04F043A69E9DF88D3BBF4668AB234`，官方 DLL 为 0。
+- 精简 Workshop Client：13 个运行文件、PDB 0、编辑器 DLL 0、官方 DLL 0；保留 v0.5.6 ZIP 作为回滚备份。
+- 未部署到游戏 `Modules`，未启动 Steam、Bannerlord 或 Modding Kit，未代替用户更新创意工坊。
+
+### 5. 发布与人工验收门槛
+
+用户需要使用现有 Workshop Item `3840193132` 执行 **UpdateItem**，不能再次使用 `CreateItem` 创建重复条目。更新后仅保留订阅版进行验证：
+
+1. 启动器显示 `v0.5.7`；
+2. `rgl_log` 出现 `regional_recruitment.xml loaded: 116 profiles`，且 `source=` 指向 Workshop 目录；
+3. `wx_pfc.profile town_EN6` 返回 `East/Frontier`、当前概率和槽位上限；
+4. 在原十年档招走边境要人的若干志愿兵制造空槽，等待数个游戏日后出现对应地域 T1；
+5. 复核贵族兵、核心区和非帝国兵仍保持原版。
+
+### 6. 工程复盘
+
+- “包内文件存在”不等于“运行时代码能从实际安装位置找到文件”。
+- 本地 `Modules` 验收不能替代 Workshop 下载目录验收；以后所有自行 `File.ReadAllText` 的模块资源都必须覆盖两种安装根目录。
+- 短期看到兵种树、旧部队和战役选项，只能证明静态数据与 DLL 部分加载，不能证明动态配置成功。正式发布门槛必须包含启动日志的 `116 profiles + source=` 和一次空槽刷新。
+- 安全回退避免了崩溃和坏档，但也会把功能失效表现成“安静地恢复原版”；因此失败日志和只读诊断命令是长期维护的必要组成。
 
 ---
 

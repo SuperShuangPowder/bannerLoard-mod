@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Xml;
+using TaleWorlds.ModuleManager;
 
 namespace WXProvincialFreeCompany
 {
@@ -35,6 +36,9 @@ namespace WXProvincialFreeCompany
 
         /// <summary>Null when loaded successfully; otherwise the load error.</summary>
         public static string? LoadFailureReason { get; private set; }
+
+        /// <summary>The concrete config path used by the successful runtime load.</summary>
+        public static string? LoadedFromPath { get; private set; }
 
         public int ProfileCount => _profiles.Count;
 
@@ -81,16 +85,26 @@ namespace WXProvincialFreeCompany
                 return;
             }
 
-            string path = GetModuleDataPath();
             try
             {
-                if (!File.Exists(path))
+                List<string> candidates = GetModuleDataPaths();
+                foreach (string path in candidates)
                 {
-                    Fail($"config file not found: {path}");
+                    if (!File.Exists(path))
+                    {
+                        continue;
+                    }
+
+                    Load(File.ReadAllText(path));
+                    if (LoadFailureReason == null)
+                    {
+                        LoadedFromPath = path;
+                    }
+
                     return;
                 }
 
-                Load(File.ReadAllText(path));
+                Fail($"config file not found; checked: {string.Join(" | ", candidates)}");
             }
             catch (Exception exception)
             {
@@ -103,6 +117,7 @@ namespace WXProvincialFreeCompany
         {
             Instance = Empty();
             LoadFailureReason = reason;
+            LoadedFromPath = null;
         }
 
         /// <summary>
@@ -269,12 +284,107 @@ namespace WXProvincialFreeCompany
             return profiles;
         }
 
-        private static string GetModuleDataPath()
+        private static List<string> GetModuleDataPaths()
         {
-            // <game>/bin/Win64_Shipping_Client (or _wEditor) -> <game>/Modules/...
-            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            string gameRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", ".."));
-            return Path.Combine(gameRoot, "Modules", ModuleId, "ModuleData", "regional_recruitment.xml");
+            string? officialModuleRoot = null;
+            try
+            {
+                // Bannerlord resolves the active module location for both
+                // <game>/Modules installs and Steam Workshop subscriptions.
+                officialModuleRoot = ModuleHelper.GetModuleFullPath(ModuleId);
+            }
+            catch
+            {
+                // Early lifecycle or unusual hosts may not have initialized
+                // ModuleHelper yet. Assembly and legacy fallbacks remain.
+            }
+
+            string assemblyLocation = typeof(RegionalRecruitmentRegistry).Assembly.Location;
+            return BuildModuleDataCandidates(
+                officialModuleRoot,
+                assemblyLocation,
+                AppDomain.CurrentDomain.BaseDirectory);
+        }
+
+        /// <summary>
+        /// Builds ordered, de-duplicated candidates for runtime and smoke tests.
+        /// Priority: Bannerlord's active-module path, this DLL's module root,
+        /// then the historical game-root Modules location.
+        /// </summary>
+        internal static List<string> BuildModuleDataCandidates(
+            string? officialModuleRoot,
+            string? assemblyLocation,
+            string? baseDirectory)
+        {
+            var result = new List<string>();
+            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            TryAddModuleDataCandidate(result, seen, officialModuleRoot);
+
+            if (!string.IsNullOrWhiteSpace(assemblyLocation))
+            {
+                string? assemblyDirectory = Path.GetDirectoryName(assemblyLocation);
+                if (!string.IsNullOrWhiteSpace(assemblyDirectory))
+                {
+                    TryAddModuleDataCandidate(
+                        result,
+                        seen,
+                        Path.Combine(assemblyDirectory, "..", ".."));
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(baseDirectory))
+            {
+                try
+                {
+                    string gameRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", ".."));
+                    TryAddModuleDataCandidate(
+                        result,
+                        seen,
+                        Path.Combine(gameRoot, "Modules", ModuleId));
+                }
+                catch
+                {
+                    // Invalid host path: leave the other candidates intact.
+                }
+            }
+
+            return result;
+        }
+
+        private static void AddModuleDataCandidate(
+            List<string> result,
+            HashSet<string> seen,
+            string? moduleRoot)
+        {
+            if (string.IsNullOrWhiteSpace(moduleRoot))
+            {
+                return;
+            }
+
+            string path = Path.GetFullPath(Path.Combine(
+                moduleRoot,
+                "ModuleData",
+                "regional_recruitment.xml"));
+            if (seen.Add(path))
+            {
+                result.Add(path);
+            }
+        }
+
+        private static void TryAddModuleDataCandidate(
+            List<string> result,
+            HashSet<string> seen,
+            string? moduleRoot)
+        {
+            try
+            {
+                AddModuleDataCandidate(result, seen, moduleRoot);
+            }
+            catch
+            {
+                // One malformed fallback path must not suppress the others.
+            }
         }
 
         private static RegionalRecruitmentRegistry Empty()

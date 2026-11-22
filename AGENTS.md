@@ -12,12 +12,12 @@
 
 ## 当前稳定基线
 
-- MOD：`WXProvincialFreeCompany v0.5.6-campaign-option-texts`。
+- MOD：`WXProvincialFreeCompany v0.5.7-workshop-path-hotfix`。
 - 游戏：Bannerlord `v1.4.8`。
 - DLC：War Sails / NavalDLC `v1.2.8`，必需依赖。
 - SDK：.NET SDK `6.0.428`，由项目 `global.json` 精确锁定。
 - C#目标：`netstandard2.0`、x64、0警告、0错误。
-- Git稳定基线：`main`；第一阶段关键验收已通过，目前没有必须立即实现的新功能。
+- Git稳定基线：`main`；v0.5.7 修复创意工坊订阅路径下地域征募配置无法加载的问题，仍需创意工坊订阅版实机确认。
 
 ## 用户授权与安全边界
 

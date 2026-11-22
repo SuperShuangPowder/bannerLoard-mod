@@ -7,7 +7,7 @@ using System.Xml;
 using WXProvincialFreeCompany;
 
 /// <summary>
-/// Pure-logic smoke test for the v0.5.6 regional recruitment layer.
+/// Pure-logic smoke test for the v0.5.7 regional recruitment layer.
 ///
 /// Scope: config parsing, deterministic simulation and debug-command
 /// attribute registration. Runs on any machine with .NET SDK 6.0.428 after
@@ -47,13 +47,48 @@ internal static class Smoke
 
         string subModuleText = File.ReadAllText(Path.Combine(repo,
             @"src\WXProvincialFreeCompany\SubModule.xml"));
-        Check("module: version v0.5.6", subModuleText.Contains("<Version value=\"v0.5.6\""));
+        Check("module: version v0.5.7", subModuleText.Contains("<Version value=\"v0.5.7\""));
         Check("module: optional Sandbox ordering dependency",
             subModuleText.Contains("Id=\"Sandbox\" DependentVersion=\"v1.4.8\" Optional=\"true\""));
         Check("module: optional StoryMode ordering dependency",
             subModuleText.Contains("Id=\"StoryMode\" DependentVersion=\"v1.4.8\" Optional=\"true\""));
         Check("module: campaign GameText registered",
             subModuleText.Contains("<XmlName id=\"GameText\" path=\"wx_campaign_strings\""));
+
+        // Workshop subscriptions do not live below <game>/Modules. The path
+        // resolver must prefer Bannerlord's active-module path, then infer the
+        // module root from this DLL, while preserving the historical local
+        // Modules fallback.
+        Type registryType = modAsm.GetType("WXProvincialFreeCompany.RegionalRecruitmentRegistry");
+        MethodInfo buildCandidates = registryType.GetMethod(
+            "BuildModuleDataCandidates",
+            BindingFlags.NonPublic | BindingFlags.Static);
+        string pathTestRoot = Path.Combine(Path.GetTempPath(), "wx-pfc-module-path-test");
+        string workshopRoot = Path.Combine(pathTestRoot, "workshop", "3840193132");
+        string localRoot = Path.Combine(pathTestRoot, "game", "Modules", "WXProvincialFreeCompany");
+        string localAssembly = Path.Combine(
+            localRoot, "bin", "Win64_Shipping_Client", "WXProvincialFreeCompany.dll");
+        string gameBaseDirectory = Path.Combine(pathTestRoot, "game", "bin", "Win64_Shipping_Client");
+        var candidates = ((IEnumerable<string>)buildCandidates.Invoke(
+            null,
+            new object[] { workshopRoot, localAssembly, gameBaseDirectory })).ToList();
+        string workshopConfig = Path.GetFullPath(Path.Combine(
+            workshopRoot, "ModuleData", "regional_recruitment.xml"));
+        string localConfig = Path.GetFullPath(Path.Combine(
+            localRoot, "ModuleData", "regional_recruitment.xml"));
+        Check("module path: Workshop active path has highest priority",
+            candidates.Count >= 1 && candidates[0] == workshopConfig);
+        Check("module path: local Modules assembly/fallback remains compatible",
+            candidates.Contains(localConfig));
+        Check("module path: duplicate local candidates are de-duplicated",
+            candidates.Count(p => p == localConfig) == 1);
+        string workshopAssembly = Path.Combine(
+            workshopRoot, "bin", "Win64_Shipping_Client", "WXProvincialFreeCompany.dll");
+        var assemblyFallbackCandidates = ((IEnumerable<string>)buildCandidates.Invoke(
+            null,
+            new object[] { null, workshopAssembly, gameBaseDirectory })).ToList();
+        Check("module path: Workshop DLL location works without ModuleHelper",
+            assemblyFallbackCandidates.Count >= 1 && assemblyFallbackCandidates[0] == workshopConfig);
 
         // NumericCampaignOptionData looks up labels and descriptions via
         // GameTexts.FindText(baseId, variation). Language files can translate

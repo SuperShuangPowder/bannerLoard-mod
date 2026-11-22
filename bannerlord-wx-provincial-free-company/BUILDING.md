@@ -86,16 +86,16 @@ dotnet run --project tests\SmokeTest -c Release
 
 覆盖：116 个征兵点解析、四档概率一万次模拟（0% 严格 0 命中、其余 ±2pp 容差）、非法配置拒绝与 `wx_pfc.*` 命令特性注册。
 
-## v0.5.6 手动加载与战役验证
+## v0.5.7 手动加载与战役验证
 
 ### 验收边界
 
-v0.5.6 已完成代码、XML、构建、打包与部署验证。下面的实机验收用于确认 Bannerlord 运行时实际加载了新 DLL、GameText、设置和 `VolunteerModel` 包装器。测试不要求兼容旧开发存档，推荐新建独立测试档；本轮不自动启动 Steam、启动器、游戏或 Modding Kit。
+v0.5.7 保留 v0.5.6 的玩法，只修复运行时模块路径解析。下面的实机验收用于确认 Bannerlord 实际从当前启用的本地或创意工坊模块目录加载 DLL、GameText、设置、地域配置和 `VolunteerModel` 包装器。路径修复兼容现有存档；本轮不自动启动 Steam、启动器、游戏或 Modding Kit。
 
 ### A. 启动与界面（发布阻断项）
 
 1. 完全退出此前运行的游戏和启动器，再重新启动，避免旧 GameText 留在进程内。
-2. 在单人模组列表启用 War Sails / NavalDLC 与 `WX Provincial Free Company`，确认版本为 `v0.5.6`，没有 DLL、依赖或版本错误。
+2. 在单人模组列表启用 War Sails / NavalDLC 与 `WX Provincial Free Company`，确认版本为 `v0.5.7`，没有 DLL、依赖或版本错误。
 3. 分别确认沙盒和剧情战役至少能够进入世界地图；主菜单、自定义战斗和战役均无加载崩溃。
 4. 打开“选项 → 战役选项”，确认 6 个地域征募滑块显示中文标题、数值和悬停说明，不再出现 `_campaign_options_type doesn't exist` 或 `str_campaign_options_description doesn't exist`。
 5. 修改一项并应用，退出设置再进入；随后重启游戏，确认数值仍然保留。设置文件应位于：
@@ -103,6 +103,15 @@ v0.5.6 已完成代码、XML、构建、打包与部署验证。下面的实机�
 ```text
 Documents\Mount and Blade II Bannerlord\Configs\WXProvincialFreeCompany.xml
 ```
+
+6. 查看本次 `rgl_log`，必须出现 `regional_recruitment.xml loaded: 116 profiles`，并检查同一行的 `source=`：本地部署时应指向 `<game>\Modules\WXProvincialFreeCompany`，仅启用创意工坊订阅版时应指向 `steamapps\workshop\content\261550\<WorkshopId>`。不得再出现只检查本地 `Modules` 后回退原版的日志。
+
+### A2. 安装位置兼容回归（v0.5.7新增发布阻断项）
+
+1. 本地部署版：只启用游戏 `Modules\WXProvincialFreeCompany` 中的模块，确认上述 116 profiles 日志和 `wx_pfc.profile town_EN6` 正常。
+2. 创意工坊订阅版：移除或临时移走本地同 ID 模块，只保留 Workshop 订阅版，再确认日志 `source=` 指向 Workshop 实际目录，`profile` 显示 `East/Frontier`。
+3. 不要同时保留两个相同模块 ID 的副本；重复模块属于启动器歧义，不是本热修复承诺的安装方式。
+4. 在出现过断供的原存档中招走若干边境要人的志愿兵制造空槽，等待数个游戏日；确认地域 T1 重新产生。既有原版志愿兵不会被本修复批量改写。
 
 ### B. 配置诊断（发布阻断项）
 
