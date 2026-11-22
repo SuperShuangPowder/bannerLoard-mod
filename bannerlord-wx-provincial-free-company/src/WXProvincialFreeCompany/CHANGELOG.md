@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.5.7-workshop-path-hotfix — 2026-11-22
+
+- 修复创意工坊订阅版地域兵“逐渐断供”：DLL 与兵种 XML 正常加载，但自定义配置加载器把路径固定推导为 `<game>/Modules/WXProvincialFreeCompany`，无法读取 Workshop 实际目录中的 `regional_recruitment.xml`，遂安全回退原版志愿兵。
+- 配置路径改为三层兼容解析：优先使用官方 `TaleWorlds.ModuleManager.ModuleHelper.GetModuleFullPath` 获取当前活动模块目录，其次由本 DLL 所在的 `bin/Win64_Shipping_Client` 或 `Win64_Shipping_wEditor` 反推模块根目录，最后保留传统游戏 `Modules` 路径作为回退。
+- 成功日志新增实际 `source=` 路径；全部候选均缺失时，失败日志列出检查过的路径，便于区分发布缺文件和路径解析错误。
+- 新增创意工坊、本地 Modules 与重复候选去重的路径解析冒烟测试；新增官方 `TaleWorlds.ModuleManager` 编译引用并保持 `Private=false`，不复制官方 DLL。
+- 不改变模块 ID、兵种 ID、升级树、概率、槽位上限或设置文件格式；现有存档可直接续玩，后续空志愿兵槽会恢复地域 T1 刷新。
+
 ## v0.5.6-campaign-option-texts — 2026-11-07
 
 - 修复战役选项界面把 6 个滑块标题显示为 `_campaign_options_type doesn't exist`、把说明显示为 `str_campaign_options_description doesn't exist` 的问题。

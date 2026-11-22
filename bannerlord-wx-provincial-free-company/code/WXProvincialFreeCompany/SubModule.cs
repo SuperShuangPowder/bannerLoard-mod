@@ -8,7 +8,7 @@ using TaleWorlds.MountAndBlade;
 namespace WXProvincialFreeCompany
 {
     /// <summary>
-    /// v0.5.6 full-map regional recruitment module.
+    /// v0.5.7 full-map regional recruitment module.
     ///
     /// Loads and validates ModuleData/regional_recruitment.xml, wraps the
     /// current VolunteerModel with RegionalVolunteerModel (all 116 configured
@@ -69,7 +69,8 @@ namespace WXProvincialFreeCompany
                 $"South={registry.CountByRegion(RegionalRegion.South)}, " +
                 $"West={registry.CountByRegion(RegionalRegion.West)}, " +
                 $"East={registry.CountByRegion(RegionalRegion.East)}, " +
-                $"Core={registry.CountByRegion(RegionalRegion.Core)}).");
+                $"Core={registry.CountByRegion(RegionalRegion.Core)}); " +
+                $"source={RegionalRecruitmentRegistry.LoadedFromPath}.");
         }
 
         /// <summary>

@@ -4,7 +4,7 @@
 
 ## 当前里程碑
 
-`v0.5.6-campaign-option-texts`：全图地域志愿兵模型已启用；战役选项标题与说明改为正式注册的 `GameText` 变体，消除选项界面的缺失文本错误。
+`v0.5.7-workshop-path-hotfix`：保留 v0.5.6 的全部玩法，修复创意工坊订阅版无法加载 `ModuleData/regional_recruitment.xml`、从而停止生成新地域志愿兵的问题。本地 `Modules`、Steam Workshop 和编辑器环境统一通过“官方活动模块路径 → 当前 DLL 模块根目录 → 传统本地 Modules”顺序定位配置。
 
 当前状态为“功能实现与自动验证完成，等待最终实机验收”。发布阻断项、地域抽查地点、诊断命令、默认值恢复和 Day 0/30/60/120 长期观察流程统一记录在仓库根目录 `BUILDING.md`。
 
@@ -42,9 +42,10 @@
 - 已加入十二个地域兵种的简体中文名称；非简体中文环境使用英文后备名称。
 - 当前包含本 MOD 自己的地域征募 DLL；不包含 Harmony、第三方 DLL、官方 DLL、自定义模型、贴图或场景。
 
-## v0.5.6 手动验证重点
+## v0.5.7 手动验证重点
 
 - 在启动器中确认模块没有 DLL、类名、依赖或版本错误。
+- 分别在本地 `Modules` 部署版和仅保留创意工坊订阅版时检查启动日志，确认 `regional_recruitment.xml loaded: 116 profiles`，且 `source=` 指向当前实际启用的模块目录。
 - 启动至主菜单并新建测试战役，确认 DLL 加载、保存和读取正常。
 - 在战役选项中确认 6 个地域征募滑块不再出现 `_campaign_options_type doesn't exist` 或 `str_campaign_options_description doesn't exist`，中文标题、悬停说明和值均正常显示；修改后设置文件同步更新。
 - 运行 `wx_pfc.profile town_EN6`，确认同时显示 `designChance`、`effectiveChance` 与 `maxSlots`。

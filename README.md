@@ -6,7 +6,7 @@
 
 | 项目 | 当前稳定版本 | 阶段状态 |
 |---|---|---|
-| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.5.6-campaign-option-texts` | 第一阶段已完成；兵种、战役征募和关键实机验收均已通过 |
+| [`bannerlord-wx-provincial-free-company`](./bannerlord-wx-provincial-free-company/) | `v0.5.7-workshop-path-hotfix` | 第一阶段已完成；创意工坊模块路径兼容热修复等待订阅版实机确认 |
 
 当前基线面向 Bannerlord `v1.4.8` 与 War Sails / NavalDLC `v1.2.8`。MOD包含四条地域T1–T5兵种树，以及基于官方 `VolunteerModel` 扩展机制的帝国地域征募系统；不依赖Harmony，也不携带任何官方游戏DLL。
 

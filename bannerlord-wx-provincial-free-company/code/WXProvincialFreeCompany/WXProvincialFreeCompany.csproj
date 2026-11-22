@@ -48,6 +48,10 @@
       <HintPath>$(BannerlordBinDir)\TaleWorlds.MountAndBlade.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="TaleWorlds.ModuleManager">
+      <HintPath>$(BannerlordBinDir)\TaleWorlds.ModuleManager.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="TaleWorlds.CampaignSystem.ViewModelCollection">
       <HintPath>$(BannerlordBinDir)\TaleWorlds.CampaignSystem.ViewModelCollection.dll</HintPath>
       <Private>false</Private>
